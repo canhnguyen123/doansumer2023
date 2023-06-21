@@ -77,8 +77,11 @@
                  <a href="{{ route('brand_update', ['brand_id' => $item_brand->brand_id]) }}"> <i class="fa-solid fa-pen"></i></a> 
                 </div>
                 <div class="icon bg-red flex_center">
-                    <a onclick="return confirm('Bạn có muốn xóa không ?')" href="{{ route('brand_delete', ['brand_id' => $item_brand->brand_id]) }}"><i class="fa-sharp fa-solid fa-trash"></i></a> 
-                </div>
+                  @if ($item_brand->brand_status==1)
+                  <a onclick="return confirm('Bạn có muốn chuyển màu này sang trạng thái tắt không?')" href="{{ route('togggle_status_brand', ['brand_id' => $item_brand->brand_id, 'brand_status' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
+                  @else
+                  <a onclick="return confirm('Bạn có muốn chuyển màu này sang trạng thái bật không ?')" href="{{ route('togggle_status_brand', ['brand_id' => $item_brand->brand_id,'brand_status'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
+                 @endif                   </div>
             </div></td>
           </tr>
           @endforeach

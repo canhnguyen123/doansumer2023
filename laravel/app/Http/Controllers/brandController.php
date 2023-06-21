@@ -60,34 +60,36 @@ class brandController extends Controller
         return  view('admin')->with('admin_include.page.product.brand.update',$manager_brand);
     }
     public function post_brand_update(Request $request, $brand_id){
+     
+        $data=[];
+     
+        $data['brand_name']=$request->brand_name;
+    
+       
+        DB::table('tbl_brand')->where('brand_id',$brand_id)->update($data);
+     
+        return " <script> alert('Cập nhật thành công'); window.location = '".route('brand_list')."';</script>";
+    }
+    public function togggle_status($brand_id, $brand_status){
         $product=DB::table('tbl_brand')->where('brand_id',$brand_id)->first();
         $status=0;
         $data=[];
         if($product->brand_status==1){
-            if($request->brand_status==""){
+            if($brand_status==0){
                 $status=1;
             }else{
                 $status=0;
             }
         }
          if ($product->brand_status == 0) {
-            if($request->brand_status==""){
+            if($brand_status==1){
                 $status=0;
             }else{
                 $status=1;
             }
         }
-        $data['brand_name']=$request->brand_name;
         $data['brand_status']=$status;
-       
-        DB::table('tbl_brand')->where('brand_id',$brand_id)->update($data);
-     
+        DB::table('tbl_brand')->where('brand_id',$brand_id)->update($data); 
         return " <script> alert('Cập nhật thành công'); window.location = '".route('brand_list')."';</script>";
-    }
-    public function brand_delete($brand_id){
-        DB::table('tbl_brand')->where('brand_id',$brand_id)->delete();
-        Session::put('mess','Xóa danh mục sản phẩm thành công');
-       // return redirect()->route('brand_list')->with('success', 'Sửa thành công!');
-        return " <script> alert('Xóa thành công'); window.location = '".route('brand_list')."';</script>";
     }
 }

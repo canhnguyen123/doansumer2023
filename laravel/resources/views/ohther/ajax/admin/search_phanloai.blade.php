@@ -25,8 +25,12 @@ $i = 0;
          <a href="{{ route('phanloai_update', ['phanloai_id' => $item_phanloai->phanloai_id]) }}"> <i class="fa-solid fa-pen"></i></a> 
         </div>
         <div class="icon bg-red flex_center">
-            <a onclick="return confirm('Bạn có muốn xóa không ?')" href="{{ route('phanloai_delete', ['phanloai_id' => $item_phanloai->phanloai_id]) }}"><i class="fa-sharp fa-solid fa-trash"></i></a> 
-        </div>
+          @if ($item_phanloai->phanloai_status==1)
+          <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái tắt không?')" href="{{ route('togggle_status_phanloai', ['phanloai_id' => $item_phanloai->phanloai_id, 'phanloai_status' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
+          @else
+          <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái bật không ?')" href="{{ route('togggle_status_phanloai', ['phanloai_id' => $item_phanloai->phanloai_id,'phanloai_status'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
+         @endif   
+             </div>
     </div></td>
   </tr>
 @endforeach

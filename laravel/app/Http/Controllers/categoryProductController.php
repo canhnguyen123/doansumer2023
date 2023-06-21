@@ -59,34 +59,32 @@ class categoryProductController extends Controller
         return  view('admin')->with('admin_include.page.product.category.update',$manager_category);
     }
     public function post_category_update(Request $request, $category_id){
+       
+        $data['category_name']=$request->category_name;
+      
+        DB::table('tbl_category')->where('category_id',$category_id)->update($data);
+        return " <script> alert('Cập nhật thành công'); window.location = '".route('category_list')."';</script>";
+    }
+    public function togggle_status($category_id, $category_status){
         $product=DB::table('tbl_category')->where('category_id',$category_id)->first();
         $status=0;
         $data=[];
         if($product->category_status==1){
-            if($request->category_status==""){
+            if($category_status==0){
                 $status=1;
             }else{
                 $status=0;
             }
         }
          if ($product->category_status == 0) {
-            if($request->category_status==""){
+            if($category_status==1){
                 $status=0;
             }else{
                 $status=1;
             }
         }
-        $data['category_name']=$request->category_name;
-       $data['category_status']=$status;
-       
-        DB::table('tbl_category')->where('category_id',$category_id)->update($data);
-        Session::put('mess','Cập nhật danh mục sản phẩm thành công');
+        $data['category_status']=$status;
+        DB::table('tbl_category')->where('category_id',$category_id)->update($data); 
         return " <script> alert('Cập nhật thành công'); window.location = '".route('category_list')."';</script>";
-    }
-    public function category_delete($category_id){
-        DB::table('tbl_category')->where('category_id',$category_id)->delete();
-        Session::put('mess','Xóa danh mục sản phẩm thành công');
-       // return redirect()->route('category_list')->with('success', 'Sửa thành công!');
-        return " <script> alert('Xóa thành công'); window.location = '".route('category_list')."';</script>";
     }
 }

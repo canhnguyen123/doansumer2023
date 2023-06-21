@@ -24,28 +24,29 @@ class theloaiProductController extends Controller
         $manager_theloai=view('admin_include.page.product.theloai.list')
         ->with('list_theloai',$list_theloai)
         ->with('count',$count);
-        // ->with('get_category_name',$get_category_name)
-        // ->with('category_name',$category_name);
+        // ->with('get_theloai_name',$get_theloai_name)
+        // ->with('theloai_name',$theloai_name);
         return  view('admin')->with('admin_include.page.product.theloai.list',$manager_theloai);
     }
 
     public function theloai_add(){
-        $list_category=DB::table("tbl_category")->orderBy("category_id","asc")->where("category_status",1)->get();
+        $list_theloai=DB::table("tbl_theloai")->orderBy("theloai_id","asc")->where("theloai_status",1)->get();
         $list_phanloai=DB::table("tbl_phanloai")->orderBy("phanloai_id","asc")->where("phanloai_status",1)->get();
-        return  view('admin_include.page.product.theloai.add')->with('list_category',$list_category)->with('list_phanloai',$list_phanloai);
+        return  view('admin_include.page.product.theloai.add')->with('list_theloai',$list_theloai)->with('list_phanloai',$list_phanloai);
     }
     public function post_theloai_add(Request $request)
     {
         $theloai_name = $request->input('theloai_name');
-        $category_code = $request->category_code;
+        $theloai_code = $request->theloai_code;
         $phanloai_code = $request->phanloai_code;
         $theloai_img = $request->input('content');
-         $data['category_id']=  $category_code;
+
+         $data['theloai_id']=  $theloai_code;
         $data['phanloai_id']=$phanloai_code;
         $data['theloai_name']= $theloai_name;
         $data['theloai_link_img']= $theloai_img;
         $data['theloai_status']=0;
-        $data['created_at']=Carbon::now();
+        $data['show_home']=0;
         
 
         $inserted = DB::table('tbl_theloai')->insert($data);
@@ -81,33 +82,27 @@ class theloaiProductController extends Controller
         $theloai_update=DB::table('tbl_theloai')->where('theloai_id',$theloai_id)->first();
         $status=0;
         $data=[];
-        if($theloai_update->theloai_status==1){
-            if($request->theloai_status==""){
+        if($theloai_update->show_home==1){
+            if($request->theloai_showhome==""){
                 $status=1;
             }else{
                 $status=0;
             }
         }
-         if ($theloai_update->theloai_status == 0) {
-            if($request->theloai_status==""){
+         if ($theloai_update->show_home == 0) {
+            if($request->theloai_showhome==""){
                 $status=0;
             }else{
                 $status=1;
             }
         }
-        // if ($theloai_update->theloai_status == 1 && $request->theloai_status == "") {
-        //     $status = 1;
-        // } else if ($theloai_update->theloai_status == 0 && $request->theloai_status != "") {
-        //     $status = 1;
-        // } else {
-        //     $status = 0;
-        // }
+      
         
         $data['category_id']=$request->category_code;
         $data['phanloai_id']=$request->phanloai_code;
         $data['theloai_name']=$request->theloai_name;
         $data['theloai_link_img']=$request->imageURL;
-        $data['theloai_status']=$status;
+        $data['show_home']=$status;
        
         $update=   DB::table('tbl_theloai')->where('theloai_id',$theloai_id)->update($data);
       
@@ -121,11 +116,28 @@ class theloaiProductController extends Controller
         
 
         }
-    //     Session::put('mess','Cập nhật danh mục sản phẩm thành công');
-        // return " <script> alert(''); window.location = '".route('theloai_list')."';</script>";
-    }
-    public function theloai_delete($theloai_id){
-        DB::table('tbl_theloai')->where('theloai_id',$theloai_id)->delete();
-        return " <script> alert('Xóa thành công'); window.location = '".route('theloai_list')."';</script>";
+
+    } 
+    public function togggle_status($theloai_id, $theloai_status){
+        $product=DB::table('tbl_theloai')->where('theloai_id',$theloai_id)->first();
+        $status=0;
+        $data=[];
+        if($product->theloai_status==1){
+            if($theloai_status==0){
+                $status=1;
+            }else{
+                $status=0;
+            }
+        }
+         if ($product->theloai_status == 0) {
+            if($theloai_status==1){
+                $status=0;
+            }else{
+                $status=1;
+            }
+        }
+        $data['theloai_status']=$status;
+        DB::table('tbl_theloai')->where('theloai_id',$theloai_id)->update($data); 
+        return " <script> alert('Cập nhật thành công'); window.location = '".route('theloai_list')."';</script>";
     }
 }

@@ -10,7 +10,7 @@
                     <div class="content col-12 ">
 
                     </div>
-                    <form class="row">
+                    <form action="{{ route('post_product_add')}}" method="post" class="row ">
                         {{ csrf_field() }}
                         @if ($errors->any())
                             <div class="alert alert-danger text-center">
@@ -40,7 +40,7 @@
                                     <label for="">Danh mục</label>
                                     <select name="category_code" id="category_id_Pro">
                                         @foreach ($list_category as $key => $item_category)
-                                            <option value="{{ $item_category->category_code }}">
+                                            <option value="{{ $item_category->category_id }}">
                                                 {{ $item_category->category_name }}</option>
                                         @endforeach
 
@@ -53,7 +53,7 @@
                                     <label for="">Phân loại</label>
                                     <select name="phanloai_code" id="phanloai_id_Pro">
                                         @foreach ($list_phanloai as $key => $item_phanloai)
-                                            <option value="{{ $item_phanloai->phanloai_code }}">
+                                            <option value="{{ $item_phanloai->phanloai_id }}">
                                                 {{ $item_phanloai->phanloai_name }}</option>
                                         @endforeach
                                     </select>
@@ -68,29 +68,32 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <div class="col-12 ip-form">
+                                <div class="col-12 ip-form ip-form-lb-i">
+                                   
+                                    <input type="text" name="product_name" id="product_name" required>
                                     <label for="">Tên sản phẩm</label>
-                                    <input type="text" name="product_name" id="product_name"
-                                        value="{{ old('product_name') }}">
                                 </div>
                                
                             </div>
                             <div class="col-3">
-                                <div class="col-12 ip-form">
+                                <div class="col-12 ip-form ip-form-lb-i">
+                                    
+                                    <input type="text" id="product_code" required >
                                     <label for="">Mã sản phẩm</label>
-                                    <input type="text" name="product_name" id="product_code"
-                                        value="{{ old('product_name') }}">
                                 </div>
                                
                             </div>
                             <div class="col-3">
-                                <div class="col-12 ip-form">
-                                    <label for="">Giá sản phẩm</label>
-                                    <input type="text" name="product_name" id="product_price"
-                                        value="{{ old('product_name') }}">
+                                <div class="col-12 ip-form ip-form-lb-i">
+                                  
+                                    <input type="text" name="" id="product_price" required>
+                                    <label for="" id="product_price_lable">Giá sản phẩm</label>
                                 </div>
 
                             </div>
+                            <div class="col-6 err-product"></div>
+                            <div class="col-3 err-product"></div>
+                            <div class="col-3 err-product"><span  id="err-product-price"></span></div>
                             <div class="col-12 row mg-10">
                                 <label for="">Size</label>
                                 <div class="item-list-size">
@@ -98,10 +101,7 @@
                                         <div class="mg-r-l-10px ">
                                             <label class="ip-csr" for="">{{ $item_size->name_size }}</label>
                                             <input type="radio" name="product-size-item" id="product-size-item" value="{{ $item_size->name_size }}"  @if ($index === 0) checked @endif><br>
-                                           
-
-
-                                        </div>
+                                             </div>
                                     @endforeach
 
                                 </div>
@@ -178,8 +178,9 @@
                                 </div>
                             </div>
                             <div class="col-12 ip-form">
-                                <button  id=""  onclick="uploadImage_Product(event)"  name=""><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button>
-                                {{-- <a href="" onclick="uploadImage_Product()">a</a> --}}
+                                    <button  id=""  onclick="uploadImage_Product(event)"  name=""><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button>
+                                {{-- <button  id=""  type="submit" name=""><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button> --}}
+
                             </div>
                         </div>
 

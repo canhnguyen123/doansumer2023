@@ -16,11 +16,11 @@
                 <label for="">Tên danh mục</label>
                 <input type="text" name="category_name" value="{{ $item_category_up->category_name }}" required>
             </div>
-            <div class="col-4 ip-form">
+            <div class="col-6 ip-form">
                 <label for="">Mã danh mục</label>
                 <input type="text" name="category_code" disabled="disabled" value="{{ $item_category_up->category_code }}">
             </div>
-            <div class="col-2 ip-form">
+            {{-- <div class="col-2 ip-form">
                 <label for="">Trạng thái</label>
                 @if ($item_category_up->category_status==1)
                 <input type="checkbox" name="category_status" class="switch-toogel">
@@ -28,7 +28,7 @@
                 <input type="checkbox" name="category_status" class="switch-toogel-red">
                 @endif
                
-            </div>
+            </div> --}}
             <div class="col-12 ip-form">
                 <button type="submit" name="update-category"><i class="fa-solid fa-pen"></i> Cập nhật danh mục</button>
             </div>

@@ -63,26 +63,12 @@ class sizeProductController extends Controller
         return  view('admin')->with('admin_include.page.product.size.update',$manager_size);
     }
     public function post_size_update(Request $request, $id_size){
-        $size=DB::table('tbl_size')->where('id_size',$id_size)->first();
-        $status=0;
+       
         $data=[];
-        if($size->status_size==1){
-            if($request->size_status==""){
-                $status=1;
-            }else{
-                $status=0;
-            }
-        }
-         if ($size->status_size == 0) {
-            if($request->size_status==""){
-                $status=0;
-            }else{
-                $status=1;
-            }
-        }
+       
         $data['name_size']=$request->size_name;
         $data['describle_size']=$request->size_describl;
-        $data['status_size']=$status;
+  
       
        
        $up= DB::table('tbl_size')->where('id_size',$id_size)->update($data);
@@ -94,9 +80,26 @@ class sizeProductController extends Controller
         }
 
     }
-    public function size_delete($id_size){
-        DB::table('tbl_size')->where('id_size',$id_size)->delete();
-        Session::put('mess','Xóa danh mục sản phẩm thành công');
-        return " <script> alert('Xóa thành công'); window.location = '".route('size_list')."';</script>";
+    public function togggle_status($id_size, $status_size){
+        $product=DB::table('tbl_size')->where('id_size',$id_size)->first();
+        $status=0;
+        $data=[];
+        if($product->status_size==1){
+            if($status_size==0){
+                $status=1;
+            }else{
+                $status=0;
+            }
+        }
+         if ($product->status_size== 0) {
+            if($status_size==1){
+                $status=0;
+            }else{
+                $status=1;
+            }
+        }
+        $data['status_size']=$status;
+        DB::table('tbl_size')->where('id_size',$id_size)->update($data); 
+        return " <script> alert('Cập nhật thành công'); window.location = '".route('size_list')."';</script>";
     }
 }

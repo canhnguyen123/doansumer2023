@@ -65,11 +65,11 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <label for="">Trạng thái</label> <br>
+                        <label for="">Hiển thị</label> <br>
                          @if ($item_theloai->theloai_status==1)
-                       <input type="checkbox" name="theloai_status" id="theloai_status_up" class="switch-toogel">
+                       <input type="checkbox" name="theloai_status" id="theloai_showhome_up" class="switch-toogel">
                        @else
-                       <input type="checkbox" name="theloai_status" id="theloai_status_up" class="switch-toogel-red">
+                       <input type="checkbox" name="theloai_status" id="theloai_showhome_up" class="switch-toogel-red">
                        @endif
                       
                     </div>

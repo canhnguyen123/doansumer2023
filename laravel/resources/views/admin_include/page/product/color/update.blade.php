@@ -34,19 +34,11 @@
         </span></div>
         </div>
             
-            <div class="col-4 ip-form">
+            <div class="col-6 ip-form">
                 <label for="">Mã màu sắc</label>
                 <input type="text" name="color_code" value="{{ $item_color_up->color_code }}">
             </div>
-            <div class="col-2 ip-form">
-                <label for="">Trạng thái</label>
-                @if ($item_color_up->color_status==1)
-                <input type="checkbox" name="color_status" class="switch-toogel">
-                @else
-                <input type="checkbox" name="color_status" class="switch-toogel-red">
-                @endif
-               
-            </div>
+       
             <div class="col-12 ip-form">
                 <button type="submit" name="update-color"><i class="fa-solid fa-pen"></i> Cập nhật phân loại</button>
             </div>

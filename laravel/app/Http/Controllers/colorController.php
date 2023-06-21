@@ -57,35 +57,37 @@ class colorController extends Controller
         return  view('admin')->with('admin_include.page.product.color.update',$manager_color);
     }
     public function post_color_update(Request $request, $color_id){
-        $product=DB::table('tbl_color')->where('color_id',$color_id)->first();
-        $status=0;
+      
         $data=[];
-        if($product->color_status==1){
-            if($request->color_status==""){
-                $status=1;
-            }else{
-                $status=0;
-            }
-        }
-         if ($product->color_status == 0) {
-            if($request->color_status==""){
-                $status=0;
-            }else{
-                $status=1;
-            }
-        }
+       
         $data['color_name']=$request->color_name;
         $data['color_code']=$request->color_code;
-        $data['color_status']=$status;
+       
        
         DB::table('tbl_color')->where('color_id',$color_id)->update($data);
         Session::put('mess','Cập nhật danh mục sản phẩm thành công');
         return " <script> alert('Cập nhật thành công'); window.location = '".route('color_list')."';</script>";
    }
-    public function color_delete($color_id){
-        DB::table('tbl_color')->where('color_id',$color_id)->delete();
-        Session::put('mess','Xóa danh mục sản phẩm thành công');
-       // return redirect()->route('color_list')->with('success', 'Sửa thành công!');
-        return " <script> alert('Xóa thành công'); window.location = '".route('color_list')."';</script>";
+   public function togggle_status($color_id, $color_status){
+    $product=DB::table('tbl_color')->where('color_id',$color_id)->first();
+    $status=0;
+    $data=[];
+    if($product->color_status==1){
+        if($color_status==0){
+            $status=1;
+        }else{
+            $status=0;
+        }
     }
+     if ($product->color_status == 0) {
+        if($color_status==1){
+            $status=0;
+        }else{
+            $status=1;
+        }
+    }
+    $data['color_status']=$status;
+    DB::table('tbl_color')->where('color_id',$color_id)->update($data); 
+    return " <script> alert('Cập nhật thành công'); window.location = '".route('color_list')."';</script>";
+}
 }

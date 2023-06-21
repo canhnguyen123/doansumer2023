@@ -30,12 +30,12 @@ class phanloaiController extends Controller
         $phanloai_code = $request->phanloai_code;
     
         // Kiểm tra xem dữ liệu đã tồn tại trong bảng tbl_phanloai hay chưa
-        $categoryExists = DB::table('tbl_phanloai')
+        $phanloaiExists = DB::table('tbl_phanloai')
                             ->where('phanloai_name', $phanloai_name)
                             ->orWhere('phanloai_code', $phanloai_code)
                             ->exists();
     
-        if ($categoryExists) {
+        if ($phanloaiExists) {
             // Dữ liệu đã tồn tại trong bảng tbl_phanloai
             $errorMessage = "Dữ liệu đã tồn tại!";
             session()->flash('errorMessage', $errorMessage);
@@ -58,34 +58,36 @@ class phanloaiController extends Controller
         return  view('admin')->with('admin_include.page.product.phanloai.update',$manager_phanloai);
     }
     public function post_phanloai_update(Request $request, $phanloai_id){
-        $phanloai=DB::table('tbl_phanloai')->where('phanloai_id',$phanloai_id)->first();
-        $status=0;
+       
         $data=[];
-        if($phanloai->phanloai_status==1){
-            if($request->phanloai_status==""){
-                $status=1;
-            }else{
-                $status=0;
-            }
-        }
-         if ($phanloai->phanloai_status == 0) {
-            if($request->phanloai_status==""){
-                $status=0;
-            }else{
-                $status=1;
-            }
-        }
+      
         $data['phanloai_name']=$request->phanloai_name;
-         $data['phanloai_status']=$status;
+        
        
         DB::table('tbl_phanloai')->where('phanloai_id',$phanloai_id)->update($data);
         
         return " <script> alert('Cập nhật thành công'); window.location = '".route('phanloai_list')."';</script>";
     }
-    public function phanloai_delete($phanloai_id){
-        DB::table('tbl_phanloai')->where('phanloai_id',$phanloai_id)->delete();
-        Session::put('mess','Xóa danh mục sản phẩm thành công');
-       // return redirect()->route('phanloai_list')->with('success', 'Sửa thành công!');
-        return " <script> alert('Xóa thành công'); window.location = '".route('phanloai_list')."';</script>";
+    public function togggle_status($phanloai_id, $phanloai_status){
+        $product=DB::table('tbl_phanloai')->where('phanloai_id',$phanloai_id)->first();
+        $status=0;
+        $data=[];
+        if($product->phanloai_status==1){
+            if($phanloai_status==0){
+                $status=1;
+            }else{  
+                $status=0;
+            }
+        }
+         if ($product->phanloai_status == 0) {
+            if($phanloai_status==1){
+                $status=0;
+            }else{
+                $status=1;
+            }
+        }
+        $data['phanloai_status']=$status;
+        DB::table('tbl_phanloai')->where('phanloai_id',$phanloai_id)->update($data); 
+        return " <script> alert('Cập nhật thành công'); window.location = '".route('phanloai_list')."';</script>";
     }
 }

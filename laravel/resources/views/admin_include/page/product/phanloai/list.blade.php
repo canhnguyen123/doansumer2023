@@ -26,7 +26,7 @@
      Quản lý phân loại   
     </div>
     <div class="col-12">
-      <table id="categoryTable" class="table" ui-jq="footable" ui-options='{
+      <table id="phanloaiTable" class="table" ui-jq="footable" ui-options='{
         "paging": {
           "enabled": true
         },
@@ -41,13 +41,7 @@
             <th data-breakpoints="xs">STT</th>
             <th>Tên phân loại </th>
             <th style="text-align: center">Mã phân loại</th>
-            <th class="flex_center td-table-titel">
-               <p data-status="all"  id="filterAll" class="fiter-status-category filter-option ">Trạng thái</p> 
-              <div class="icon-titel flex_center">
-                <i class="fa-sharp fa-solid fa-check bg-cl-green fiter-status-category filter-option" id="filter0" data-status="1"></i> 
-                <i class="fa-solid fa-xmark bg-cl-red fiter-status-category filter-option"  id="filter1" data-status="0" ></i>
-              </div>
-            </th>
+            <th style="text-align: center">Trạng thái</th>
            <th style="text-align: center;">Thao tác</th>
           </tr>
         </thead>
@@ -81,7 +75,11 @@
                  <a href="{{ route('phanloai_update', ['phanloai_id' => $item_phanloai->phanloai_id ]) }}"> <i class="fa-solid fa-pen"></i></a> 
                 </div>
                 <div class="icon bg-red flex_center">
-                    <a onclick="return confirm('Bạn có muốn xóa không ?')" href="{{ route('phanloai_delete', ['phanloai_id' => $item_phanloai->phanloai_id ]) }}"><i class="fa-sharp fa-solid fa-trash"></i></a> 
+                  @if ($item_phanloai->phanloai_status==1)
+                  <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái tắt không?')" href="{{ route('togggle_status_phanloai', ['phanloai_id' => $item_phanloai->phanloai_id, 'phanloai_status' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
+                  @else
+                  <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái bật không ?')" href="{{ route('togggle_status_phanloai', ['phanloai_id' => $item_phanloai->phanloai_id,'phanloai_status'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
+                 @endif
                 </div>
             </div></td>
           </tr>

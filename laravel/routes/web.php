@@ -46,15 +46,15 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/list', [CategoryProductController::class, 'category_list'])->name('category_list');
                 Route::get('/add', [CategoryProductController::class, 'category_add'])->name('category_add');
                  Route::get('/update/{category_id}', [CategoryProductController::class, 'category_update'])->name('category_update');
-                Route::get('/delete/{category_id}', [CategoryProductController::class, 'category_delete'])->name('category_delete');
-                Route::post('/post-add', [CategoryProductController::class, 'post_category_add'])->name('category_post_add');
+                 Route::get('/togggle-status/{category_id}/{category_status}', [CategoryProductController::class, 'togggle_status'])->name('togggle_status_category');
+                 Route::post('/post-add', [CategoryProductController::class, 'post_category_add'])->name('category_post_add');
                 Route::post('/post-update/{category_id}', [CategoryProductController::class, 'post_category_update'])->name('category_post_update');
             });
             Route::prefix('/phanloai')->group(function () {
                 Route::get('/list', [phanloaiController::class, 'phanloai_list'])->name('phanloai_list');
                 Route::get('/add', [phanloaiController::class, 'phanloai_add'])->name('phanloai_add');
                 Route::get('/update/{phanloai_id}', [phanloaiController::class, 'phanloai_update'])->name('phanloai_update');
-                Route::get('/delete/{phanloai_id}', [phanloaiController::class, 'phanloai_delete'])->name('phanloai_delete');
+                Route::get('/togggle-status/{phanloai_id}/{phanloai_status}', [phanloaiController::class, 'togggle_status'])->name('togggle_status_phanloai');
                 Route::post('/post-add', [phanloaiController::class, 'post_phanloai_add'])->name('post_phanloai_add');
                Route::post('/post-update/{phanloai_id}', [phanloaiController::class, 'post_phanloai_update'])->name('post_phanloai_update');
             });
@@ -71,6 +71,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/size-add', [sizeProductController::class, 'size_add'])->name('size_add');
                 Route::get('/size-update/{id_size}', [sizeProductController::class, 'size_update'])->name('size_update');
                 Route::get('/size-delete/{id_size}', [sizeProductController::class, 'size_delete'])->name('size_delete');
+                Route::get('/togggle-status/{id_size}/{status_size}', [sizeProductController::class, 'togggle_status'])->name('togggle_status_size');
                 Route::post('/post-size-add', [sizeProductController::class, 'post_size_add'])->name('post_size_add');
                Route::post('/post-size-update/{id_size}', [sizeProductController::class, 'post_size_update'])->name('post_size_update');
             });
@@ -79,7 +80,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/list', [theloaiProductController::class, 'theloai_list'])->name('theloai_list');
                 Route::get('/add', [theloaiProductController::class, 'theloai_add'])->name('theloai_add');
                 Route::get('/update/{theloai_id}', [theloaiProductController::class, 'theloai_update'])->name('theloai_update');
-                Route::get('/delete/{theloai_id}', [theloaiProductController::class, 'theloai_delete'])->name('theloai_delete');
+                Route::get('/togggle-status/{theloai_id}/{theloai_status}', [theloaiProductController::class, 'togggle_status'])->name('togggle_status_theloai');
                 Route::post('/post-add', [theloaiProductController::class, 'post_theloai_add'])->name('post_theloai_add');
                 Route::post('/post-update/{theloai_id}', [theloaiProductController::class, 'post_theloai_update'])->name('post_theloai_update');
             });
@@ -88,7 +89,8 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/add', [colorController::class, 'color_add'])->name('color_add');
                 Route::get('/update/{color_id}', [colorController::class, 'color_update'])->name('color_update');
                 Route::get('/delete/{color_id}', [colorController::class, 'color_delete'])->name('color_delete');
-                Route::post('/post-add', [colorController::class, 'post_color_add'])->name('post_color_add');
+                Route::get('/togggle-status/{color_id}/{color_status}', [colorController::class, 'togggle_status'])->name('togggle_status_color');
+                 Route::post('/post-add', [colorController::class, 'post_color_add'])->name('post_color_add');
                 Route::post('/post-update/{color_id}', [colorController::class, 'post_color_update'])->name('post_color_update');
             });
             Route::prefix('/brand')->group(function () {
@@ -96,6 +98,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/add', [brandController::class, 'brand_add'])->name('brand_add');
                 Route::get('/update/{brand_id}', [brandController::class, 'brand_update'])->name('brand_update');
                 Route::get('/delete/{brand_id}', [brandController::class, 'brand_delete'])->name('brand_delete');
+                Route::get('/togggle-status/{brand_id}/{brand_status}', [brandController::class, 'togggle_status'])->name('togggle_status_brand');
                 Route::post('/post-add', [brandController::class, 'post_brand_add'])->name('post_brand_add');
                 Route::post('/post-update/{brand_id}', [brandController::class, 'post_brand_update'])->name('post_brand_update');
             });
@@ -103,10 +106,11 @@ Route::prefix('/admin')->group(function () {
             Route::prefix('/product')->group(function () {
                 Route::get('/list', [ProductController::class, 'product_list'])->name('product_list');
                 Route::get('/add', [productController::class, 'product_add'])->name('product_add');
-                Route::get('/update/{brand_id}', [productController::class, ''])->name('');
-                Route::get('/delete/{brand_id}', [productController::class, ''])->name('');
+                Route::get('/update/{product_id}', [productController::class, 'product_update'])->name('product_update');
+                Route::get('/delete/{product_id}', [productController::class, 'product_delete'])->name('product_delete');
+                Route::get('/deatil/{product_id}', [productController::class, 'product_deatil'])->name('product_deatil');
                 Route::post('/post-add', [productController::class, 'post_product_add'])->name('post_product_add');
-                Route::post('/post-update/{brand_id}', [productController::class, ''])->name('');
+                Route::post('/post-update/{product_id}', [productController::class, ''])->name('');
             });
             //Product
         });
@@ -133,12 +137,13 @@ Route::prefix('/admin')->group(function () {
         Route::prefix('/admin')->group(function () {
             Route::get('/category-search', [Ajax_classController::class, 'ajax_category'])->name('category_search');
             Route::get('/phanloai-search', [Ajax_classController::class, 'ajax_phanloai'])->name('phanloai_search');
+            Route::get('/theloai-search', [Ajax_classController::class, 'ajax_theloai'])->name('theloai_search');
             Route::get('/size-search', [Ajax_classController::class, 'ajax_size'])->name('ajax_size');
             Route::get('/status-search', [Ajax_classController::class, 'ajax_status'])->name('ajax_status');
             Route::get('/color-search', [Ajax_classController::class, 'ajax_color'])->name('ajax_color');
             Route::get('/brand-search', [Ajax_classController::class, 'ajax_brand'])->name('ajax_brand');
             Route::post('/product-theloai', [Ajax_classController::class, 'ajax_select_theloai'])->name('product_theloai');
-            });
+            Route::get('/delete-quantity', [Ajax_classController::class, 'delete_quantity'])->name('delete_quantity');            });
     });
 });
     // Các route trong nhóm '/admin'

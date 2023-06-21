@@ -189,6 +189,7 @@ ul.sidebar-menu li a.active i {
 }
 /*main content*/
 #main-content {
+    padding-top: 100px;
     margin-left:240px;
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
@@ -3157,6 +3158,9 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     justify-content: center;
     align-items: center;
 }
+.flex_{
+    display: flex;
+}
 .icon{
     width: 35px;
     height: 35px;
@@ -3168,6 +3172,9 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 .bg-bule{
     background-color: #4d90fe;
 }
+.bg-yellow{
+    background-color: #FCB322;
+}
 .bg-red{
     background-color: #d84a38;
 }
@@ -3178,10 +3185,10 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
    float: right;
 }
 .mg-20{
-    margin: 20px 0;
+    margin: 20px 0 !important;
 }
 .mg-10{
-    margin: 10px 0;
+    margin: 10px 0 !important;
 }
 .mg-r-l-10px{
     margin:0 10px;
@@ -3623,10 +3630,11 @@ transition: 0.5s ease-in-out;
    
   }
   .ip-form label{
-    color: #989898;
+    color: #222222;
     font-family: Montserrat;
-   
+    font-size: 18px;
     font-weight: 600;
+    margin-right: 5px;
   }
   .ip-csr{
     color: #727272;
@@ -3655,7 +3663,7 @@ transition: 0.5s ease-in-out;
   }
   .input-lable-form button{
     width: 150px;
-    height: 50px;
+    height: 40px;
     outline: none;
     border: none;
     position: absolute;
@@ -3675,9 +3683,9 @@ transition: 0.5s ease-in-out;
   .item-req {
     background-color: #76BB68;
     padding: 20px 10px;
-    margin-bottom: 5px;
+    margin: 10px 10px 15px 0;
     position: relative;
- 
+    
 }
 .item-req p{
     color: white;
@@ -3698,7 +3706,135 @@ transition: 0.5s ease-in-out;
     display: grid;
     grid-template-columns: repeat(4,1fr);
     grid-gap: 10px;
+    position: relative;
+}
+.btn-asd{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #575153;
+    cursor: pointer;
+}
+.btn-asd:hover{
+    background-color: red;
+    transition: 0.25s ease-in-out;
+    box-shadow: 10px 10px 10px #ccc;
+}
+.btn-asd i{
+    color: white;
+}
+.asd-pre{
+    left: -10px;
+}
+.asd-next{
+    right: 0;
 }
 .item-res-pro{
     display: flex;
+
+}
+.context-deatil{
+    color: #727272;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 22px;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    margin-left: 5px;
+}
+.title-product-deatil{
+    padding: 20px 0;
+}
+.title-product-deatil h3,.titel-ic{
+    font-family: "Montserrat - Light";
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 2.4px;
+    line-height: normal;
+    margin: 15px 0;
+    text-align: center;
+}
+.tctx-p{
+    color: #727272;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 22px;
+    text-align: right;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    text-align: justify;
+}
+.err-product span{
+    color: red;
+    margin: 0 2.5px;
+}
+.ip-form-lb-i{
+    position: relative;
+}
+.ip-form label{
+    pointer-events: none;
+    font-size: 15px;
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    color: #727272;
+    font-family: Montserrat;
+}
+.ip-form-lb-i label{
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    
+}
+.ip-form-lb-i input:focus+label,.ip-form-lb-i input:valid+label{
+    top: 0;
+    transition: 0.5s ease-in-out;
+    font-size: 12px;
+    background-color: white;
+    font-weight: 300;
+}
+.icons .icon:hover{
+    box-shadow: 10px 10px 10px #ccc;
+    transition: 0.5s ease-in-out;
+}
+.icons .icon i{
+    color: white;
+}
+.item-req{
+    position: relative;
+}
+.item-req .item-icon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    right: 10px;
+}
+.item-req .item-icon i{
+    display: block;
+    color: white;
+    margin: 10px 0;
+    cursor: pointer;
+}
+.item-req .item-icon i:hover{
+    color: red;
+    transition: 0.5s ease-in-out;
 }
