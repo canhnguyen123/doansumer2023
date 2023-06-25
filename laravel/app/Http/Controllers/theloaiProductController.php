@@ -32,16 +32,20 @@ class theloaiProductController extends Controller
     public function theloai_add(){
         $list_theloai=DB::table("tbl_theloai")->orderBy("theloai_id","asc")->where("theloai_status",1)->get();
         $list_phanloai=DB::table("tbl_phanloai")->orderBy("phanloai_id","asc")->where("phanloai_status",1)->get();
-        return  view('admin_include.page.product.theloai.add')->with('list_theloai',$list_theloai)->with('list_phanloai',$list_phanloai);
+        $list_category=DB::table("tbl_category")->orderBy("category_id","asc")->where("category_status",1)->get();
+        return  view('admin_include.page.product.theloai.add')
+        ->with('list_theloai',$list_theloai)
+        ->with('list_phanloai',$list_phanloai)
+        ->with('list_category',$list_category);
     }
     public function post_theloai_add(Request $request)
     {
         $theloai_name = $request->input('theloai_name');
-        $theloai_code = $request->theloai_code;
+        $category_code = $request->category_code;
         $phanloai_code = $request->phanloai_code;
         $theloai_img = $request->input('content');
 
-         $data['theloai_id']=  $theloai_code;
+         $data['category_id']=  $category_code;
         $data['phanloai_id']=$phanloai_code;
         $data['theloai_name']= $theloai_name;
         $data['theloai_link_img']= $theloai_img;

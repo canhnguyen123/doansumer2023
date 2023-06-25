@@ -11,7 +11,7 @@
 
                     </div>
                     @foreach ($select_product as $item_product)
-                    <form action="{{ route('post_product_add')}}" method="post" class="row ">
+                    <form action="{{ route('post_product_update',['product_id'=> $item_product->product_id])}}" method="post" class="row ">
                         {{ csrf_field() }}
                         @if ($errors->any())
                             <div class="alert alert-danger text-center">
@@ -23,7 +23,7 @@
 
                             </div>
                         @endif
-                        <div class="col-4 slider-product">
+                        {{-- <div class="col-4 slider-product">
                             <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                                 
                                 <div class="carousel-inner">
@@ -47,12 +47,12 @@
                                   <span class="visually-hidden">Next</span>
                                 </button>
                               </div>
-                        </div>
-                        <div class="col-8 row">
+                        </div> --}}
+                        <div class="col-12 row">
                             <div class="col-4">
                                 <div class="col-12 ip-form">
                                     <label for="">Danh mục</label>
-                                    <select name="category_code" id="category_id_Pro">
+                                    <select name="category_code_up" id="category_id_Pro">
                                         <option value="{{ $item_product->category_id }}">
                                             {{ $item_product->category_name }}</option>
                                            
@@ -88,7 +88,7 @@
                                 <div class="col-12 ip-form">
                                 
                                     <label for="">Thể loại</label>
-                                    <select name="phanloai_code" id="theloai_id">
+                                    <select name="phanloai_code_up" id="theloai_id">
                                         <option value="{{ $item_product->theloai_id }}">
                                             {{ $item_product->theloai_name }}</option>
                                     </select>
@@ -97,7 +97,7 @@
                             <div class="col-6">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                    
-                                    <input type="text" name="product_name" value=" {{$item_product->product_name}}" id="product_name" required>
+                                    <input type="text" name="product_name_up" value=" {{$item_product->product_name}}" id="product_name" required>
                                     <label for="">Tên sản phẩm</label>
                                 </div>
                                
@@ -105,7 +105,7 @@
                             <div class="col-3">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                     
-                                    <input type="text" id="product_code" value=" {{$item_product->product_code}}"  required >
+                                    <input type="text" id="product_code" name="product_code_up" value=" {{$item_product->product_code}}"  required >
                                     <label for="">Mã sản phẩm</label>
                                 </div>
                                
@@ -113,7 +113,7 @@
                             <div class="col-3">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                   
-                                    <input type="text" name="" id="product_price" value=" {{$item_product->product_price}}"  required>
+                                    <input type="text" name="product_price_up" id="product_price" value=" {{$item_product->product_price}}"  required>
                                     <label for="" id="product_price_lable">Giá sản phẩm</label>
                                 </div>
 
@@ -121,65 +121,11 @@
                             <div class="col-6 err-product"></div>
                             <div class="col-3 err-product"></div>
                             <div class="col-3 err-product"><span  id="err-product-price"></span></div>
-                            <div class="col-12 row mg-10">
-                                <label for="">Size</label>
-                                <div class="item-list-size">
-                                    @foreach ($list_size as $index=> $item_size)
-                                        <div class="mg-r-l-10px ">
-                                            <label class="ip-csr" for="">{{ $item_size->name_size }}</label>
-                                            <input type="radio" name="product-size-item" id="product-size-item" value="{{ $item_size->name_size }}"  @if ($index === 0) checked @endif><br>
-                                             </div>
-                                    @endforeach
-
-                                </div>
-
-                            </div>
-                            <div class="col-12 row mg-10">
-                                <label for="">Màu sắc</label>
-                                <div class="item-list-size">
-                                  @foreach ($list_color as $index => $item_color)
-                                    <div class="mg-r-l-10px">
-                                      <label class="ip-csr" for="">{{ $item_color->color_name }}</label>
-                                      <input type="radio" id="product-color-item" name="product-color-item" value="{{ $item_color->color_name }}" @if ($index === 0) checked @endif><br>
-                                    </div>
-                                  @endforeach
-                                </div>
-                              </div>
-                            <div class="col-4 row mg-10">
-                                <div class="col-12 ip-form input-lable-form">
-                                    <input type="text" id="quantityItem" value="1" required>
-                                    <label for="">Nhập số lượng</label>
-                                </div>
-                                
-                            </div>
-                            <div class="col-8 input-lable-form">
-                                <button onclick="them_slPRo(event)">Thêm</button>
-                            </div>
-                            <div class="col-12 res-them">
-                                @foreach ($product_deatil_quantity as $item_quantity)
-                                <div class="item-req">
-                                    <div class="item-res-pro">
-                                        <p>Color</p>: <p id="item-res-color-Pro">{{$item_quantity->quantity_color}} </p>
-                                    </div>
-                                    <div class="item-res-pro">
-                                        <p>size</p>: <p id="item-res-size-Pro" class="size-item-Pro">{{$item_quantity->quantity_size}}</p>
-                                    </div>
-                                    <div class="item-res-pro">
-                                        <p>SL</p>: <p id="item-res-quantity-Pro" class="quantyti-item-Pro">{{$item_quantity->quantity_sl}}</p>
-                                    </div>
-                                    <div class="item-icon">
-                                        <i onclick="select_quantity()" class="fa-solid fa-pen"></i>
-                                        <i onclick="deleteQuantity({{$item_quantity->quantity_id}}, {{$item_product->product_id}})" class="fa-sharp fa-solid fa-trash"></i>
-                                    </div>
-                                </div>
-                            @endforeach
-                                {{-- <div class="btn-asd flex_center asd-pre"><i class="fa-solid fa-left-long"></i></div>
-                                <div class="btn-asd flex_center asd-next"><i class="fa-solid fa-right-long"></i></div> --}}
-                            </div>
-                            <div class="col-4">
+                           
+                            <div class="col-6">
                                 <div class="col-12 ip-form">
                                     <label for="">Thương hiệu</label>
-                                    <select name="category_code" id="brand_Product">
+                                    <select name="brand_name_up" id="brand_Product">
                                         @foreach ($list_brand as $key => $item_brand)
                                             <option value="{{ $item_brand->brand_name }}">{{ $item_brand->brand_name }}
                                             </option>
@@ -189,10 +135,10 @@
 
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="col-12 ip-form">
                                     <label for="">Trạng thái</label>
-                                    <select name="phanloai_code" id="trangthai_Product">
+                                    <select name="status_product_up" id="trangthai_Product">
                                         @foreach ($list_status_product as $key => $item_status_Pro)
                                             <option value="{{ $item_status_Pro->status_name }}">
                                                 {{ $item_status_Pro->status_name }}</option>
@@ -200,13 +146,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            {{-- <div class="col-4">
                                 <div class="col-12 ip-form">
                                     <label for="">Ảnh đại diện</label>
                                     <input type="file" id="file-upload-product" class="bder-none file-upload"
                                         value="" multiple required>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-12 tabs">
                                 <div class="tab-item active">Mô tả</div>
                                 <div class="tab-item">Đặc điểm</div>
@@ -215,19 +161,18 @@
                             </div>
                             <div class="col-12 tab-content">
                                 <div class="tab-pane active">
-                                    <textarea id="mota_product" cols="30" rows="10" class="editor" name="" required> {{$item_product->product_mota}} </textarea>
+                                    <textarea id="mota_product" cols="30" rows="10" class="editor" name="mota_product_up" required> {{$item_product->product_mota}} </textarea>
                                 </div>
                                 <div class="tab-pane">
-                                    <textarea id="dacdiem_product" cols="30" rows="10" class="editor" name="" required>{{$item_product->product_dacdiem}}</textarea>
+                                    <textarea id="dacdiem_product" cols="30" rows="10" class="editor" name="dacdiem_product_up" required>{{$item_product->product_dacdiem}}</textarea>
                                 </div>
                                 <div class="tab-pane">
-                                    <textarea id="baoquan_product" cols="30" rows="10" class="editor" name="" required>{{$item_product->product_baoquan}}</textarea>
+                                    <textarea id="baoquan_product" cols="30" rows="10" class="editor" name="baoquan_product_up" required>{{$item_product->product_baoquan}}</textarea>
                                 </div>
                             </div>
-                            <div class="col-12 ip-form">
-                                    <button  id=""  onclick="uploadImage_Product(event)"  name=""><i class="fa-sharp fa-solid fa-plus"></i> Cập nhật sản phẩm</button>
-                                {{-- <button  id=""  type="submit" name=""><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button> --}}
-
+                            <div class="col-12 ip-form" style="display: flex">
+                                     <button type="submit"  id=""   name=""><i class="fa-sharp fa-solid fa-plus"></i> Cập nhật sản phẩm</button>
+                                     <a class="" href="{{route('quantityProduct_list',['product_id'=>$item_product->product_id])}}">  <div class="link-btn flex_center"><p>Cập nhật số lượng</p>  </div>  </a>
                             </div>
                         </div>
 

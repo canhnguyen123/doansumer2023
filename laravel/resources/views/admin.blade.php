@@ -90,9 +90,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"
         integrity="sha512-eP8DK17a+MOcKHXC5Yrqzd8WI5WKh6F1TIk5QZ/8Lbv+8ssblcz7oGC8ZmQ/ZSAPa7ZmsCU4e/hcovqR8jfJqA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
+    </script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBm2amWU-VobIc5AcDrckAZRGTKWNM_iD0",
@@ -160,7 +166,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $.ajax({
                         type: "POST",
                         url: "{{ route('post_theloai_add') }}",
-
                         data: {
                             content: imageURL,
                             category_code: category_code,
@@ -186,7 +191,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 })
                 .catch(console.error);
         }
-
+        function update_quantity(quantity_id,product_id){
+            alert(quantity_id+'-'product_id)
+        }
         function uploadImages() {
             const files = Array.from(document.getElementById("file-upload-product").files);
             const uploadPromises = [];
@@ -327,7 +334,59 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
         }
+  
+        function getDataQuantity(dataQuantity) {
+            console.log('213312')
+            const parentDiv = $(dataQuantity).closest('.item-req.p-l-20');
+            const colorText = parentDiv.find('.color-quantity-d').text();
+            const sizeText = parentDiv.find('.size-quantity-d').text();
+            const quantityText = parentDiv.find('.quantity-quantity-d').text();
+            $('.icon-update-list-pro').show();
+            $('.fa-sharp.fa-solid.fa-circle-xmark').hide();
+            $('.product-color-item').each(function() {
+                if ($(this).val() === colorText) {
+                    console.log(colorText);
+                    $(this).prop('checked', true);
+                }
+            });
+            $('.product-size-item').each(function() {
+                if ($(this).val() === sizeText) {
+                    $(this).prop('checked', true);
+                }
+            });
+            $('.input-quantity-ls').val(quantityText);
+            parentDiv.find('.icon-update-list-pro').hide()
+            parentDiv.find('.fa-sharp.fa-solid.fa-circle-xmark').show();
+            $('#btn-add-list-q').hide();
+            $('#btn-update-list-q').show();
+            
+        }
 
+        function close_update(dataQuantity) {
+            const parentDiv = $(dataQuantity).closest('.item-req.p-l-20');
+            $('.input-quantity-ls').val(1);
+            const colorInputs =$('.product-color-item');
+            const sizeInputs =$('.product-size-item');
+            colorInputs.prop('checked', false); 
+            const firstColorInput = colorInputs.first();
+            firstColorInput.prop('checked', true); 
+
+            
+            sizeInputs.prop('checked', false); 
+            const firstSizeInput = sizeInputs.first();
+            firstSizeInput.prop('checked', true); 
+
+
+            colorInputs.removeAttr('data-default');
+            firstColorInput.attr('data-default', true);
+
+            sizeInputs.removeAttr('data-default');
+            firstSizeInput.attr('data-default', true);
+            parentDiv.find('.icon-update-list-pro').show()
+            parentDiv.find('.fa-sharp.fa-solid.fa-circle-xmark').hide();
+            $('#btn-add-list-q').show();
+            $('#btn-update-list-q').hide()
+        }
 
         function uploadImage_banner(event) {
             event.preventDefault();
@@ -343,8 +402,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             task
                 .then(snapshot => snapshot.ref.getDownloadURL())
                 .then(url => {
-                    // console.log(url);
-                    // alert(url);
                     var imageURL = url;
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
                     $.ajaxSetup({
@@ -358,8 +415,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         data: {
                             banner_img: imageURL,
                             banner_mota: banner_mota
-                            // banner_img: '3213213',
-                            // banner_mota:'12431413'
                         },
                         success: function(response) {
                             if (response.success) {
@@ -379,9 +434,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 })
                 .catch(console.error);
         }
+
         function select_quantity() {
             console.log('321312')
-   
+
         }
         var itemCount = 1; // Biến đếm ban đầu
         var addedItems = []; // Mảng lưu trữ các mặt hàng đã được thêm vào
@@ -430,9 +486,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
 
 
-        function select_quantity(){
-          
+        function select_quantity() {
+
         }
+
         function deleteQuantity(quantityId, productId) {
             if (confirm('bạn có muốn xóa hay k')) {
                 var url = "{{ route('delete_quantity') }}?quantity_id=" + quantityId + "&product_id=" + productId;
@@ -440,13 +497,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     type: "GET",
                     url: url,
                     success: function(response) {
-                            if (response.success == true) {
-                                alert(response.message);
-                                updateQuantityList(response.list_quantityNew);
-                            } else {
-                                alert(response.message);
-                            }
-                        },
+                        if (response.success == true) {
+                            alert(response.message);
+                            updateQuantityList(response.list_quantityNew);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
                     error: function(xhr, status, error) {
                         console.log('Lỗi: ' + error);
                     }
@@ -1093,7 +1150,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             })
 
-       
+
 
             $('#close_search').click(function() {
                 $('#search_ajax_category').val('');

@@ -107,10 +107,14 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/list', [ProductController::class, 'product_list'])->name('product_list');
                 Route::get('/add', [productController::class, 'product_add'])->name('product_add');
                 Route::get('/update/{product_id}', [productController::class, 'product_update'])->name('product_update');
-                Route::get('/delete/{product_id}', [productController::class, 'product_delete'])->name('product_delete');
+                Route::get('/togggle-status/{product_id}/{product_status}', [productController::class, 'togggle_status'])->name('togggle_status_product');
                 Route::get('/deatil/{product_id}', [productController::class, 'product_deatil'])->name('product_deatil');
+                Route::get('/quantity/{product_id}', [productController::class, 'quantityProduct_list'])->name('quantityProduct_list');
                 Route::post('/post-add', [productController::class, 'post_product_add'])->name('post_product_add');
-                Route::post('/post-update/{product_id}', [productController::class, ''])->name('');
+                Route::post('/post-update/{product_id}', [productController::class, 'post_product_update'])->name('post_product_update');
+                Route::post('/post-add-quantity/{product_id}', [productController::class, 'post_quantity_add'])->name('post_quantity_add');
+                Route::get('/togggle-status-quantity/{quantity_id}/{quantity_status}/{product_id}', [productController::class, 'togggle_status_quantity'])->name('togggle_status_quantity');
+              
             });
             //Product
         });
@@ -127,6 +131,7 @@ Route::prefix('/admin')->group(function () {
             Route::get('/add', [bannerController::class, 'banner_add'])->name('banner_add');
              Route::get('/update/{banner_id}', [bannerController::class, 'banner_update'])->name('banner_update');
             Route::get('/delete/{banner_id}', [bannerController::class, 'banner_delete'])->name('banner_delete');
+            Route::get('/togggle-status/{banner_id}/{banner_status}', [bannerController::class, 'togggle_status'])->name('togggle_status_banner');
             Route::post('/post-add', [bannerController::class, 'post_banner_add'])->name('post_banner_add');
             Route::post('/post-update/{banner_id}', [bannerController::class, 'post_banner_update'])->name('post_banner_update');
         });

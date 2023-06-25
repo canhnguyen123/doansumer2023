@@ -73,6 +73,7 @@ exports.login = (req, res) => {
         if (pass === pass_user) {
           // Đăng nhập thành công
           const information_user = {
+            user_id: results[0].user_id,
             user_phone: results[0].user_phone,
             user_fullname: results[0].user_fullname,
             user_token: results[0].user_token,

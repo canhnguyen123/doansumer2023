@@ -3708,6 +3708,11 @@ transition: 0.5s ease-in-out;
     grid-gap: 10px;
     position: relative;
 }
+.res-them-quantity{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-gap: 10px;
+}
 .btn-asd{
     position: absolute;
     top: 50%;
@@ -3735,6 +3740,13 @@ transition: 0.5s ease-in-out;
 .item-res-pro{
     display: flex;
 
+}
+.p-l-20{
+    padding-left: 20px;
+}
+.close-icon-pro:hover{
+    transform: rotate(360deg);
+    transition: 0.5s ease-in-out;
 }
 .context-deatil{
     color: #727272;
@@ -3837,4 +3849,41 @@ transition: 0.5s ease-in-out;
 .item-req .item-icon i:hover{
     color: red;
     transition: 0.5s ease-in-out;
+}
+.link-btn{
+    width: 250px;
+    height: 50px;
+    margin:0  20px;
+    background-color: #2a2727;
+   cursor: pointer;
+    border-radius: 10px;
+}
+.link-btn p{
+    color: white;
+    margin: 0;
+}
+.quantity-titel{
+    text-align: center;
+    font-family: "Montserrat - Light";
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing: 2.4px;
+    line-height: normal;
+    margin: 15px 0;
+    text-transform: uppercase;
+    color: red;
+}
+.pd-0{
+    padding: 0;
+}
+.flex_start{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.item_flex-mglr-5{
+    margin: 0 5px;
+}
+.input-quantity{
+    max-width: 150px;
 }

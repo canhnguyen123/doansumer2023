@@ -61,7 +61,7 @@
         </span></div>
         </div>
         <div class="col-12 ip-form">
-            <button  id="post_img" onclick="uploadImage_banner(event)"  type="submit" name="add-category"><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button>
+            <button  id="post_img" onclick="uploadImage_banner(event)" name="add-category"><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button>
         </div>
     </div>
    
