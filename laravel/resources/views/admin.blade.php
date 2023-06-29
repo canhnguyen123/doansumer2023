@@ -46,7 +46,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+        <link rel="stylesheet" href="{{asset('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css')}}">
+    
+    </head>
+
 
 <body>
     <section id="container">
@@ -99,6 +102,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
+    <script src="{{asset('https://cdn.jsdelivr.net/npm/flatpickr')}}"></script>
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBm2amWU-VobIc5AcDrckAZRGTKWNM_iD0",
@@ -111,6 +116,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         };
 
         firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        flatpickr(".timepiker", {});
     </script>
     <script type="text/javascript">
         // $('.res-them').slick({
@@ -191,8 +199,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 })
                 .catch(console.error);
         }
-        function update_quantity(quantity_id,product_id){
-            alert(quantity_id+'-'product_id)
+        function update_quantity(event,quantity_id,product_id) {
+            event.preventDefault();
+            alert('12312');
         }
         function uploadImages() {
             const files = Array.from(document.getElementById("file-upload-product").files);
@@ -236,12 +245,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 "on": true
             } : {};
             var theloai_showhome = JSON.stringify(theloai_showhome_ed);
-
-            // alert(theloai_status)
-            // const theloai_status = $('#theloai_status_up').is(':checked') ? "on" : "";
-            // var isChecked = $("#theloai_status_up").prop("checked");
-            // var theloai_status = isChecked ? {} : {"on"};
-            // alert(theloai_status)
             const theloai_id = $('.dis-none').text();
             var updateUrl = "{{ route('post_theloai_update', ['theloai_id' => 0]) }}";
             var updateUrlnew = updateUrl.slice(0, -1) + theloai_id;

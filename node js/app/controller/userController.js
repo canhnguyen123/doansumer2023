@@ -66,7 +66,7 @@ exports.login = (req, res) => {
     }
 
     if (results.length <= 0|| results[0].user_phone !== phone) {
-      return res.json({ status: 'fall', errorPosition: "phone", mess: 'Số điện thoại này không tồn tại, mời nhập lại',phone:phone });
+      return res.json({ status: 'fall', errorPosition: "phone", mess: 'Số điện thoại này không tồn tại, mời nhập lại' });
     } else {
       if (results.length === 1) {
         const pass_user = results[0].user_password;

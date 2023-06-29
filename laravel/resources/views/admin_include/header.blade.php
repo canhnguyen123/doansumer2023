@@ -27,7 +27,7 @@
                 </ul>
             </li>
             <li>
-                <a href="fontawesome.html">
+                <a href="{{ route('user_list') }}" >
                     <i class="fa-solid fa-users"></i>
                     <span> Người dùng</span>
                 </a>
@@ -44,8 +44,19 @@
             </li>
             <li class="sub-menu">
                 <a href="javascript:;">
+                    <i class="fa fa-book"></i>
+                    <span>Hóa đơn</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="typography.html">Hóa đơn</a></li>
+                    <li><a href="{{route('status_payment_list')}}">Trạng thái hóa đơn</a></li>
+                    <li><a href="{{route('category_payment_list')}}">Thể loại thanh toán</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
                     <i class=" fa fa-bar-chart-o"></i>
-                    <span>Thống kê doanh thu</span>
+                    <span>Thống kê</span>
                 </a>
               
             </li>
@@ -56,7 +67,7 @@
                 </a>
             </li>
             <li class="sub-menu">
-                <a href="javascript:;">
+                <a href="{{ route('voucher_list') }}">
                     <i class="fa-sharp fa-solid fa-ticket-simple"></i>
                     <span> vocher</span>
                 </a>

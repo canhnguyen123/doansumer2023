@@ -3661,7 +3661,7 @@ transition: 0.5s ease-in-out;
     font-style: 12px !important;
     font-weight: 300;
   }
-  .input-lable-form button{
+  .input-lable-form button,.input-lable-form .btn-update{
     width: 150px;
     height: 40px;
     outline: none;
@@ -3886,4 +3886,16 @@ transition: 0.5s ease-in-out;
 }
 .input-quantity{
     max-width: 150px;
+}
+.flex_nganng{
+    display: flex;  
+
+}
+.user-item-col label{
+    font-weight: 550px;
+    color: #727272;
+}
+.user-item-col p{
+    color: #727272;
+    margin-left: 5px;
 }

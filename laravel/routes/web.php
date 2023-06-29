@@ -14,6 +14,10 @@ use App\Http\Controllers\colorController;
 use App\Http\Controllers\brandController;
 use App\Http\Controllers\positionController;
 use App\Http\Controllers\bannerController;
+use App\Http\Controllers\userController;
+use App\Http\Controllers\voucherController;
+use App\Http\Controllers\status_paymentController;
+use App\Http\Controllers\theloai_paymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,13 +45,37 @@ Route::prefix('/admin')->group(function () {
 
     });
     Route::prefix('/page')->group(function () {
+        Route::prefix('/payment')->group(function(){
+            Route::prefix('/payment')->group(function(){
+                Route::get('/list', [CategoryProductController::class, 'category_list'])->name('category_list');
+                Route::get('/add', [CategoryProductController::class, 'category_add'])->name('category_add');
+                 Route::get('/update/{category_id}', [CategoryProductController::class, 'category_update'])->name('category_update');
+                 Route::get('/togggle-status/{category_id}/{category_status}', [CategoryProductController::class, 'togggle_status'])->name('togggle_status_category');
+                Route::post('/post-add', [CategoryProductController::class, 'post_category_add'])->name('category_post_add');
+                Route::post('/post-update/{category_id}', [CategoryProductController::class, 'post_category_update'])->name('category_post_update');
+            });
+            Route::prefix('/status_payment')->group(function(){
+                Route::get('/list', [status_paymentController::class, 'status_payment_list'])->name('status_payment_list');
+                Route::get('/add', [status_paymentController::class, 'status_payment_add'])->name('status_payment_add');
+                Route::get('/update/{status_payment_id}', [status_paymentController::class, 'status_payment_update'])->name('status_payment_update');
+                Route::post('/post-add', [status_paymentController::class, 'post_status_payment_add'])->name('post_status_payment_add');
+                Route::post('/post-update/{status_payment_id}', [status_paymentController::class, 'post_status_payment_update'])->name('post_status_payment_update');
+            });
+            Route::prefix('/theloai_payment')->group(function(){
+                Route::get('/list', [theloai_paymentController::class, 'category_payment_list'])->name('category_payment_list');
+                Route::get('/add', [theloai_paymentController::class, 'category_payment_add'])->name('category_payment_add');
+                Route::get('/update/{status_payment_id}', [theloai_paymentController::class, 'category_payment_update'])->name('category_payment_update');
+                Route::post('/post-add', [theloai_paymentController::class, 'post_category_payment_add'])->name('post_category_payment_add');
+                Route::post('/post-update/{status_payment_id}', [theloai_paymentController::class, 'post_category_payment_update'])->name('post_category_payment_update');
+            });
+        });
         Route::prefix('/product')->group(function () {
             Route::prefix('/category')->group(function () {
                 Route::get('/list', [CategoryProductController::class, 'category_list'])->name('category_list');
                 Route::get('/add', [CategoryProductController::class, 'category_add'])->name('category_add');
                  Route::get('/update/{category_id}', [CategoryProductController::class, 'category_update'])->name('category_update');
                  Route::get('/togggle-status/{category_id}/{category_status}', [CategoryProductController::class, 'togggle_status'])->name('togggle_status_category');
-                 Route::post('/post-add', [CategoryProductController::class, 'post_category_add'])->name('category_post_add');
+                Route::post('/post-add', [CategoryProductController::class, 'post_category_add'])->name('category_post_add');
                 Route::post('/post-update/{category_id}', [CategoryProductController::class, 'post_category_update'])->name('category_post_update');
             });
             Route::prefix('/phanloai')->group(function () {
@@ -134,6 +162,19 @@ Route::prefix('/admin')->group(function () {
             Route::get('/togggle-status/{banner_id}/{banner_status}', [bannerController::class, 'togggle_status'])->name('togggle_status_banner');
             Route::post('/post-add', [bannerController::class, 'post_banner_add'])->name('post_banner_add');
             Route::post('/post-update/{banner_id}', [bannerController::class, 'post_banner_update'])->name('post_banner_update');
+        });
+        Route::prefix('/user')->group(function () {
+            Route::get('/list', [userController::class, 'user_list'])->name('user_list');
+            Route::get('/deatil/{user_id}', [userController::class, 'user_deatil'])->name('user_deatil');
+            Route::get('/togggle-status/{user_id}/{user_status}', [userController::class, 'togggle_status'])->name('togggle_status_user');
+        });
+        Route::prefix('/voucher')->group(function () {
+            Route::get('/list', [voucherController::class, 'voucher_list'])->name('voucher_list');
+            Route::get('/add', [voucherController::class, 'voucher_add'])->name('voucher_add');
+             Route::get('/update/{voucher_id}', [voucherController::class, 'voucher_update'])->name('voucher_update');
+            Route::get('/togggle-status/{voucher_id}/{voucher_status}', [voucherController::class, 'togggle_status'])->name('togggle_status_voucher');
+            Route::post('/post-add', [voucherController::class, 'post_voucher_add'])->name('post_voucher_add');
+            Route::post('/post-update/{voucher_id}', [voucherController::class, 'post_voucher_update'])->name('post_voucher_update');
         });
     });
   

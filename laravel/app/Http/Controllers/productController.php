@@ -94,9 +94,9 @@ class productController extends Controller
         $brand_Product = $request->input('brand_Product');
         $trangthai_Product = $request->input('trangthai_Product');
         $product_code = $request->input('product_code');
-        $mota_product = $request->input('mota_product');
-        $dacdiem_product = $request->input('dacdiem_product');
-        $baoquan_product = $request->input('baoquan_product');
+        $mota_product = html_entity_decode($request->input('mota_product'));
+        $dacdiem_product =html_entity_decode($request->input('dacdiem_product'));
+        $baoquan_product =html_entity_decode($request->input('baoquan_product'));
         $quantity_list = $request->input('quantity_list');
         $imgs_item_product = $request->input('imgs_item_product');
 

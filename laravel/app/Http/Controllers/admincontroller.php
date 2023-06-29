@@ -20,7 +20,14 @@ class admincontroller extends Controller
     public function home(){
         return  view('admin_include.page.home');
     }
-    
+    // public function check_accountLogin(){
+    //     $admin_id=Session::get('admin_id');
+    //     if($admin_id){
+    //         Redirect::to('admin');
+    //     }else{
+    //         Redirect::to('admin_login');
+    //     }
+    // }
     public function post_login(Request $request){
         $username_nv=$request->username_nv;
         $password_nv=$request->password_nv;

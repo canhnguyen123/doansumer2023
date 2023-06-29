@@ -67,7 +67,9 @@
                     </div>
                     <div class="col-12 input-lable-form pd-0">
                         <button type="submit" id="btn-add-list-q">Thêm</button>
-                        <button  id="btn-update-list-q" style="display: none" onclick="update_quantity( $item_size->quantity_id , $itemdeatilProduct->product_id)">Sửa</button>
+                        {{-- <button id="btn-update-list-q" style="display: none" onclick="update_quantity(event, $item_size->quantity_id, $itemdeatilProduct->product_id)">Sửa</button> --}}
+                        {{-- <button id="btn-update-list-q" style="display: none" onclick="update_quantity(event)">Sửa</button> --}}
+                        {{-- <div class="btn-update flex_center"   id="btn-update-list-q"  onclick="update_quantity(event,{{$item_size->quantity_id}}, {{$itemdeatilProduct->product_id}})"  style="display: none">Cập nhật </div> --}}
                     </div>
                 </form>
 

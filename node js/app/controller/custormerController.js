@@ -11,10 +11,11 @@ const moment = require('moment');
 exports.getCardCustormer = (req, res, user_id) => {
   const user_id_ = req.params.user_id;
   const product_id = req.body.product_id;
+  const card_quantity = req.body.card_quantity;
   const createdAt = moment();
   const data = {}; // Định nghĩa biến data
   data.created_at = createdAt;
-  const cardCustormer = { user_id: user_id_, product_id: product_id, created_at: new Date() };
+  const cardCustormer = { user_id: user_id_, product_id: product_id,card_quantity:card_quantity , created_at: new Date() };
   connection.query('INSERT INTO customer_cart SET ?', cardCustormer, (error, results) => {
     if (error) {
       console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
@@ -36,8 +37,10 @@ exports.getListCard = (req, res, user_id) => {
     for (let i = 0; i < results.length; i++) {
       const product_id = results[i].product_id;
       const customerCart_id = results[i].customerCart_id;
+      const card_quantity = results[i].card_quantity;
       productIds.push(product_id);
-      results[i].customerCart_id = customerCart_id; 
+      // results[i].customerCart_id = customerCart_id; 
+      // results[i].card_quantity = card_quantity; 
     }
 
     // Truy vấn thông tin từ bảng tbl_product dựa trên productIds
@@ -55,7 +58,8 @@ exports.getListCard = (req, res, user_id) => {
           product_id: productResults[i].product_id,
           product_name: productResults[i].product_name,
           product_price: productResults[i].product_price,
-          customerCart_id: '' 
+          customerCart_id: '' ,
+          customerCart_quantity: '' ,
         };
 
         // Truy vấn ảnh mới nhất từ bảng tbl_list_img__product
@@ -71,6 +75,7 @@ exports.getListCard = (req, res, user_id) => {
             product.latest_image = imgResults[0].img_name;
           }
           product.customerCart_id = results[i].customerCart_id;
+          product.customerCart_quantity = results[i].card_quantity;
           // Đẩy sản phẩm vào mảng products
           products.push(product);
 
