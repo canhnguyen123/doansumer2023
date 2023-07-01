@@ -6,10 +6,13 @@
 		<div class="table-agile-info">
  <div class="panel panel-default row">
     <div class="panel-heading heading">
-     Cập nhật phương thức thanh toán
+     Cập nhật thể loại hóa đơn
     </div>
-    @foreach ($update_category_payment as $item_category_payment)
-    <form  class="row" action="{{route('post_category_payment_update',['category_payment_id'=>$item_category_payment->category_payment_id])}}" method="POST">
+    <div class="content col-12 ">
+
+    </div>
+    @foreach ($update_status_payment as $item_status_payment )
+    <form  class="row" action="{{route('post_status_payment_update',['status_payment_id'=>$item_status_payment->status_payment_id])}}" method="POST">
         {{ csrf_field() }}
         @if ($errors->any())
             <div class="alert alert-danger text-center">
@@ -26,8 +29,8 @@
         
         <div class="col-12">
             <div class="col-12 ip-form">
-                <label>Tên phương thưc</label>
-                <input type="text" name="category_payment_name" value="{{$item_category_payment->category_payment_name}}"><br>
+                <label>Tên trạng thái hóa đơn</label>
+                <input type="text" name="status_hoadon_name" value="{{$item_status_payment->status_payment_name}}"><br>
             </div>
             <div class="col-12 err"><span>
                 @error('category_code')
@@ -42,19 +45,18 @@
         </div>
         <div class="col-12">
             <div class="col-12 ip-form">
-                <label for="">Mô tả ngắn</label>
-                <textarea name="category_payment_mota" class="editor" cols="30" rows="10">{{$item_category_payment->category_payment_note}}</textarea>
+                <label for="">Mô tả</label>
+                <textarea name="status_hoadon_mota" class="editor" cols="30" rows="10">{{$item_status_payment->status_payment_note}}</textarea>
             </div>
-
         </div>
         <div class="col-12 ip-form">
-            <button  type="submit"><i class="fa-sharp fa-solid fa-plus"></i> Cập nhật phương thức </button>
+            <button type="submit"><i class="fa-sharp fa-solid fa-plus"></i> Cập nhật trạng thái hóa đơn</button>
         </div>
     </div>
    
     </form>
     @endforeach
-  
+
   </div>
 </div>
 </section>

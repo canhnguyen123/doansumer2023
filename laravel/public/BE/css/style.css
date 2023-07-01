@@ -3158,6 +3158,9 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     justify-content: center;
     align-items: center;
 }
+.mg-40{
+    margin: 40px 0;
+}
 .flex_{
     display: flex;
 }
@@ -3898,4 +3901,82 @@ transition: 0.5s ease-in-out;
 .user-item-col p{
     color: #727272;
     margin-left: 5px;
+}
+.input-select-none input{
+    border: none;
+    outline: none;
+}
+.input-lable{
+    position: relative;
+}
+.input-lable label{
+    position: absolute;
+    top: 50%;
+    left: 45px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.input-lable input{
+    border: none;
+    outline: none;
+    border-radius: 0;
+    border-bottom: 2px solid #222222;
+    padding-left: 45px;
+    margin: 0;
+}
+.input-lable .icon-form-input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #000000;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input-lable input:focus+label,.input-lable input:valid+label{
+    font-size: 14px;
+    font-weight: 300;
+    top: 0;
+    transition: 0.5s ease-in-out;
+}
+.input-lable .icon-form-input i{
+    color: white;
+}
+.mg-20{
+    margin: 20px 0;
+}
+.div-titel-h4{
+    width: 70%;
+    height: 50px;
+}
+.tab-item-table{
+    padding: 5px 0;
+    height: 100%;
+    cursor: pointer;
+}
+.tab-item-table.active{
+    background-color: #333333;
+    color: white;
+box-shadow: 10px 10px 10px #ccc;
+    border-radius: 10px;
+}
+.tab-item-table.active h4{
+    color: white;
+}
+.tab-item-table h4{
+    color: #999999;
+    font-family: Montserrat;
+    font-size: 17px;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 20px;
+    margin: 0;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
 }

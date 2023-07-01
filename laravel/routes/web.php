@@ -18,6 +18,8 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\voucherController;
 use App\Http\Controllers\status_paymentController;
 use App\Http\Controllers\theloai_paymentController;
+use App\Http\Controllers\staffController;
+use App\Http\Controllers\paymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,12 +49,12 @@ Route::prefix('/admin')->group(function () {
     Route::prefix('/page')->group(function () {
         Route::prefix('/payment')->group(function(){
             Route::prefix('/payment')->group(function(){
-                Route::get('/list', [CategoryProductController::class, 'category_list'])->name('category_list');
-                Route::get('/add', [CategoryProductController::class, 'category_add'])->name('category_add');
-                 Route::get('/update/{category_id}', [CategoryProductController::class, 'category_update'])->name('category_update');
-                 Route::get('/togggle-status/{category_id}/{category_status}', [CategoryProductController::class, 'togggle_status'])->name('togggle_status_category');
-                Route::post('/post-add', [CategoryProductController::class, 'post_category_add'])->name('category_post_add');
-                Route::post('/post-update/{category_id}', [CategoryProductController::class, 'post_category_update'])->name('category_post_update');
+                Route::get('/list', [paymentController::class, 'payment_list'])->name('payment_list');
+                Route::get('/add', [paymentController::class, 'category_add'])->name('category_add');
+                Route::get('/update/{category_id}', [paymentController::class, 'category_update'])->name('category_update');
+                Route::get('/togggle-status/{category_id}/{category_status}', [paymentController::class, 'togggle_status'])->name('togggle_status_category');
+                Route::post('/post-add', [paymentController::class, 'post_category_add'])->name('category_post_add');
+                Route::post('/post-update/{category_id}', [paymentController::class, 'post_category_update'])->name('category_post_update');
             });
             Route::prefix('/status_payment')->group(function(){
                 Route::get('/list', [status_paymentController::class, 'status_payment_list'])->name('status_payment_list');
@@ -64,9 +66,10 @@ Route::prefix('/admin')->group(function () {
             Route::prefix('/theloai_payment')->group(function(){
                 Route::get('/list', [theloai_paymentController::class, 'category_payment_list'])->name('category_payment_list');
                 Route::get('/add', [theloai_paymentController::class, 'category_payment_add'])->name('category_payment_add');
-                Route::get('/update/{status_payment_id}', [theloai_paymentController::class, 'category_payment_update'])->name('category_payment_update');
+                Route::get('/update/{category_payment_id}', [theloai_paymentController::class, 'category_payment_update'])->name('category_payment_update');
+                Route::get('/togggle-status/{category_payment_id}/{category_payment_status}', [theloai_paymentController::class, 'togggle_status'])->name('togggle_category_payment');
                 Route::post('/post-add', [theloai_paymentController::class, 'post_category_payment_add'])->name('post_category_payment_add');
-                Route::post('/post-update/{status_payment_id}', [theloai_paymentController::class, 'post_category_payment_update'])->name('post_category_payment_update');
+                Route::post('/post-update/{category_payment_id}', [theloai_paymentController::class, 'post_category_payment_update'])->name('post_category_payment_update');
             });
         });
         Route::prefix('/product')->group(function () {
@@ -153,6 +156,15 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/delete/{position_id}', [positionController::class, 'position_delete'])->name('position_delete');
                 Route::post('/post-add', [positionController::class, 'post_position_add'])->name('post_position_add'); 
             });
+            Route::prefix('/staff')->group(function(){
+                Route::get('/list', [staffController::class, 'staff_list'])->name('staff_list');
+                Route::get('/add', [staffController::class, 'staff_add'])->name('staff_add');
+                Route::get('/update/{staff_id}', [staffController::class, 'staff_update'])->name('staff_update');
+                Route::get('/deteal/{staff_id}', [staffController::class, 'staff_deteal'])->name('staff_deteal');
+                Route::get('/togggle-status/{staff_id}/{staff_status}', [staffController::class, 'togggle_status'])->name('togggle_status_staff');
+                Route::post('/post-add', [staffController::class, 'post_staff_add'])->name('post_staff_add'); 
+                Route::post('/post-update/{staff_id}', [staffController::class, 'post_staff_update'])->name('post_staff_update'); 
+            });
         });
         Route::prefix('/banner')->group(function () {
             Route::get('/list', [bannerController::class, 'banner_list'])->name('banner_list');
@@ -189,7 +201,9 @@ Route::prefix('/admin')->group(function () {
             Route::get('/color-search', [Ajax_classController::class, 'ajax_color'])->name('ajax_color');
             Route::get('/brand-search', [Ajax_classController::class, 'ajax_brand'])->name('ajax_brand');
             Route::post('/product-theloai', [Ajax_classController::class, 'ajax_select_theloai'])->name('product_theloai');
-            Route::get('/delete-quantity', [Ajax_classController::class, 'delete_quantity'])->name('delete_quantity');            });
+            Route::get('/delete-quantity', [Ajax_classController::class, 'delete_quantity'])->name('delete_quantity');     
+            Route::get('/get-payment-status/{hoadon_status}', [Ajax_classController::class, 'get_payment_status'])->name('get_payment_status');
+        });
     });
 });
     // Các route trong nhóm '/admin'

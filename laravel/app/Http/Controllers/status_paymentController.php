@@ -80,7 +80,6 @@ class status_paymentController extends Controller
     ///Thêm dl vào csdl
         $data['status_payment_name']=$status_hoadon_name;
         $data['status_payment_note']= $status_hoadon_mota;
-        $data['created_at']= Carbon::now();
         DB::table('tbl_status_payment')->where('status_payment_id',$status_payment_id)->update($data);
         return " <script> alert('Cập nhật thành công'); window.location = '".route('status_payment_list')."';</script>";
     }

@@ -27,13 +27,13 @@ class theloai_paymentController extends Controller
     }
     public function post_category_payment_add(Request $request){
        $data=[];
-       $status_hoadon_name = $request->input('status_hoadon_name');
-        $status_hoadon_mota = html_entity_decode($request->input('status_hoadon_mota'));
+       $category_payment_name = $request->input('category_payment_name');
+        $category_payment_mota = html_entity_decode($request->input('category_payment_mota'));
     
    
        // Kiểm tra xem dữ liệu đã tồn tại trong bảng tbl_category_payment hay chưa
        $category_paymentExists = DB::table('tbl_category_payment')
-                           ->where('category_payment_name', $status_hoadon_name)
+                           ->where('category_payment_name', $category_payment_name)
                            ->exists();
    
        if ($category_paymentExists) {
@@ -45,8 +45,9 @@ class theloai_paymentController extends Controller
    
 
    ///Thêm dl vào csdl
-       $data['category_payment_name']=$status_hoadon_name;
-       $data['category_payment_note']= $status_hoadon_mota;
+       $data['category_payment_name']=$category_payment_name;
+       $data['category_payment_note']= $category_payment_mota;
+       $data['category_payment_status']= 0;
        $data['created_at']= Carbon::now();
        DB::table('tbl_category_payment')->insert($data);
        return " <script> alert('Thêm thành công'); window.location = '".route('category_payment_list')."';</script>";
@@ -59,13 +60,13 @@ class theloai_paymentController extends Controller
     }
     public function post_category_payment_update(Request $request, $category_payment_id){
         $data=[];
-        $status_hoadon_name = $request->input('status_hoadon_name');
-         $status_hoadon_mota = html_entity_decode($request->input('status_hoadon_mota'));
+        $category_payment_name = $request->input('category_payment_name');
+         $category_payment_mota = html_entity_decode($request->input('category_payment_mota'));
      
     
         // Kiểm tra xem dữ liệu đã tồn tại trong bảng tbl_category_payment hay chưa
         $category_paymentExists = DB::table('tbl_category_payment')
-                            ->where('category_payment_name', $status_hoadon_name)
+                            ->where('category_payment_name', $category_payment_name)
                             ->where('category_payment_id', '<>', $category_payment_id)
                             ->exists();
     
@@ -78,11 +79,31 @@ class theloai_paymentController extends Controller
     
  
     ///Thêm dl vào csdl
-        $data['category_payment_name']=$status_hoadon_name;
-        $data['category_payment_note']= $status_hoadon_mota;
-        $data['created_at']= Carbon::now();
+        $data['category_payment_name']=$category_payment_name;
+        $data['category_payment_note']= $category_payment_mota;
         DB::table('tbl_category_payment')->where('category_payment_id',$category_payment_id)->update($data);
         return " <script> alert('Cập nhật thành công'); window.location = '".route('category_payment_list')."';</script>";
     }
-
+    public function togggle_status($category_payment_id, $category_payment_status){
+        $product=DB::table('tbl_category_payment')->where('category_payment_id',$category_payment_id)->first();
+        $status=0;
+        $data=[];
+        if($product->category_payment_status==1){
+            if($category_payment_status==0){
+                $status=1;
+            }else{
+                $status=0;
+            }
+        }
+         if ($product->category_payment_status == 0) {
+            if($category_payment_status==1){
+                $status=0;
+            }else{
+                $status=1;
+            }
+        }
+        $data['category_payment_status']=$status;
+        DB::table('tbl_category_payment')->where('category_payment_id',$category_payment_id)->update($data); 
+        return " <script> alert('Cập nhật thành công'); window.location = '".route('category_payment_list')."';</script>";
+    }
 }

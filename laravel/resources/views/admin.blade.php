@@ -46,9 +46,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="{{asset('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css')}}">
-    
-    </head>
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css') }}">
+
+</head>
 
 
 <body>
@@ -102,8 +102,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
-    <script src="{{asset('https://cdn.jsdelivr.net/npm/flatpickr')}}"></script>
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/flatpickr') }}"></script>
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    <script src="{{ asset('BE/js/callAPI.js') }}"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBm2amWU-VobIc5AcDrckAZRGTKWNM_iD0",
@@ -120,28 +121,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script>
         flatpickr(".timepiker", {});
     </script>
-    <script type="text/javascript">
-        // $('.res-them').slick({
-        //     slidesToShow: 4,
-        //     slidesToScroll: 1,
-        //     arrows: true,
-        //     speed: 300
-        // });
-
-        // var filtered = false;
-
-        // $('.js-filter').on('click', function () {
-        //     if (filtered === false) {
-        //         $('.res-them').slick('slickFilter', ':even');
-        //         $(this).text('Unfilter Slides');
-        //         filtered = true;
-        //     } else {
-        //         $('.res-them').slick('slickUnfilter');
-        //         $(this).text('Filter Slides');
-        //         filtered = false;
-        //     }
-        // });
-    </script>
+    <script type="text/javascript"></script>
     <script>
         function uploadImage(event) {
             event.preventDefault();
@@ -199,10 +179,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 })
                 .catch(console.error);
         }
-        function update_quantity(event,quantity_id,product_id) {
-            event.preventDefault();
-            alert('12312');
-        }
+
         function uploadImages() {
             const files = Array.from(document.getElementById("file-upload-product").files);
             const uploadPromises = [];
@@ -337,7 +314,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
         }
-  
+
         function getDataQuantity(dataQuantity) {
             console.log('213312')
             const parentDiv = $(dataQuantity).closest('.item-req.p-l-20');
@@ -362,22 +339,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             parentDiv.find('.fa-sharp.fa-solid.fa-circle-xmark').show();
             $('#btn-add-list-q').hide();
             $('#btn-update-list-q').show();
-            
+
         }
 
         function close_update(dataQuantity) {
             const parentDiv = $(dataQuantity).closest('.item-req.p-l-20');
             $('.input-quantity-ls').val(1);
-            const colorInputs =$('.product-color-item');
-            const sizeInputs =$('.product-size-item');
-            colorInputs.prop('checked', false); 
+            const colorInputs = $('.product-color-item');
+            const sizeInputs = $('.product-size-item');
+            colorInputs.prop('checked', false);
             const firstColorInput = colorInputs.first();
-            firstColorInput.prop('checked', true); 
+            firstColorInput.prop('checked', true);
 
-            
-            sizeInputs.prop('checked', false); 
+
+            sizeInputs.prop('checked', false);
             const firstSizeInput = sizeInputs.first();
-            firstSizeInput.prop('checked', true); 
+            firstSizeInput.prop('checked', true);
 
 
             colorInputs.removeAttr('data-default');
@@ -581,6 +558,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $('#product_price').css('border', '1px solid #ccc')
                 $('#product_price_lable').css('color', '#727272')
             }
+        });
+        $(".tab-item-table").click(function() {
+            var tabId = $(this).attr("data-id");
+            var getPaymentStatusUrl = "{{ route('get_payment_status', ['hoadon_status' => ':tabId']) }}";
+            getPaymentStatusUrl = getPaymentStatusUrl.replace(':tabId', tabId);
+            $.ajax({
+                type: "GET",
+                url: getPaymentStatusUrl,
+                success: function(response) {
+                    $('#payment_list_tableBody').html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                }   
+            });
         });
 
         function check_NAN(inputValue) {

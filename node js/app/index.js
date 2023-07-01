@@ -7,6 +7,7 @@ const userRouter = require('./router/user');
 const productRouter = require('./router/product');
 const bannerRouter = require('./router/banner');
 const custormerRouter = require('./router/cardCustormer');
+const billRouter = require('./router/bill');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,6 +16,7 @@ app.use('/user', userRouter);
 app.use('/product',productRouter);
 app.use('/banner',bannerRouter);
 app.use('/custormer',custormerRouter);
+app.use('/bill',billRouter);
 app.listen(4000, () => {
   console.log('Server đang lắng nghe tại cổng 4000');
 });

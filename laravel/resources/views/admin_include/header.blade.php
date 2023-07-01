@@ -39,7 +39,7 @@
                 </a>
                 <ul class="sub">
                     <li><a href="{{ route('position_list') }}"> chức vụ</a></li>
-                    <li><a href="flot_chart.html"><i class="fa fa-user"></i> nhân viên</a></li>
+                    <li><a href="{{route('staff_list')}}"><i class="fa fa-user"></i> nhân viên</a></li>
                 </ul>
             </li>
             <li class="sub-menu">
@@ -48,7 +48,7 @@
                     <span>Hóa đơn</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="typography.html">Hóa đơn</a></li>
+                    <li><a href="{{route('payment_list')}}">Hóa đơn</a></li>
                     <li><a href="{{route('status_payment_list')}}">Trạng thái hóa đơn</a></li>
                     <li><a href="{{route('category_payment_list')}}">Thể loại thanh toán</a></li>
                 </ul>

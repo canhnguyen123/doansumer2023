@@ -11,7 +11,7 @@
     <div class="content col-12 ">
 
     </div>
-    <form  class="row" action="{{route('post_status_payment_add')}}" method="POST">
+    <form  class="row" action="{{route('post_category_payment_add')}}" method="POST">
         {{ csrf_field() }}
         @if ($errors->any())
             <div class="alert alert-danger text-center">
@@ -29,7 +29,7 @@
         <div class="col-12">
             <div class="col-12 ip-form">
                 <label>Tên phương thưc</label>
-                <input type="text" name="status_hoadon_name" value=""><br>
+                <input type="text" name="category_payment_name" value=""><br>
             </div>
             <div class="col-12 err"><span>
                 @error('category_code')
@@ -45,7 +45,7 @@
         <div class="col-12">
             <div class="col-12 ip-form">
                 <label for="">Mô tả ngắn</label>
-                <textarea name="status_hoadon_mota" class="editor" cols="30" rows="10"></textarea>
+                <textarea name="category_payment_mota" class="editor" cols="30" rows="10"></textarea>
             </div>
 
         </div>

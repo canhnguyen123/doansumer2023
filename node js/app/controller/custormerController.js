@@ -39,8 +39,6 @@ exports.getListCard = (req, res, user_id) => {
       const customerCart_id = results[i].customerCart_id;
       const card_quantity = results[i].card_quantity;
       productIds.push(product_id);
-      // results[i].customerCart_id = customerCart_id; 
-      // results[i].card_quantity = card_quantity; 
     }
 
     // Truy vấn thông tin từ bảng tbl_product dựa trên productIds
