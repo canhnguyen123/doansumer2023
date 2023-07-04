@@ -205,6 +205,7 @@ Route::prefix('/admin')->group(function () {
             Route::post('/product-theloai', [Ajax_classController::class, 'ajax_select_theloai'])->name('product_theloai');
             Route::get('/delete-quantity', [Ajax_classController::class, 'delete_quantity'])->name('delete_quantity');     
             Route::get('/get-payment-status/{hoadon_status}', [Ajax_classController::class, 'get_payment_status'])->name('get_payment_status');
+            Route::post('/select-allPrice', [Ajax_classController::class, 'get_allPrice'])->name('get_allPrice');
         });
     });
 });

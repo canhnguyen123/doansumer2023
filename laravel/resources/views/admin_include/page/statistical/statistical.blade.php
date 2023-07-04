@@ -2,45 +2,46 @@
 @section('admin_content')
 <section id="main-content">
 	<section class="wrapper row">
-        
-		<div class="table-agile-info">
- <div class="panel panel-default row">
-    <div class="panel-heading heading">
-     Thêm mới chức vụ
-    </div>
-    <div class="content col-12 ">
-        <form action="{{ route('post_position_add')}}" method="post" class="row ">
-            {{ csrf_field() }}
-            @if ($errors->any())
-                <div class="alert alert-danger text-center">
-                 <span>Có lỗi xảy ra vui lòng kiểm tra lại dữ liệu</span>
-                </div>
-            @endif
-            <div class="col-12">
-                <div class="col-12 ip-form">
-                    <label for="">Tên chức vụ</label>
-                    <input type="text" name="position_name" value="{{ old('position_name') }}" required>
-                </div>
-                <div class="col-12 err"><span>
-                    @error('position_name')
-                        {{ $message }}
-                    @enderror    
-                @if(session('errorMessage'))
-               
-                    {{ session('errorMessage') }}
-               
-                @endif
-            </span></div>
+    <div class="panel panel-default row">
+  
+      <div class="content col-12 row">
+        <div class="col-12 titel-header">
+          <h4>Tra doanh số</h4>
+        </div>
+        <div class="col-12 row">
+         
+            <div class="col-4 ip-form agin_center">
+              <label for="">Từ ngày</label>
+              <input type="text" id="startDate" class="timepiker"  required>
+             
             </div>
-        
-           
-            <div class="col-12 ip-form">
-                <button type="submit" name="add-position"><i class="fa-sharp fa-solid fa-plus"></i> Thêm chức vụ</button>
+            <div class="col-4 ip-form agin_center">
+              <label for="">Đến ngày</label>
+              <input type="text" id="endDate" class="timepiker"  required>
+             
             </div>
-        </form>
+            <div class="col-4 ip-form agin_center">
+              <button onclick="fiterDate(event)">Xem </button>
+            </div>
+          
+        </div>
+        <div class="col-12 agin_center response-money">
+          <span id="response-money-data"></span>
+        </div>
+        <div class="col-12 titel-header">
+          <h4>Doanh thu tháng gần đây</h4>
+        </div>
+        <div class="col-12">
+          <canvas id="myChart"></canvas>
+        </div>
+        <div class="col-12 titel-header">
+          <h4>Tỉ lệ người đăng kí các loại tài khoản</h4>
+        </div>
+        <div class="col-12">
+          <canvas id="myChartCircle"></canvas>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 </section>
 
 </section>

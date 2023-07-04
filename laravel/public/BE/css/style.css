@@ -189,7 +189,7 @@ ul.sidebar-menu li a.active i {
 }
 /*main content*/
 #main-content {
-    padding-top: 100px;
+    padding-top: 50px;
     margin-left:240px;
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
@@ -4001,3 +4001,35 @@ box-shadow: 10px 10px 10px #ccc;
 .ip-status-2 input{
     margin: 0 10px;
 }
+.titel-header{
+    margin: 0;
+    padding: 0;
+}
+.titel-header h4{
+    color: #fc3158;
+    font-family: Montserrat;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 54px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Montserrat - Bold";
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 2.4px;
+    line-height: normal;
+    font-family: "Montserrat - Light";
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing: 2.4px;
+    line-height: normal;
+  }
+  .agin_center{
+    display: flex;
+    align-items: center;
+  }
+  .response-money{
+    padding-left: 20px;
+  }

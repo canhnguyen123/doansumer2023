@@ -6,8 +6,8 @@ session_start();
 
 class statisticalController extends Controller
 {
-    public function  statistical(){
-        return  view('admin')->with('admin_include.page.statistical.statistical');
+    public function statistical(){
+        return  view('admin_include.page.statistical.statistical');
     }
 
 }

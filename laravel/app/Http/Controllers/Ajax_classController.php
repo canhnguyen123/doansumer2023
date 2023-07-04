@@ -122,4 +122,27 @@ class Ajax_classController extends Controller
             ->get();
         return view('ohther.ajax.admin.payment_list')->with('payment_list', $payment_list);
     }
+    public function get_allPrice(Request $request)
+    {
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+        $hoadon_status = 4; // Giả sử giá trị của $hoadon_status đã được định nghĩa
+        $totalPrice = 0;
+            $payment_list = DB::table('tbl_hoadon')
+                ->where('status_payment_id', $hoadon_status)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get();
+           
+
+            foreach ($payment_list as $payment) {
+                $totalPrice += $payment->hoadon_allprice;
+            }
+            $response_money="Đã bán được : ".number_format($totalPrice, 0, '.', ',')." VNĐ";
+            $data = [
+                'status' => "success",
+                'totalPrice' => $response_money,
+            ];
+        
+            return response()->json($data);
+    }
 }

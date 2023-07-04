@@ -15,21 +15,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css') }}">
-        <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css') }}">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet"
-            type="text/css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
-            integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
-            integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
-            integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css') }}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet"
+        type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link href="{{ asset('BE/css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('BE/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="{{ asset('BE/css/morris.css') }}" type="text/css" />
     <!-- calendar -->
     <link rel="stylesheet" href="{{ asset('BE/css/monthly.css') }}">
-    <link rel="stylesheet" href="{{asset('BE/css/swiper.css')}}">
+    <link rel="stylesheet" href="{{ asset('BE/css/swiper.css') }}">
     <!-- //calendar -->
     <!-- //font-awesome icons -->
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
@@ -50,8 +50,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('BE/js/raphael-min.js') }}"></script>
     <script src="{{ asset('BE/js/morris.js') }}"></script>
 
-   
- 
+
+
 </head>
 
 
@@ -108,76 +108,99 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
     <script src="{{ asset('https://cdn.jsdelivr.net/npm/flatpickr') }}"></script>
-    
+
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
-    
-    <script src="{{asset('https://cdn.jsdelivr.net/npm/chart.js')}}"></script>
-       <script>
+
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/chart.js') }}"></script>
+    <script>
         const ctx = document.getElementById('myChart');
+        const currentDate = new Date();
+        const labels = [];
+
+        for (let i = 5; i >= 0; i--) {
+            const month = currentDate.getMonth() - i;//Lấy 6 tháng gần nhất k tính tháng hiện tại
+            labels.push(`Tháng ${month}`);
+        }
 
         new Chart(ctx, {
-        type: 'bar',
-        data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-            {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: 'rgba(54, 162, 235, 0.5)', // Màu nền của cột 1
-            borderColor: 'rgba(54, 162, 235, 1)', // Màu viền của cột 1
-            borderWidth: 1
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                        label: 'Số đơn giao thành công',
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)', // Màu nền của cột 1
+                        borderColor: 'rgba(54, 162, 235, 1)', // Màu viền của cột 1
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Số đơn bị hủy',
+                        data: [8, 5, 10, 6, 3, 7],
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)', // Màu nền của cột 2
+                        borderColor: 'rgba(255, 99, 132, 1)', // Màu viền của cột 2
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Số đơn giao thành công',
+                        data: [8, 5, 10, 6, 3, 7],
+                        type: 'line', // Loại biểu đồ dạng đường
+                        borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
+                        borderWidth: 2,
+                        fill: false // Không tô màu dưới đường
+                    },
+                    {
+                        label: 'Số đơn bị hủy',
+                        data: [12, 19, 3, 5, 2, 3],
+                        type: 'line', // Loại biểu đồ dạng đường
+                        borderColor: 'rgba(54, 162, 235, 1)', // Màu đường biểu đồ
+                        borderWidth: 2,
+                        fill: false // Không tô màu dưới đường
+                    }
+                ]
             },
-            {
-            label: '# of Sales',
-            data: [8, 5, 10, 6, 3, 7],
-            backgroundColor: 'rgba(255, 99, 132, 0.5)', // Màu nền của cột 2
-            borderColor: 'rgba(255, 99, 132, 1)', // Màu viền của cột 2
-            borderWidth: 1
-            },
-            {
-            label: 'Line Chart (Red Column)',
-            data: [8, 5, 10, 6, 3, 7],
-            type: 'line', // Loại biểu đồ dạng đường
-            borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
-            borderWidth: 2,
-            fill: false // Không tô màu dưới đường
-            },
-            {
-            label: 'Line Chart (Blue Column)',
-            data: [12, 19, 3, 5, 2, 3],
-            type: 'line', // Loại biểu đồ dạng đường
-            borderColor: 'rgba(54, 162, 235, 1)', // Màu đường biểu đồ
-            borderWidth: 2,
-            fill: false // Không tô màu dưới đường
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
-        ]
-        },
-        options: {
-        scales: {
-            y: {
-            beginAtZero: true
-            }
-        }
-        }
         });
 
-            </script>
+
+        const myChartCircle = document.getElementById('myChartCircle');
+
+            new Chart(myChartCircle, {
+            type: 'pie',
+            data: {
+                labels: ['Tài khoản bình thường', 'Tài khoản facebook', 'Tài khoản googel',],
+                datasets: [{
+                data: [65, 25, 10,],
+                backgroundColor: ['#B5C99A', '#3B5998', 'yellow']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+            });
+    </script>
     <script src="{{ asset('BE/js/callAPI.js') }}"></script>
     <script>
         var swiper = new Swiper(".mySwiper", {
-          cssMode: true,
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-          pagination: {
-            el: ".swiper-pagination",
-          },
-          mousewheel: true,
-          keyboard: true,
+            cssMode: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+            },
+            mousewheel: true,
+            keyboard: true,
         });
-      </script>
-     
+    </script>
+
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBm2amWU-VobIc5AcDrckAZRGTKWNM_iD0",
@@ -251,6 +274,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     });
                 })
                 .catch(console.error);
+        }
+
+        function isDateFormat(string) {
+            const timestamp = Date.parse(string);
+            return !isNaN(timestamp);
+        }
+
+        function fiterDate(event) {
+            event.preventDefault();
+            const startdate = $('#startDate').val();
+            const endDate = $('#endDate').val();
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('get_allPrice') }}",
+                data: {
+                    startdate: startdate,
+                    endDate: endDate,
+                },
+                success: function(response) {
+                    if (response.status == "success") {
+                        alert(response.totalPrice);
+                        $('#response-money-data').text(response.totalPrice);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                }
+            });
         }
 
         function uploadImages() {
@@ -641,12 +698,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             }
         });
         $("#delivery").change(function() {
-        if ($(this).is(":checked")) {
-        $("#paymentStatus").val("5");
-        } else {
-        $("#paymentStatus").val("3");
-        }
-    });
+            if ($(this).is(":checked")) {
+                $("#paymentStatus").val("5");
+            } else {
+                $("#paymentStatus").val("3");
+            }
+        });
         document.addEventListener('DOMContentLoaded', function() {
             var getPaymentStatusUrl = "{{ route('get_payment_status', ['hoadon_status' => 1]) }}";
             $.ajax({
@@ -657,7 +714,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 },
                 error: function(xhr, status, error) {
                     console.log('Lỗi: ' + error);
-                }   
+                }
             });
 
             // Các tác vụ khác...
@@ -665,23 +722,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
 
         $(".tab-item-table").click(function() {
-        $(".tab-item-table").removeClass("active");
-        $(this).addClass("active");
-        
-        var tabId = $(this).attr("data-id");
-        var getPaymentStatusUrl = "{{ route('get_payment_status', ['hoadon_status' => ':tabId']) }}";
-        getPaymentStatusUrl = getPaymentStatusUrl.replace(':tabId', tabId);
-        
-        $.ajax({
-            type: "GET",
-            url: getPaymentStatusUrl,
-            success: function(response) {
-            $('#payment_list_tableBody').html(response);
-            },
-            error: function(xhr, status, error) {
-            console.log('Lỗi: ' + error);
-            }   
-        });
+            $(".tab-item-table").removeClass("active");
+            $(this).addClass("active");
+
+            var tabId = $(this).attr("data-id");
+            var getPaymentStatusUrl = "{{ route('get_payment_status', ['hoadon_status' => ':tabId']) }}";
+            getPaymentStatusUrl = getPaymentStatusUrl.replace(':tabId', tabId);
+
+            $.ajax({
+                type: "GET",
+                url: getPaymentStatusUrl,
+                success: function(response) {
+                    $('#payment_list_tableBody').html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                }
+            });
         });
 
 
@@ -964,9 +1021,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         function closeDialog() {
             document.getElementById("image-dialog").style.display = "none";
         }
-
-
-     
     </script>
 
     <script>
