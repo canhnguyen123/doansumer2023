@@ -118,7 +118,7 @@ class Ajax_classController extends Controller
     public function get_payment_status($hoadon_status)
     {
         $payment_list = DB::table('tbl_hoadon')
-            ->where('hoadon_status', $hoadon_status)
+            ->where('status_payment_id', $hoadon_status)
             ->get();
         return view('ohther.ajax.admin.payment_list')->with('payment_list', $payment_list);
     }

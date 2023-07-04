@@ -15,6 +15,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css') }}">
+        <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet"
+            type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+            integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+            integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+            integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link href="{{ asset('BE/css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('BE/css/style-responsive.css') }}" rel="stylesheet" />
     <!-- font CSS -->
@@ -27,27 +42,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="{{ asset('BE/css/morris.css') }}" type="text/css" />
     <!-- calendar -->
     <link rel="stylesheet" href="{{ asset('BE/css/monthly.css') }}">
+    <link rel="stylesheet" href="{{asset('BE/css/swiper.css')}}">
     <!-- //calendar -->
     <!-- //font-awesome icons -->
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <script src="{{ asset('BE/js/jquery2.0.3.min.js') }}"></script>
     <script src="{{ asset('BE/js/raphael-min.js') }}"></script>
     <script src="{{ asset('BE/js/morris.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet"
-        type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
-        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
-        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
-        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css') }}">
 
+   
+ 
 </head>
 
 
@@ -71,6 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('BE/js/jquery.nicescroll.js') }}"></script>
     <script src="{{ asset('BE/js/ckediter.js') }}"></script>
     <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
@@ -103,8 +108,76 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous">
     </script>
     <script src="{{ asset('https://cdn.jsdelivr.net/npm/flatpickr') }}"></script>
+    
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    
+    <script src="{{asset('https://cdn.jsdelivr.net/npm/chart.js')}}"></script>
+       <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+        type: 'bar',
+        data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [
+            {
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: 'rgba(54, 162, 235, 0.5)', // Màu nền của cột 1
+            borderColor: 'rgba(54, 162, 235, 1)', // Màu viền của cột 1
+            borderWidth: 1
+            },
+            {
+            label: '# of Sales',
+            data: [8, 5, 10, 6, 3, 7],
+            backgroundColor: 'rgba(255, 99, 132, 0.5)', // Màu nền của cột 2
+            borderColor: 'rgba(255, 99, 132, 1)', // Màu viền của cột 2
+            borderWidth: 1
+            },
+            {
+            label: 'Line Chart (Red Column)',
+            data: [8, 5, 10, 6, 3, 7],
+            type: 'line', // Loại biểu đồ dạng đường
+            borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
+            borderWidth: 2,
+            fill: false // Không tô màu dưới đường
+            },
+            {
+            label: 'Line Chart (Blue Column)',
+            data: [12, 19, 3, 5, 2, 3],
+            type: 'line', // Loại biểu đồ dạng đường
+            borderColor: 'rgba(54, 162, 235, 1)', // Màu đường biểu đồ
+            borderWidth: 2,
+            fill: false // Không tô màu dưới đường
+            }
+        ]
+        },
+        options: {
+        scales: {
+            y: {
+            beginAtZero: true
+            }
+        }
+        }
+        });
+
+            </script>
     <script src="{{ asset('BE/js/callAPI.js') }}"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+          cssMode: true,
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          pagination: {
+            el: ".swiper-pagination",
+          },
+          mousewheel: true,
+          keyboard: true,
+        });
+      </script>
+     
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyBm2amWU-VobIc5AcDrckAZRGTKWNM_iD0",
@@ -559,10 +632,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $('#product_price_lable').css('color', '#727272')
             }
         });
-        $(".tab-item-table").click(function() {
-            var tabId = $(this).attr("data-id");
-            var getPaymentStatusUrl = "{{ route('get_payment_status', ['hoadon_status' => ':tabId']) }}";
-            getPaymentStatusUrl = getPaymentStatusUrl.replace(':tabId', tabId);
+
+        $('#status-select').change(function() {
+            if ($(this).val() == '5') {
+                $('#code-block').hide();
+            } else {
+                $('#code-block').show();
+            }
+        });
+        $("#delivery").change(function() {
+        if ($(this).is(":checked")) {
+        $("#paymentStatus").val("5");
+        } else {
+        $("#paymentStatus").val("3");
+        }
+    });
+        document.addEventListener('DOMContentLoaded', function() {
+            var getPaymentStatusUrl = "{{ route('get_payment_status', ['hoadon_status' => 1]) }}";
             $.ajax({
                 type: "GET",
                 url: getPaymentStatusUrl,
@@ -573,7 +659,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     console.log('Lỗi: ' + error);
                 }   
             });
+
+            // Các tác vụ khác...
+
         });
+
+        $(".tab-item-table").click(function() {
+        $(".tab-item-table").removeClass("active");
+        $(this).addClass("active");
+        
+        var tabId = $(this).attr("data-id");
+        var getPaymentStatusUrl = "{{ route('get_payment_status', ['hoadon_status' => ':tabId']) }}";
+        getPaymentStatusUrl = getPaymentStatusUrl.replace(':tabId', tabId);
+        
+        $.ajax({
+            type: "GET",
+            url: getPaymentStatusUrl,
+            success: function(response) {
+            $('#payment_list_tableBody').html(response);
+            },
+            error: function(xhr, status, error) {
+            console.log('Lỗi: ' + error);
+            }   
+        });
+        });
+
 
         function check_NAN(inputValue) {
             if (isNaN(inputValue)) {
@@ -856,103 +966,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
 
 
-        $(document).ready(function() {
-            //BOX BUTTON SHOW AND CLOSE
-            jQuery('.small-graph-box').hover(function() {
-                jQuery(this).find('.box-button').fadeIn('fast');
-            }, function() {
-                jQuery(this).find('.box-button').fadeOut('fast');
-            });
-            jQuery('.small-graph-box .box-close').click(function() {
-                jQuery(this).closest('.small-graph-box').fadeOut(200);
-                return false;
-            });
-
-            //CHARTS
-            function gd(year, day, month) {
-                return new Date(year, month - 1, day).getTime();
-            }
-
-            graphArea2 = Morris.Area({
-                element: 'hero-area',
-                padding: 10,
-                behaveLikeLine: true,
-                gridEnabled: false,
-                gridLineColor: '#dddddd',
-                axes: true,
-                resize: true,
-                smooth: true,
-                pointSize: 0,
-                lineWidth: 0,
-                fillOpacity: 0.85,
-                data: [{
-                        period: '2015 Q1',
-                        iphone: 2668,
-                        ipad: null,
-                        itouch: 2649
-                    },
-                    {
-                        period: '2015 Q2',
-                        iphone: 15780,
-                        ipad: 13799,
-                        itouch: 12051
-                    },
-                    {
-                        period: '2015 Q3',
-                        iphone: 12920,
-                        ipad: 10975,
-                        itouch: 9910
-                    },
-                    {
-                        period: '2015 Q4',
-                        iphone: 8770,
-                        ipad: 6600,
-                        itouch: 6695
-                    },
-                    {
-                        period: '2016 Q1',
-                        iphone: 10820,
-                        ipad: 10924,
-                        itouch: 12300
-                    },
-                    {
-                        period: '2016 Q2',
-                        iphone: 9680,
-                        ipad: 9010,
-                        itouch: 7891
-                    },
-                    {
-                        period: '2016 Q3',
-                        iphone: 4830,
-                        ipad: 3805,
-                        itouch: 1598
-                    },
-                    {
-                        period: '2016 Q4',
-                        iphone: 15083,
-                        ipad: 8977,
-                        itouch: 5185
-                    },
-                    {
-                        period: '2017 Q1',
-                        iphone: 10697,
-                        ipad: 4470,
-                        itouch: 2038
-                    },
-
-                ],
-                lineColors: ['#eb6f6f', '#926383', '#eb6f6f'],
-                xkey: 'period',
-                redraw: true,
-                ykeys: ['iphone', 'ipad', 'itouch'],
-                labels: ['All Visitors', 'Returning Visitors', 'Unique Visitors'],
-                pointSize: 2,
-                hideHover: 'auto',
-                resize: true
-            });
-
-
-        });
+     
     </script>
 
     <script>

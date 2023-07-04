@@ -54,7 +54,7 @@
                 </ul>
             </li>
             <li class="sub-menu">
-                <a href="javascript:;">
+                <a href="{{route('statistical')}}">
                     <i class=" fa fa-bar-chart-o"></i>
                     <span>Thống kê</span>
                 </a>

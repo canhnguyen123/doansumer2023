@@ -18,7 +18,16 @@ class admincontroller extends Controller
         return  view('admin');
     }
     public function home(){
-        return  view('admin_include.page.home');
+     
+        $list_banner = DB::table("tbl_banner")
+        ->where('banner_status', 1)
+        ->latest() // Sắp xếp theo thứ tự mới nhất
+        ->take(10) // Giới hạn số lượng kết quả là 10
+        ->get();
+
+        $manager_banner = view('admin_include.page.home')
+            ->with('list_banner', $list_banner);
+        return  view('admin')->with('admin_include.page.home', $manager_banner);
     }
     // public function check_accountLogin(){
     //     $admin_id=Session::get('admin_id');
@@ -45,7 +54,7 @@ class admincontroller extends Controller
     public function logout(){
         Session::put('fullname_nv',null);
         Session::put("id_nv",null);
-        return Redirect::to('/login-admin');
+        return Redirect::to('/admin/login-admin');
     }
     
 }

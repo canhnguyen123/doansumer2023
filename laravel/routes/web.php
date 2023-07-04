@@ -20,6 +20,7 @@ use App\Http\Controllers\status_paymentController;
 use App\Http\Controllers\theloai_paymentController;
 use App\Http\Controllers\staffController;
 use App\Http\Controllers\paymentController;
+use App\Http\Controllers\statisticalController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,7 +32,7 @@ use App\Http\Controllers\paymentController;
 |
 */
 ///FE
-Route::get('/','homeController@index');
+
 Route::get('/', [homeController::class, 'index']);
 Route::get('/trang-chu','homeController@index');
 
@@ -50,11 +51,9 @@ Route::prefix('/admin')->group(function () {
         Route::prefix('/payment')->group(function(){
             Route::prefix('/payment')->group(function(){
                 Route::get('/list', [paymentController::class, 'payment_list'])->name('payment_list');
-                Route::get('/add', [paymentController::class, 'category_add'])->name('category_add');
-                Route::get('/update/{category_id}', [paymentController::class, 'category_update'])->name('category_update');
+                Route::get('/deatil/{hoadon_id}', [paymentController::class, 'payment_deatil'])->name('payment_deatil');
                 Route::get('/togggle-status/{category_id}/{category_status}', [paymentController::class, 'togggle_status'])->name('togggle_status_category');
-                Route::post('/post-add', [paymentController::class, 'post_category_add'])->name('category_post_add');
-                Route::post('/post-update/{category_id}', [paymentController::class, 'post_category_update'])->name('category_post_update');
+                Route::post('/poss-add-bill/{hoadon_id}', [paymentController::class, 'post_bill_add'])->name('post_bill_add');
             });
             Route::prefix('/status_payment')->group(function(){
                 Route::get('/list', [status_paymentController::class, 'status_payment_list'])->name('status_payment_list');
@@ -179,6 +178,9 @@ Route::prefix('/admin')->group(function () {
             Route::get('/list', [userController::class, 'user_list'])->name('user_list');
             Route::get('/deatil/{user_id}', [userController::class, 'user_deatil'])->name('user_deatil');
             Route::get('/togggle-status/{user_id}/{user_status}', [userController::class, 'togggle_status'])->name('togggle_status_user');
+        });
+        Route::prefix('/statistical')->group(function () {
+            Route::get('/statistical', [statisticalController::class, 'statistical'])->name('statistical');
         });
         Route::prefix('/voucher')->group(function () {
             Route::get('/list', [voucherController::class, 'voucher_list'])->name('voucher_list');

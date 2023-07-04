@@ -24,6 +24,19 @@ exports.getCardCustormer = (req, res, user_id) => {
     res.json({ status: 'success', mess: 'Thêm dữ liệu thành công' });
   });
 };
+exports.updateCardCustormer = (req, res, user_id) => {
+  const customerCart_id = req.params.customerCart_id;
+  const card_quantity = req.body.card_quantity;
+  const cardCustormer = { card_quantity: card_quantity };
+  const whereCardId = { customerCart_id: customerCart_id };
+  connection.query('UPDATE customer_cart SET ? WHERE ?', [cardCustormer, whereCardId], (error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    res.json({ status: 'success', mess: 'Thêm dữ liệu thành công' });
+  });
+};
 exports.getListCard = (req, res, user_id) => {
   const user_id_ = req.params.user_id;
   const getCard = { user_id: user_id_ };
