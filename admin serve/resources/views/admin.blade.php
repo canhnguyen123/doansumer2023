@@ -32,6 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link href="{{ asset('BE/css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('BE/css/style-responsive.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('BE/css/sliderBar.css')}}">
     <!-- font CSS -->
     <link
         href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
@@ -68,12 +69,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     </section>
 
-    <script src="{{ asset('BE/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('BE/js/jquery.dcjqaccordion.2.7.js') }}"></script>
-    <script src="{{ asset('BE/js/scripts.js') }}"></script>
-    <script src="{{ asset('BE/js/jquery.slimscroll.js') }}"></script>
-    <script src="{{ asset('BE/js/jquery.nicescroll.js') }}"></script>
-    <script src="{{ asset('BE/js/ckediter.js') }}"></script>
     <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
@@ -111,7 +106,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
 
+    <script src="{{ asset('BE/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('BE/js/jquery.dcjqaccordion.2.7.js') }}"></script>
+    <script src="{{ asset('BE/js/scripts.js') }}"></script>
+    <script src="{{ asset('BE/js/jquery.slimscroll.js') }}"></script>
+    <script src="{{ asset('BE/js/jquery.nicescroll.js') }}"></script>
+    <script src="{{ asset('BE/js/ckediter.js') }}"></script>
     <script src="{{ asset('https://cdn.jsdelivr.net/npm/chart.js') }}"></script>
+    <script src="{{ asset('BE/js/sliderbar.js') }}"></script>
     <script>
         const ctx = document.getElementById('myChart');
         const currentDate = new Date();
@@ -227,7 +229,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             const ref = firebase.storage().ref();
             const file = document.querySelector("#photo").files[0];
-            //const file=$('#photo').files[0];
             const name = +new Date() + "-" + file.name;
             const metadata = {
                 contentType: file.type
@@ -595,11 +596,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             return false;
         }
 
-
-        function select_quantity() {
-
-        }
-
         function deleteQuantity(quantityId, productId) {
             if (confirm('bạn có muốn xóa hay k')) {
                 var url = "{{ route('delete_quantity') }}?quantity_id=" + quantityId + "&product_id=" + productId;
@@ -623,10 +619,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
 
         function updateQuantityList(list_quantityNew) {
-            // Xóa danh sách hiện tại
             $('.item-req').remove();
-
-            // Thêm các mục mới vào danh sách
             $.each(list_quantityNew, function(index, item) {
                 var html = '<div class="item-req">' +
                     '<i class="fa-solid fa-x close-item-product"></i>' +
@@ -649,6 +642,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
         }
         $('.res-them').on('click', '.close-item-product', function() {
+            var itemColor = $(this).siblings('.item-res-pro').find('.color-item-Pro').text();
+            var itemSize = $(this).siblings('.item-res-pro').find('.size-item-Pro').text();
+
+            // Xóa mục hàng khỏi mảng addedItems
+            for (var i = 0; i < addedItems.length; i++) {
+                if (addedItems[i].color === itemColor && addedItems[i].size === itemSize) {
+                addedItems.splice(i, 1);
+                break;
+                }
+            }
+
             $(this).parent().remove();
         });
         // $('#product_price').keyup(function(){
@@ -847,6 +851,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         }
     </script>
     <script>
+        $(document).ready(function() {
+  // Gọi hàm loadProductTheloai()
+     loadProductTheloai();
+
+  // Gọi hàm loadProductTheloai() khi có sự thay đổi trong các ô select
+  $('#product-category-fiter, #product-phanloai-fiter').change(function() {
+    loadProductTheloai();
+  });
+
+  function loadProductTheloai() {
+    var product_category = $('#product-category-fiter').val();
+    var product_phanloai = $('#product-phanloai-fiter').val();
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      }
+    });
+    $.ajax({
+      url: '{{ route('product_theloai') }}',
+      method: 'POST',
+      data: {
+        category_id: product_category,
+        phanloai_id: product_phanloai
+      },
+      success: function(response) {
+        // Xóa các tùy chọn cũ trong thẻ select
+        $('#product-theloai-fiter').empty();
+
+        // Đổ dữ liệu vào thẻ select
+        $.each(response, function(index, select_theloai) {
+          $('#product-theloai-fiter').append($('<option></option>').val(
+            select_theloai.theloai_id).text(select_theloai
+            .theloai_name));
+        });
+      },
+      error: function() {
+        console.log("gửi thất bại");
+      }
+    });
+  }
+});
+
         $('.cked').change(function() {
             var $parentDiv = $(this).closest('.mg-r-l-10px');
             if ($(this).is(':checked')) {
@@ -859,6 +906,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $parentDiv.find('.size-item-product-list').hide();
             }
         });
+
+       
 
         $("#category_id_Pro, #phanloai_id_Pro").change(function() {
             var category_id_Pro = $('#category_id_Pro').val();

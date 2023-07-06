@@ -24,6 +24,7 @@
                 <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none" id="close_search"></i>
             </div>
             <div class="col-12 mg-20 data-fiter row" style="display: none">
+              <div class="col-12 row">
                 <div class="col-3 fiter">
                     <label for="">Trạng thái</label>
                     <select name="" id="product-status-fiter">
@@ -34,29 +35,58 @@
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Danh mục</label>
-                    <select name="" id="product-status-fiter">
-                        <option value="all">Tất cả</option>
-                        <option value="1">Đang bật</option>
-                        <option value="0">Đang tắt</option>
+                    <select name="" id="product-category-fiter">
+                        @foreach ($list_category as $item_category)
+                         <option value="{{$item_category->category_id}}">{{$item_category->category_name}}</option>
+                        @endforeach
+
                     </select>
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Phân loại</label>
-                    <select name="" id="product-status-fiter">
-                        <option value="all">Tất cả</option>
-                        <option value="1">Đang bật</option>
-                        <option value="0">Đang tắt</option>
+                    <select name="" id="product-phanloai-fiter">
+                        @foreach ($list_phanloai as $item_phanloai)
+                        <option value="{{$item_phanloai->phanloai_id}}">{{$item_phanloai->phanloai_name}}</option>
+                       @endforeach
                     </select>
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Thể loại</label>
-                    <select name="" id="product-status-fiter">
-                        <option value="all">Tất cả</option>
-                        <option value="1">Đang bật</option>
-                        <option value="0">Đang tắt</option>
+                    <select name="" id="    ">
                     </select>
                 </div>
-
+                
+              </div>
+              <div class="col-12 row">
+                <div class="col-8">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div id="slider-range"></div>
+                          </div>
+                        </div>
+                        <div class="row slider-labels">
+                          <div class="col-6 caption">
+                            <strong>Min:</strong> <span id="slider-range-value1"></span>
+                          </div>
+                          <div class="col-6 text-right caption">
+                            <strong>Max:</strong> <span id="slider-range-value2"></span>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <form>
+                              <input type="hidden" name="min-value" value="">
+                              <input type="hidden" name="max-value" value="">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-4 ip-form flex_center">
+                    <button>Lọc</button>
+                </div>
+              </div>
             </div>
             <div class="table-agile-info">
                 <div class="panel panel-default row">
@@ -66,15 +96,15 @@
                     <div class="col-12">
                         <table id="productTable" class="table" ui-jq="footable"
                             ui-options='{
-        "paging": {
-          "enabled": true
-        },
-        "filtering": {
-          "enabled": true
-        },
-        "sorting": {
-          "enabled": true
-        }}'>
+                            "paging": {
+                            "enabled": true
+                            },
+                            "filtering": {
+                            "enabled": true
+                            },
+                            "sorting": {
+                            "enabled": true
+                            }}'>
                             <thead>
                                 <tr>
                                     <th data-breakpoints="xs">STT</th>
@@ -119,12 +149,12 @@
                                                 href="{{ route('product_deatil', ['product_id' => $item_product->product_id]) }}"><i
                                                     class="fa-solid fa-eye"></i></a>
                                         </div>
-                                        <div class="icon bg-bule flex_center">
+                                        <div class=" bg-bule flex_center icon">
                                             <a
                                                 href="{{ route('product_update', ['product_id' => $item_product->product_id]) }}">
                                                 <i class="fa-solid fa-pen"></i></a>
                                         </div>
-                                        <div class="icon bg-red flex_center">
+                                        <div class=" bg-red flex_center icon">
                                             @if ($item_product->product_status == 1)
                                                 <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái tắt không?')"
                                                     href="{{ route('togggle_status_product', ['product_id' => $item_product->product_id, 'product_status' => 1]) }}"><i
