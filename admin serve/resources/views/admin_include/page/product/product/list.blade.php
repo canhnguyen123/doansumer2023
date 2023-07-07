@@ -7,11 +7,14 @@
                     <h3>Tổng số sản phẩm :{{ $count }} </h3>
                 </div>
                 <div class="col-6 right">
+                    <div class="search_icon icon flex_center  bg-bule" onclick="realoadProduct()" id="loadProduct">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                    </div>
                     <div class="search_icon icon flex_center fiter-toggle bg-bule" id="fiter_icon">
                         <i class="fa-solid fa-filter"></i>
                     </div>
                     <div class="search_icon icon flex_center bg-bule" id="search_icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-magnifying-glass"></i> 
                     </div>
                     <div class="search_icon icon flex_center add-icon bg-bule">
                         <a href="{{ route('product_add') }}"><i class="fa-solid fa-plus"></i></a>
@@ -26,7 +29,10 @@
             <div class="col-12 mg-20 data-fiter row" style="display: none">
               <div class="col-12 row">
                 <div class="col-3 fiter">
-                    <label for="">Trạng thái</label>
+                    <label for="">Trạng thái 
+                        <i class="fa-solid fa-thumbs-up bg-cl-green mg-10-l check-status" id="like-up" onclick="openThumdown()"></i>
+                        <i class="fa-solid fa-thumbs-down bg-cl-red mg-10-l check-status" id="like-down" onclick="openThumup()" style="display: none"></i>
+                    </label> 
                     <select name="" id="product-status-fiter">
                         <option value="all">Tất cả</option>
                         <option value="1">Đang bật</option>
@@ -52,7 +58,7 @@
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Thể loại</label>
-                    <select name="" id="    ">
+                    <select name="" id="product-theloai-fiter">
                     </select>
                 </div>
                 
@@ -66,11 +72,17 @@
                           </div>
                         </div>
                         <div class="row slider-labels">
-                          <div class="col-6 caption">
-                            <strong>Min:</strong> <span id="slider-range-value1"></span>
+                          <div class="col-6 caption pd-left">
+                            <strong>Min:</strong>
+                                {{-- <span id="slider-range-value1">  --}}
+                                <input type="text" class="span-text"  id="slider-range-value1">
+                            </span>
                           </div>
                           <div class="col-6 text-right caption">
-                            <strong>Max:</strong> <span id="slider-range-value2"></span>
+                            <strong>Max:</strong> 
+                                 {{-- <span id="slider-range-value2"> --}}
+                            <input type="text" class="span-text"   id="slider-range-value2">
+                            </span>
                           </div>
                         </div>
                         <div class="row">
@@ -84,7 +96,11 @@
                       </div>
                 </div>
                 <div class="col-4 ip-form flex_center">
-                    <button>Lọc</button>
+                        <select name="" class="koew" id="is-fiter-data">
+                            <option value="1">Có lọc giá</option>
+                            <option value="0">Không lọc giá</option>
+                        </select>
+                    <button class="koew" onclick="fiter_data_product()">Lọc</button>
                 </div>
               </div>
             </div>

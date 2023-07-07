@@ -12,7 +12,7 @@ $(document).ready(function() {
       start: [0, 1000000],
       step: 1,
       range: {
-        'min': [100000],
+        'min': [0],
         'max': [1000000]
       },
       format: moneyFormat,
@@ -21,8 +21,8 @@ $(document).ready(function() {
     
   
     rangeSlider.noUiSlider.on('update', function(values, handle) {
-      document.getElementById('slider-range-value1').innerHTML = values[0];
-      document.getElementById('slider-range-value2').innerHTML = values[1];
+      document.getElementById('slider-range-value1').value = values[0];
+      document.getElementById('slider-range-value2').value = values[1];
       document.getElementsByName('min-value').value = moneyFormat.from(
         values[0]);
       document.getElementsByName('max-value').value = moneyFormat.from(

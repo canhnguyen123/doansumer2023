@@ -177,9 +177,9 @@
                                     <textarea id="baoquan_product" cols="30" rows="10" class="editor" name="" required></textarea>
                                 </div>
                             </div>
-                            <div class="col-12 ip-form">
-                                    <button  id=""  onclick="uploadImage_Product(event)"  name=""><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button>
-                                {{-- <button  id=""  type="submit" name=""><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button> --}}
+                            <div class="col-12 ip-form" style="display: flex">
+                                    <button onclick="uploadImage_Product(event)"><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button>
+                                    <a href="{{route('product_list')}}" class="link-btn-add-form "><div class="btn-add-form flex_center"><i class="fa-solid fa-arrow-rotate-left"></i> Quay lại</div></a>
 
                             </div>
                         </div>

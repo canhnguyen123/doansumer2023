@@ -205,6 +205,8 @@ Route::prefix('/admin')->group(function () {
             Route::get('/delete-quantity', [Ajax_classController::class, 'delete_quantity'])->name('delete_quantity');     
             Route::get('/get-payment-status/{hoadon_status}', [Ajax_classController::class, 'get_payment_status'])->name('get_payment_status');
             Route::post('/select-allPrice', [Ajax_classController::class, 'get_allPrice'])->name('get_allPrice');
+            Route::post('/select-data-table', [Ajax_classController::class, 'select_data_table'])->name('select_data_table');
+            Route::get('/reset-load', [Ajax_classController::class, 'resetLoad'])->name('resetLoad');
         });
     });
     Route::middleware(['auth'])->group(function () {

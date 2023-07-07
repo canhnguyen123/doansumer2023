@@ -142,4 +142,42 @@ class Ajax_classController extends Controller
         
             return response()->json($data);
     }
+    public function select_data_table(Request $request)
+    {
+        $product_theloai = $request->input('product_theloai');
+        $product_status = $request->input('product_status');
+        $product_min = $request->input('product_min');
+        $product_max = $request->input('product_max');
+        $is_filter_data = $request->input('is_filter_data');
+        $is_status = $request->input('is_status');
+        
+        $product_list = DB::table('tbl_product')
+            ->leftJoin('tbl_theloai', 'tbl_product.theloai_id', '=', 'tbl_theloai.theloai_id')
+            ->where('tbl_product.theloai_id', $product_theloai);
+        
+        if ($is_status == 1) {
+            if ($product_status != "all") {
+                $product_list->where('tbl_product.product_status', $product_status);
+            }
+        }
+        
+        if ($is_filter_data == 1) {
+            $product_list->whereBetween('tbl_product.product_price', [$product_min * 1000, $product_max * 1000]);
+        }
+        
+        $product_list = $product_list->select('tbl_product.*', 'tbl_theloai.*')->get();
+        
+        return view('ohther.ajax.admin.product_list')->with('list_product', $product_list);
+    }
+    
+    
+    
+    public function resetLoad()
+    {
+        $list_product = DB::table("tbl_product")
+        ->join("tbl_theloai", "tbl_product.theloai_id", "=", "tbl_theloai.theloai_id")
+        ->select("tbl_product.*", "tbl_theloai.theloai_name")
+        ->get();
+        return view('ohther.ajax.admin.product_list')->with('list_product', $list_product);
+    }
 }
