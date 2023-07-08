@@ -88,6 +88,16 @@ class Ajax_classController extends Controller
             ->get();
         return view('ohther.ajax.admin.search_brand')->with('brand', $brand);
     }
+    public function ajax_user(Request $request)
+    {
+        $keyword = $request->input('content');
+
+        $list_user = DB::table('tbl_users')
+            ->where('user_phone', 'LIKE', '%' . $keyword . '%')
+            ->orwhere('user_fullname', 'LIKE', '%' . $keyword . '%')
+            ->get();
+        return view('ohther.ajax.admin.search_user')->with('list_user', $list_user);
+    }
     public function delete_quantity(Request $request)
     {
         $quantity_id = $request->input('quantity_id');

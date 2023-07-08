@@ -87,24 +87,18 @@
                             </thead>
                             <tbody id="theloai_list_table">
                                 @php
-                                    $i = 0;
+                                    $i = ($list_theloai->currentPage() - 1) * $list_theloai->perPage() + 1;
                                 @endphp
                                 @foreach ($list_theloai as $key => $item_theloai)
-                                    @php
-                                        $i++;
-                                    @endphp
                                     <tr data-expanded="true" class="theloai-item">
                                         <td>{{ $i }}</td>
-                                        <td>
-                                            {{ $item_theloai->category_name }}
-
-
-                                        </td>
+                                        <td>{{ $item_theloai->category_name }}</td>
                                         <td>{{ $item_theloai->phanloai_name }}</td>
                                         <td class="d-flex  align-items-center">
-                                            <div style="min-height: 35px" class="img_child"><img class="img_child_icon"
-                                                    src="{{ $item_theloai->theloai_link_img }}" alt="">
-                                                {{ $item_theloai->theloai_name }}</div>
+                                            <div style="min-height: 35px" class="img_child">
+                                                <img class="img_child_icon" src="{{ $item_theloai->theloai_link_img }}" alt="">
+                                                {{ $item_theloai->theloai_name }}
+                                            </div>
                                         </td>
                                         <td style="text-align: center" data-value="{{ $item_theloai->theloai_status }}">
                                             @if ($item_theloai->theloai_status == 1)
@@ -113,33 +107,76 @@
                                                 <i class="fa-solid fa-xmark bg-cl-red" alt="Ẩn"></i>
                                             @endif
                                         </td>
-
                                         <td>
                                             <div class="flex_center icons">
                                                 <div class="icon bg-bule flex_center">
-                                                    <a
-                                                        href="{{ route('theloai_update', ['theloai_id' => $item_theloai->theloai_id]) }}">
-                                                        <i class="fa-solid fa-pen"></i></a>
+                                                    <a href="{{ route('theloai_update', ['theloai_id' => $item_theloai->theloai_id]) }}">
+                                                        <i class="fa-solid fa-pen"></i>
+                                                    </a>
                                                 </div>
                                                 <div class="icon bg-red flex_center">
                                                     @if ($item_theloai->theloai_status == 1)
                                                         <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái tắt không?')"
-                                                            href="{{ route('togggle_status_theloai', ['theloai_id' => $item_theloai->theloai_id, 'theloai_status' => 1]) }}"><i
-                                                                class="fa-solid fa-toggle-on"></i></a>
+                                                            href="{{ route('togggle_status_theloai', ['theloai_id' => $item_theloai->theloai_id, 'theloai_status' => 1]) }}">
+                                                            <i class="fa-solid fa-toggle-on"></i>
+                                                        </a>
                                                     @else
                                                         <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái bật không ?')"
-                                                            href="{{ route('togggle_status_theloai', ['theloai_id' => $item_theloai->theloai_id, 'theloai_status' => 0]) }}"><i
-                                                                class="fa-solid fa-toggle-off"></i></a>
+                                                            href="{{ route('togggle_status_theloai', ['theloai_id' => $item_theloai->theloai_id, 'theloai_status' => 0]) }}">
+                                                            <i class="fa-solid fa-toggle-off"></i>
+                                                        </a>
                                                     @endif
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+                                    @php
+                                        $i++;
+                                    @endphp
                                 @endforeach
-
-
                             </tbody>
+                            
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6">
+                                        @if ($list_theloai->total() > $list_theloai->perPage())
+                                            <div class="pagination">
+                                                <ul class="pagination">
+                                                    <!-- Nút Previous -->
+                                                    @if ($list_theloai->currentPage() > 1)
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="{{ $list_theloai->previousPageUrl() }}" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                            
+                                                    <!-- Các trang -->
+                                                    @for ($i = 1; $i <= $list_theloai->lastPage(); $i++)
+                                                        <li class="page-item{{ ($list_theloai->currentPage() == $i) ? ' active' : '' }}">
+                                                            <a class="page-link" href="{{ $list_theloai->url($i) }}">{{ $i }}</a>
+                                                        </li>
+                                                    @endfor
+                            
+                                                    <!-- Nút Next -->
+                                                    @if ($list_theloai->currentPage() < $list_theloai->lastPage())
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="{{ $list_theloai->nextPageUrl() }}" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            
+                            
+                              
                         </table>
+                   
                         <div id="image-dialog" class="dialog">
                             <img id="dialog-image" src="" alt="">
                             <span id="close-btn" onclick="closeDialog()">&times;</span>

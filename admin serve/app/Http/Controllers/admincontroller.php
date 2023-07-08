@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 class admincontroller extends Controller
@@ -37,20 +39,27 @@ class admincontroller extends Controller
             Redirect::to('admin_login');
         }
     }
-    public function post_login(Request $request){
-        $username_nv=$request->username_nv;
-        $password_nv=$request->password_nv;
-        $result=DB::table('tbl_staff')->where('staff_name',$username_nv)->where('staff_password',$password_nv)->first();
-        if($result){
-            Session::put('staff_name',$result->staff_name);
-            Session::put('staff_code',$result->staff_code);
-            return Redirect::to('admin');
-        }else{
-            Session::put("mess","Sai tài khoản hoặc mật khẩu");
-            return Redirect::to('/login-admin');
+    public function post_login(Request $request)
+    {
+        $username_nv = $request->username_nv;
+        $password_nv = $request->password_nv;
+    
+        $result = DB::table('tbl_staff')
+            ->where('staff_name', $username_nv)
+            ->first();
+    
+        if ($result && Hash::check($password_nv, $result->staff_password)) {
+            // Mật khẩu khớp
+            Session::put('staff_name', $result->staff_name);
+            Session::put('staff_code', $result->staff_code);
+            return redirect('/admin/');
+        } else {
+            // Mật khẩu không khớp hoặc tài khoản không tồn tại
+            Session::put("mess", "Sai tài khoản hoặc mật khẩu");
+            return redirect('/admin/login-admin');
         }
-        
     }
+    
     public function logout(){
         Session::put('fullname_nv',null);
         Session::put("id_nv",null);

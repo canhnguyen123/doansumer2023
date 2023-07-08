@@ -18,7 +18,7 @@ class theloaiProductController extends Controller
         ->join('tbl_category', 'tbl_theloai.category_id', '=', 'tbl_category.category_id')
         ->join('tbl_phanloai', 'tbl_theloai.phanloai_id', '=', 'tbl_phanloai.phanloai_id')
         ->select('tbl_theloai.*', 'tbl_category.category_name', 'tbl_phanloai.phanloai_name')
-        ->get();
+        ->paginate(10);
         $count=DB::table("tbl_theloai")->count();
     
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);

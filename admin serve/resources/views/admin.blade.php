@@ -1259,7 +1259,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             })
             
+            $('#search_ajax_user').keyup(function() {
+                if ($(this).val().length > 0) {
+                    $('#close_search').show();
+                } else {
+                    $('#close_search').hide();
+                }
+                var content = $('#search_ajax_user').val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('ajax_user') }}",
+                    data: {
+                        content: content
+                    },
+                    success: function(data) {
+                        $('#user_list_table').html(data);
+                    },
 
+                });
+            })
+            
 
             $('#close_search').click(function() {
                 $('#search_ajax_category').val('');

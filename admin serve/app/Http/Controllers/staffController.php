@@ -12,7 +12,7 @@ use App\Models\YourModel;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\name_staff_classRequest;
+
 session_start();
 
 class staffController extends Controller

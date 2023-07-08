@@ -4079,3 +4079,6 @@ box-shadow: 10px 10px 10px #ccc;
     font-size: 20px;
     cursor: pointer;
 }
+.input-search input::placeholder{
+    color: #000000;
+}

@@ -195,7 +195,7 @@
                     <img alt="" src="{{ asset("BE/images/img-user.jpg") }}">
                     <span class="username">
                         <?php
-                            $name=Session::get('fullname_nv');
+                            $name=Session::get('staff_fullname');
                             if($name){
                                 echo $name;
                             }
