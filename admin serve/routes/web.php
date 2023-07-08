@@ -44,7 +44,7 @@ Route::prefix('/admin')->group(function () {
     
   
  
-   // Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
         Route::get('/', [AdminController::class, 'home'])->name('home');
         Route::get('/logout-admin', [AdminController::class, 'logout'])->name('logout');
         Route::prefix('/page')->group(function () {
@@ -211,7 +211,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/reset-load', [Ajax_classController::class, 'resetLoad'])->name('resetLoad');
             });
         });
-    // });
+     });
    
 });
     // Các route trong nhóm '/admin'

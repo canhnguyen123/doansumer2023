@@ -41,22 +41,21 @@ class admincontroller extends Controller
     }
     public function post_login(Request $request)
     {
-        $username_nv = $request->username_nv;
-        $password_nv = $request->password_nv;
+        $credentials = $request->only('username_nv', 'password_nv');
     
         $result = DB::table('tbl_staff')
-            ->where('staff_name', $username_nv)
+            ->where('staff_name', $credentials['username_nv'])
             ->first();
     
-        if ($result && Hash::check($password_nv, $result->staff_password)) {
-            // Mật khẩu khớp
-            Session::put('staff_name', $result->staff_name);
-            Session::put('staff_code', $result->staff_code);
-            return redirect('/admin/');
+        if ($result && Hash::check($credentials['password_nv'], $result->staff_password)) {
+            // Authentication successful
+            return " <script> alert('Đăng nhập'); window.location = '".route('home')."';</script>";
+        
+            // return redirect()->route('home');
         } else {
-            // Mật khẩu không khớp hoặc tài khoản không tồn tại
+            // Authentication failed
             Session::put("mess", "Sai tài khoản hoặc mật khẩu");
-            return redirect('/admin/login-admin');
+            return redirect()->route('login');
         }
     }
     
