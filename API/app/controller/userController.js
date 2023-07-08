@@ -42,8 +42,7 @@ exports.createUser = (req, res) => {
     });
     
     if (check) {
-      const token = uuidv4();
-      const user = { user_fullname: fullname, user_phone: phone, user_password: pass,user_gender:2,user_token:token };
+      const user = { user_fullname: fullname, user_phone: phone, user_password: pass,user_gender:2 };
       connection.query('INSERT INTO tbl_users SET ?', user, (error, results) => {
         if (error) {
           console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
@@ -76,7 +75,6 @@ exports.login = (req, res) => {
             user_id: results[0].user_id,
             user_phone: results[0].user_phone,
             user_fullname: results[0].user_fullname,
-            user_token: results[0].user_token,
             user_email: results[0].user_email,
             user_gender: results[0].user_gender,
             user_address: results[0].user_address

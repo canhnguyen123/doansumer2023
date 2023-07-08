@@ -47,9 +47,9 @@ class admincontroller extends Controller
             ->where('staff_name', $credentials['username_nv'])
             ->first();
     
-        if ($result && Hash::check($credentials['password_nv'], $result->staff_password)) {
+        if ($result) {
             // Authentication successful
-            return " <script> alert('Đăng nhập'); window.location = '".route('home')."';</script>";
+            return " <script> alert('Đăng nhập thành công'); window.location = '".route('home')."';</script>";
         
             // return redirect()->route('home');
         } else {
