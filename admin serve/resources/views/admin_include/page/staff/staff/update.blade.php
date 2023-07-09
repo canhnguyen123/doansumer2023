@@ -12,7 +12,7 @@
 
     </div>
     @foreach ($staff_update as $item_update)
-    <form  class="row" action="{{route('post_staff_update',['staff_id'=>$item_update->staff_id])}}" method="POST" enctype="multipart/form-data">
+    <form  class="row" action="{{route('post_staff_update',['staff_id'=>$item_update->id])}}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         @if ($errors->any())
             <div class="col-12 alert alert-danger text-center">

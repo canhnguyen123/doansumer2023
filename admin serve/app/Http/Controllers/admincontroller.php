@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+
 class admincontroller extends Controller
 {
     public function login(){
@@ -41,28 +40,28 @@ class admincontroller extends Controller
     }
     public function post_login(Request $request)
     {
-        $credentials = $request->only('username_nv', 'password_nv');
-    
-        $result = DB::table('tbl_staff')
-            ->where('staff_name', $credentials['username_nv'])
-            ->first();
-    
-        if ($result) {
-            // Authentication successful
-            return " <script> alert('Đăng nhập thành công'); window.location = '".route('home')."';</script>";
-        
-            // return redirect()->route('home');
+        $username = $request->input('username_nv');
+        $password = $request->input('password_nv');
+
+        $user = DB::table('tbl_staff')->where('staff_name', $username)->first();
+
+        if ($user && Hash::check($password, $user->staff_password)) {
+            Auth::loginUsingId($user->id);
+         
+        // Truyền toàn bộ hàng trong bảng vào phiên làm việc (session)
+              Session::put('user', $user);
+            return redirect()->route('home')->with('success', 'Đăng nhập thành công');
         } else {
-            // Authentication failed
-            Session::put("mess", "Sai tài khoản hoặc mật khẩu");
-            return redirect()->route('login');
-        }
+            return redirect()->route('login')->with('error', 'Sai tên đăng nhập hoặc mật khẩu');
+        }  
     }
+
+    public function logout()
+    {
+        Session::forget('user');
+        Auth::logout();
     
-    public function logout(){
-        Session::put('fullname_nv',null);
-        Session::put("id_nv",null);
-        return Redirect::to('/admin/login-admin');
+        return redirect()->route('login');
     }
     
 }

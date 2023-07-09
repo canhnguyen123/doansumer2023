@@ -58,19 +58,31 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'driver' => 'database',
+            'table' => 'tbl_staff',
+            'model' => App\Models\Staff::class,
+            'primaryKey' => 'id',
+            'password' => [
+                'column' => 'staff_password',
+                'provider' => 'users',
+            ],
+            'remember_token' => '',
         ],
+    ],
+    
 
         // 'users' => [
-        //     'driver' => 'database',
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User::class,
         //     'table' => 'users',
+        //     'password' => [
+        //         'column' => 'password',
+        //         'provider' => 'users',
+        //     ],
         // ],
-    ],
-
+   
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords

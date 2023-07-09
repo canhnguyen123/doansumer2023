@@ -32,8 +32,8 @@ use App\Http\Controllers\statisticalController;
 */
 ///FE
 
-Route::get('/', [homeController::class, 'index']);
-Route::get('/trang-chu','homeController@index');
+Route::get('/', [homeController::class, 'index'])->name('trangchu');
+#
 
 ///Admin(BE)
 
