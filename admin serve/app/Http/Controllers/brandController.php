@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\validateRequet;
 use App\Http\Requests;
 
 session_start();
@@ -25,7 +25,7 @@ class brandController extends Controller
     public function brand_add(){
         return  view('admin_include.page.product.brand.add');
     }
-    public function post_brand_add(Request $request){
+    public function post_brand_add(validateRequet $request){
        $data=[];
        $brandName = $request->brand_name;
        $brandCode = $request->brand_code;
@@ -58,11 +58,11 @@ class brandController extends Controller
         $manager_brand=view('admin_include.page.product.brand.update')->with('update_brand',$update_brand);
         return  view('admin')->with('admin_include.page.product.brand.update',$manager_brand);
     }
-    public function post_brand_update(Request $request, $brand_id){
+    public function post_brand_update(validateRequet $request, $brand_id){
      
         $data=[];
         $brandExists = DB::table('tbl_brand')
-        ->where('brand_name', $request->brand_name)
+        ->where('brand_name', $request->brand_name  )
         ->where('brand_id','<>',$brand_id)
         ->exists();
 

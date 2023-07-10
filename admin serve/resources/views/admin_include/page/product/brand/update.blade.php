@@ -12,9 +12,27 @@
         @foreach ($update_brand as $key=>$item_brand_up )
         <form action="{{ route('post_brand_update', ['brand_id' =>$item_brand_up->brand_id]) }}" method="post" class="row ">
             {{ csrf_field() }}
-            <div class="col-6 ip-form">
-                <label for="">Tên thương hiệu</label>
-                <input type="text" name="brand_name" value="{{ $item_brand_up->brand_name }}" required>
+            @if ($errors->any())
+            <div class="alert alert-danger text-center">
+             <span>Có lỗi xảy ra vui lòng kiểm tra lại dữ liệu</span>
+            </div>
+        @endif
+            <div class="col-6 ">
+                <div class="ip-form">
+                    <label for="">Tên thương hiệu</label>
+                    <input type="text" name="brand_name" value="{{ $item_brand_up->brand_name }}" required>
+                    
+                </div>
+                <div class="col-12 err"><span>
+                    @error('brand_name')
+                        {{ $message }}
+                    @enderror    
+                @if(session('errorMessage'))
+               
+                    {{ session('errorMessage') }}
+               
+                @endif
+            </span></div>
             </div>
             <div class="col-6 ip-form">
                 <label for="">Mã thương hiệu</label>

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
+use App\Http\Requests\validateRequet;
 session_start();
 
 class colorController extends Controller
@@ -24,7 +24,7 @@ class colorController extends Controller
     public function color_add(){
         return  view('admin_include.page.product.color.add');
     }
-    public function post_color_add(Request $request){
+    public function post_color_add(validateRequet $request){
        $data=[];
        $colorName = $request->color_name;
        $colorCode = $request->color_code;
@@ -53,7 +53,7 @@ class colorController extends Controller
         $manager_color=view('admin_include.page.product.color.update')->with('update_color',$update_color);
         return  view('admin')->with('admin_include.page.product.color.update',$manager_color);
     }
-    public function post_color_update(Request $request, $color_id){
+    public function post_color_update(validateRequet $request, $color_id){
       
         $data=[];
         $colorExists = DB::table('tbl_color')

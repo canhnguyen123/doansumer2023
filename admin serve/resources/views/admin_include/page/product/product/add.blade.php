@@ -78,7 +78,7 @@
                             <div class="col-3">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                     
-                                    <input type="text" id="product_code" required >
+                                    <input type="text" class="viethoa" id="product_code" required >
                                     <label for="">Mã sản phẩm</label>
                                 </div>
                                

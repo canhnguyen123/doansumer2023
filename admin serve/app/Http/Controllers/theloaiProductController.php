@@ -3,10 +3,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+
 
 session_start();
 class theloaiProductController extends Controller

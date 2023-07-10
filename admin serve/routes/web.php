@@ -39,7 +39,7 @@ Route::get('/', [homeController::class, 'index'])->name('trangchu');
 
 Route::prefix('/admin')->group(function () {
   
-    Route::get('/login-admin', [AdminController::class, 'login'])->name('login');
+    Route::get('/login-admin', [AdminController::class, '   '])->name('login');
     Route::post('/login-post', [AdminController::class, 'post_login'])->name('post_login');
     
   

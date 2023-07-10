@@ -12,23 +12,45 @@
         @foreach ($update_category as $key=>$item_category_up )
         <form action="{{ route('category_post_update', ['category_id' =>$item_category_up->category_id]) }}" method="post" class="row ">
             {{ csrf_field() }}
-            <div class="col-6 ip-form">
-                <label for="">Tên danh mục</label>
-                <input type="text" name="category_name" value="{{ $item_category_up->category_name }}" required>
+            @if ($errors->any())
+                <div class="alert alert-danger text-center">
+                    <span>Có lỗi xảy ra vui lòng kiểm tra lại dữ liệu</span>
+                </div>
+            @endif
+            <div class="col-6 ">
+                <div class="col-12 ip-form">
+                    <label for="">Tên danh mục</label>
+                    <input type="text" name="category_name" value="{{ $item_category_up->category_name }}" required>
+                </div>
+                <div class="col-12 err">
+                    <span>
+                        @error('category_name')
+                            {{ $message }}
+                        @enderror
+                        @if(session('errorMessage'))
+                            {{ session('errorMessage') }}
+                        @endif
+                    </span>
+                </div>
             </div>
-            <div class="col-6 ip-form">
-                <label for="">Mã danh mục</label>
-                <input type="text" name="category_code" disabled="disabled" value="{{ $item_category_up->category_code }}">
+            
+            <div class="col-6">
+                <div class="col-12 ip-form">
+                    <label for="">Mã danh mục</label>
+                <input type="text"   disabled="disabled" value="{{ $item_category_up->category_code }}">
+                </div>
+                <div class="col-12 err">
+                    <span>
+                        @error('category_code')
+                            {{ $message }}
+                        @enderror 
+                        @if(session('errorMessage'))
+                            {{ session('errorMessage') }}
+                        @endif
+                    </span>
+                </div>
             </div>
-            {{-- <div class="col-2 ip-form">
-                <label for="">Trạng thái</label>
-                @if ($item_category_up->category_status==1)
-                <input type="checkbox" name="category_status" class="switch-toogel">
-                @else
-                <input type="checkbox" name="category_status" class="switch-toogel-red">
-                @endif
-               
-            </div> --}}
+           
             <div class="col-12 ip-form">
                 <button type="submit" name="update-category"><i class="fa-solid fa-pen"></i> Cập nhật danh mục</button>
             </div>

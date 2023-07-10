@@ -34,11 +34,23 @@
         </span></div>
         </div>
             
-            <div class="col-6 ip-form">
-                <label for="">Mã danh mục</label>
+            <div class="col-6 ">
+                <div class="col-12 ip-form">
+                    <label for="">Mã danh mục</label>
                 <input type="text" name="category_code" disabled="disabled" value="{{ $item_phanloai_up->phanloai_code }}">
+                </div>
+                
             </div>
-           
+            <div class="col-12 err">
+                <span>
+                    @error('phanloai_code')
+                        {{ $message }}
+                    @enderror 
+                    @if(session('errorMessage'))
+                        {{ session('errorMessage') }}
+                    @endif
+                </span>
+            </div>
             <div class="col-12 ip-form">
                 <button type="submit" name="update-category"><i class="fa-solid fa-pen"></i> Cập nhật phân loại</button>
             </div>

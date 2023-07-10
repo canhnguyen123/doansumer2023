@@ -32,7 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link href="{{ asset('BE/css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('BE/css/style-responsive.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{asset('BE/css/sliderBar.css')}}">
+    <link rel="stylesheet" href="{{ asset('BE/css/sliderBar.css') }}">
     <!-- font CSS -->
     <link
         href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
@@ -117,7 +117,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         const labels = [];
 
         for (let i = 5; i >= 0; i--) {
-            const month = currentDate.getMonth() - i;//Lấy 6 tháng gần nhất k tính tháng hiện tại
+            const month = currentDate.getMonth() - i; //Lấy 6 tháng gần nhất k tính tháng hiện tại
             labels.push(`Tháng ${month}`);
         }
 
@@ -169,20 +169,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         const myChartCircle = document.getElementById('myChartCircle');
 
-            new Chart(myChartCircle, {
+        new Chart(myChartCircle, {
             type: 'pie',
             data: {
-                labels: ['Tài khoản bình thường', 'Tài khoản facebook', 'Tài khoản googel',],
+                labels: ['Tài khoản bình thường', 'Tài khoản facebook', 'Tài khoản googel', ],
                 datasets: [{
-                data: [65, 25, 10,],
-                backgroundColor: ['#B5C99A', '#3B5998', 'yellow']
+                    data: [65, 25, 10, ],
+                    backgroundColor: ['#B5C99A', '#3B5998', 'yellow']
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false
             }
-            });
+        });
     </script>
     <script src="{{ asset('BE/js/callAPI.js') }}"></script>
     <script>
@@ -541,66 +541,70 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 })
                 .catch(console.error);
         }
-       function openThumdown(){
-        $('#like-up').hide();
-        $('#like-down').show();
-       }
-       function openThumup(){
-        $('#like-up').show();
-        $('#like-down').hide();
-       }
-        function fiter_data_product(){
-            var product_theloai=$('#product-theloai-fiter').val();
-            var product_status=$('#product-status-fiter').val();
-            var is_fiter_data=$('#is-fiter-data').val();
-            var product_min=$('#slider-range-value1').val();
-            var product_max=$('#slider-range-value2').val();
+
+        function openThumdown() {
+            $('#like-up').hide();
+            $('#like-down').show();
+        }
+
+        function openThumup() {
+            $('#like-up').show();
+            $('#like-down').hide();
+        }
+
+        function fiter_data_product() {
+            var product_theloai = $('#product-theloai-fiter').val();
+            var product_status = $('#product-status-fiter').val();
+            var is_fiter_data = $('#is-fiter-data').val();
+            var product_min = $('#slider-range-value1').val();
+            var product_max = $('#slider-range-value2').val();
             var $visibleElement = $('.check-status:visible');
             var is_status = 0;
 
             if ($visibleElement.attr('id') === 'like-up') {
-            is_status = 1;
+                is_status = 1;
             } else if ($visibleElement.attr('id') === 'like-down') {
-            is_status = 0;
+                is_status = 0;
             }
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken
-                        }
-                    });
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('select_data_table') }}",
-                        data: {
-                            product_theloai: product_theloai,
-                            product_status: product_status,
-                            product_min: product_min,
-                            product_max: product_max,
-                            is_fiter_data:is_fiter_data,
-                            is_status:is_status
-                        },
-                        success: function(response) {
-                           $('#product_list_table').html(response);
-                        },
-                        error: function(xhr, status, error) {
-                            console.log('Lỗi: ' + error);
-                            alert('Lỗi: ' + error)
-                        }
-                    });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('select_data_table') }}",
+                data: {
+                    product_theloai: product_theloai,
+                    product_status: product_status,
+                    product_min: product_min,
+                    product_max: product_max,
+                    is_fiter_data: is_fiter_data,
+                    is_status: is_status
+                },
+                success: function(response) {
+                    $('#product_list_table').html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                    alert('Lỗi: ' + error)
+                }
+            });
         }
-        function realoadProduct(){
-                $.ajax({
-                        type: "GET",
-                        url: "{{ route('resetLoad') }}",
-                        success: function(response) {
-                           $('#product_list_table').html(response);
-                        },
-                        error: function(xhr, status, error) {
-                            console.log('Lỗi: ' + error);
-                            alert('Lỗi: ' + error)
-                        }
-                    });
+
+        function realoadProduct() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('resetLoad') }}",
+                success: function(response) {
+                    $('#product_list_table').html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                    alert('Lỗi: ' + error)
+                }
+            });
         }
         // function select_quantity() {
         //     console.log('321312')
@@ -704,8 +708,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             // Xóa mục hàng khỏi mảng addedItems
             for (var i = 0; i < addedItems.length; i++) {
                 if (addedItems[i].color === itemColor && addedItems[i].size === itemSize) {
-                addedItems.splice(i, 1);
-                break;
+                    addedItems.splice(i, 1);
+                    break;
                 }
             }
 
@@ -887,44 +891,74 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <script>
         $(document).ready(function() {
-          loadProductTheloai();
-        $('#product-category-fiter, #product-phanloai-fiter').change(function() {
+
+            $('.viethoa').on('input', function() {
+                var inputValue = $(this).val();
+                var capitalizedValue = inputValue.toUpperCase();
+                $(this).val(capitalizedValue);
+            });
+
+            function isCode(code) {
+                // Kiểm tra độ dài mã
+                if (code.length !== 8) {
+                    return false;
+                }
+
+                // Kiểm tra 4 kí tự đầu là số viết hoa
+                var firstFourDigits = code.substring(0, 4);
+                if (!/^[0-9]+$/.test(firstFourDigits)) {
+                    return false;
+                }
+
+                // Kiểm tra 4 kí tự sau là số
+                var lastFourDigits = code.substring(4, 8);
+                if (!/^[0-9]+$/.test(lastFourDigits)) {
+                    return false;
+                }
+
+                return true;
+            }
+
+
+
             loadProductTheloai();
-        });
+            $('#category_id_Pro, #phanloai_id_Pro').change(function() {
+                loadProductTheloai();
+            });
 
-  function loadProductTheloai() {
-    var product_category = $('#product-category-fiter').val();
-    var product_phanloai = $('#product-phanloai-fiter').val();
-    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': csrfToken
-      }
-    });
-    $.ajax({
-      url: '{{ route('product_theloai') }}',
-      method: 'POST',
-      data: {
-        category_id: product_category,
-        phanloai_id: product_phanloai
-      },
-      success: function(response) {
-        // Xóa các tùy chọn cũ trong thẻ select
-        $('#product-theloai-fiter').empty();
+            function loadProductTheloai() {
+                var product_category = $('#category_id_Pro').val();
+                var product_phanloai = $('#phanloai_id_Pro').val();
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: '{{ route('product_theloai') }}',
+                    method: 'POST',
+                    data: {
+                        category_id: product_category,
+                        phanloai_id: product_phanloai
+                    },
+                    success: function(response) {
+                        // Xóa các tùy chọn cũ trong thẻ select
+                        $('#theloai_id').empty();
 
-        // Đổ dữ liệu vào thẻ select
-        $.each(response, function(index, select_theloai) {
-          $('#product-theloai-fiter').append($('<option></option>').val(
-            select_theloai.theloai_id).text(select_theloai
-            .theloai_name));
+                        // Đổ dữ liệu vào thẻ select
+                        $.each(response, function(index, select_theloai) {
+                            $('#theloai_id').append($('<option></option>').val(
+                                select_theloai.theloai_id).text(select_theloai
+                                .theloai_name));
+                        });
+                    },
+                    error: function() {
+                        console.log("gửi thất bại");
+                    }
+                });
+            }
         });
-      },
-      error: function() {
-        console.log("gửi thất bại");
-      }
-    });
-  }
-});
 
         $('.cked').change(function() {
             var $parentDiv = $(this).closest('.mg-r-l-10px');
@@ -939,7 +973,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             }
         });
 
-       
+
 
         $("#category_id_Pro, #phanloai_id_Pro").change(function() {
             var category_id_Pro = $('#category_id_Pro').val();
@@ -1052,7 +1086,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <script>
         $(document).ready(function() {
-            $('.fiter-toggle').click(function(){
+            $('.fiter-toggle').click(function() {
                 $('.data-fiter').toggle();
             })
             $('#search_icon').click(function() {
@@ -1258,7 +1292,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 });
             })
-            
+
             $('#search_ajax_user').keyup(function() {
                 if ($(this).val().length > 0) {
                     $('#close_search').show();
@@ -1278,7 +1312,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 });
             })
-            
+
 
             $('#close_search').click(function() {
                 $('#search_ajax_category').val('');

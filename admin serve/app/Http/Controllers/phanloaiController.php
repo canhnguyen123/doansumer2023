@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\phanloai_classRequest;
+use App\Http\Requests\validateRequet;
 session_start();
 class phanloaiController extends Controller
 {
@@ -24,7 +24,7 @@ class phanloaiController extends Controller
     public function phanloai_add(){
         return  view('admin_include.page.product.phanloai.add');
     }
-    public function post_phanloai_add(phanloai_classRequest $request){
+    public function post_phanloai_add(validateRequet $request){
         $data=[];
         $phanloai_name = $request->phanloai_name;
         $phanloai_code = $request->phanloai_code;   
@@ -57,7 +57,7 @@ class phanloaiController extends Controller
         $manager_phanloai=view('admin_include.page.product.phanloai.update')->with('update_phanloai',$update_phanloai);
         return  view('admin')->with('admin_include.page.product.phanloai.update',$manager_phanloai);
     }
-    public function post_phanloai_update(Request $request, $phanloai_id){
+    public function post_phanloai_update(validateRequet $request, $phanloai_id){
        
         $data=[];
         $phanloaiExists = DB::table('tbl_phanloai')

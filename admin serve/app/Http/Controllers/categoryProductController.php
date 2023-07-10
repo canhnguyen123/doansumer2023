@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\Product_classRequest;
+use App\Http\Requests\validateRequet;
 session_start();
 class categoryProductController extends Controller
 {
@@ -26,7 +23,7 @@ class categoryProductController extends Controller
     public function category_add(){
         return  view('admin_include.page.product.category.add');
     }
-    public function post_category_add(Product_classRequest $request){
+    public function post_category_add(validateRequet $request){
        $data=[];
        $categoryName = $request->category_name;
        $categoryCode = $request->category_code;
@@ -58,7 +55,7 @@ class categoryProductController extends Controller
         $manager_category=view('admin_include.page.product.category.update')->with('update_category',$update_category);
         return  view('admin')->with('admin_include.page.product.category.update',$manager_category);
     }
-    public function post_category_update(Request $request, $category_id){
+    public function post_category_update(validateRequet $request, $category_id){
        
         $data['category_name']=$request->category_name;
       

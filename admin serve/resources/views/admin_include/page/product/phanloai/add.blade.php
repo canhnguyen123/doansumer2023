@@ -21,33 +21,32 @@
                     <label for="">Tên phân loại</label>
                     <input type="text" name="phanloai_name" value="{{ old('phanloai_name') }}" required>
                 </div>
-                <div class="col-12 err"><span>
-                    @error('phanloai_name')
-                        {{ $message }}
-                    @enderror    
-                @if(session('errorMessage'))
-               
-                    {{ session('errorMessage') }}
-               
-                @endif
-            </span></div>
+                <div class="col-12 err">
+                    <span>
+                        @error('phanloai_name')
+                            {{ $message }}
+                        @enderror 
+                        @if(session('errorMessage'))
+                            {{ session('errorMessage') }}
+                        @endif
+                    </span>
+                </div>
             </div>
             <div class="col-6">
                 <div class="col-12 ip-form">
                     <label for="">Mã phân loại</label>
                     <input type="text" name="phanloai_code"  value="{{ old('phanloai_code') }}" required>
                 </div>
-              
-                <div class="col-12 err"><span>
-                    @error('phanloai_code')
-                    {{ $message }}
+                <div class="col-12 err">
+                    <span>
+                        @error('phanloai_code')
+                            {{ $message }}
                         @enderror 
                         @if(session('errorMessage'))
-               
-                        {{ session('errorMessage') }}
-                   
+                            {{ session('errorMessage') }}
                         @endif
-                    </span></div>
+                    </span>
+                </div>
             </div>
            
             <div class="col-12 ip-form">

@@ -61,9 +61,3 @@
 
 </section>
 @endsection
-@if (session('success'))
-    <script>
-        alert("{{ session('success') }}");
-        window.location = "{{ route('payment.index') }}";
-    </script>
-@endif

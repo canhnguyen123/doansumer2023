@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Danh mục</label>
-                    <select name="" id="product-category-fiter">
+                    <select name="" id="category_id_Pro">
                         @foreach ($list_category as $item_category)
                          <option value="{{$item_category->category_id}}">{{$item_category->category_name}}</option>
                         @endforeach
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Phân loại</label>
-                    <select name="" id="product-phanloai-fiter">
+                    <select name="" id="phanloai_id_Pro">
                         @foreach ($list_phanloai as $item_phanloai)
                         <option value="{{$item_phanloai->phanloai_id}}">{{$item_phanloai->phanloai_name}}</option>
                        @endforeach
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Thể loại</label>
-                    <select name="" id="product-theloai-fiter">
+                    <select name="" id="theloai_id">
                     </select>
                 </div>
                 

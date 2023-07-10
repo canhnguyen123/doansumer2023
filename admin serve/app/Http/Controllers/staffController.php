@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use App\Models\YourModel;
 use Illuminate\Support\Facades\File;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Redirect;
+
 
 session_start();
 

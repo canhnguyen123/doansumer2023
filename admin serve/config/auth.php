@@ -70,7 +70,7 @@ return [
             ],
             'remember_token' => '',
         ],
-    ],
+    ],  
     
 
         // 'users' => [

@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\Product_classRequest;
-session_start();
+
 class status_paymentController extends Controller
 {
     public function status_payment_list(){

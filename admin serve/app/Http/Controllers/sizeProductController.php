@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\validateRequet;
 use Illuminate\Support\Carbon;
 
 session_start();
@@ -24,7 +24,7 @@ class sizeProductController extends Controller
     public function size_add(){
         return  view('admin_include.page.product.size.add');
     }
-    public function post_size_add(Request $request){
+    public function post_size_add(validateRequet $request){
        $data=[];
        $sizeName = $request->size_name;
        $sizedescribl_old = $request->size_describl;
@@ -57,7 +57,7 @@ class sizeProductController extends Controller
         $manager_size=view('admin_include.page.product.size.update')->with('update_size',$update_size);
         return  view('admin')->with('admin_include.page.product.size.update',$manager_size);
     }
-    public function post_size_update(Request $request, $id_size){
+    public function post_size_update(validateRequet $request, $id_size){
        
         $data=[];
          $sizeExists = DB::table('tbl_size')
