@@ -7,6 +7,9 @@
                     <h3>Tổng số thể loại :{{ $count }}</h3>
                 </div>
                 <div class="col-6 right">
+                    <div class="search_icon icon flex_center  bg-bule" onclick="realoadtheloai()" id="loadProduct">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                    </div>
                     <div class="search_icon icon flex_center bg-bule fiter-toggle" id="fiter_icon">
                         <i class="fa-solid fa-filter"></i>
                     </div>
@@ -34,7 +37,7 @@
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Danh mục</label>
-                    <select name="" id="theloai-status-fiter">
+                    <select name="" id="category-fiter">
                         @foreach ($list_category as $item_category)
                         <option value="{{$item_category->category_id}}">{{$item_category->category_name}}</option>
                         @endforeach
@@ -42,14 +45,14 @@
                 </div>
                 <div class="col-3 fiter">
                     <label for="">Phân loại</label>
-                    <select name="" id="theloai-status-fiter">
+                    <select name="" id="phanloai-fiter">
                         @foreach ($list_phanloai as $item_phanloai)
                         <option value="{{$item_phanloai->phanloai_id}}">{{$item_phanloai->phanloai_name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-3 fiter ip-form flex_bt">
-                    <button><i class="fa-solid fa-filter"></i> Lọc</button>
+                    <button  onclick="fiter_data_theloai()"><i class="fa-solid fa-filter" ></i> Lọc</button>
                 </div>
             </div>
             <div class="table-agile-info">
@@ -60,15 +63,15 @@
                     <div class="col-12">
                         <table id="theloaiTable" class="table" ui-jq="footable"
                             ui-options='{
-        "paging": {
-          "enabled": true
-        },
-        "filtering": {
-          "enabled": true
-        },
-        "sorting": {
-          "enabled": true
-        }}'>
+                                        "paging": {
+                                        "enabled": true
+                                        },
+                                        "filtering": {
+                                        "enabled": true
+                                        },
+                                        "sorting": {
+                                        "enabled": true
+                                        }}'>
                             <thead>
                                 <tr>
                                     <th data-breakpoints="xs">STT</th>

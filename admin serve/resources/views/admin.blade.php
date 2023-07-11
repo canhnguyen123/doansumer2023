@@ -592,6 +592,64 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         }
+        function fiter_data_user() {
+  var categoryUser = $('#category-user-fiter').val();
+  var status = $('#user-status-fiter').val();
+
+  var csrfToken = $('meta[name="csrf-token"]').attr('content');
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': csrfToken
+    }
+  });
+  $.ajax({
+    type: 'POST',
+    url: '{{ route('select_data_user') }}',
+    data: {
+      page: 1, // Cập nhật trang về 1 khi lọc
+      categoryUser: categoryUser,
+      status: status,
+    },
+    success: function(response) {
+      $('#user_list_table').html(response);
+      $('#default_pagination').hide();
+    },
+    error: function(xhr, status, error) {
+      console.log('Lỗi: ' + error);
+      alert('Lỗi: ' + error);
+    }
+  });
+}
+
+        function fiter_data_theloai() {
+            var category = $('#category-fiter').val();
+            var phanloai = $('#phanloai-fiter').val();
+            var status = $('#theloai-status-fiter').val();
+            
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('select_data_theloai') }}",
+                data: {
+                    category: category,
+                    phanloai: phanloai,
+                    status: status,
+                },
+                success: function(response) {
+                    $('#theloai_list_table').html(response);
+                    
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                    alert('Lỗi: ' + error)
+                }
+            });
+        }
 
         function realoadProduct() {
             $.ajax({
@@ -599,6 +657,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 url: "{{ route('resetLoad') }}",
                 success: function(response) {
                     $('#product_list_table').html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                    alert('Lỗi: ' + error)
+                }
+            });
+        }
+
+        function realoadtheloai() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('resetLoadtheloai') }}",
+                success: function(response) {
+                    $('#theloai_list_table').html(response);
                 },
                 error: function(xhr, status, error) {
                     console.log('Lỗi: ' + error);
@@ -1282,12 +1354,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 var content = $('#search_ajax_product').val();
                 $.ajax({
                     type: "GET",
-                    url: "{{ route('theloai_search') }}",
+                    url: "{{ route('ajax_product') }}",
                     data: {
                         content: content
                     },
                     success: function(data) {
-                        $('#theloai_list_table').html(data);
+                        $('#product_list_table').html(data);
                     },
 
                 });

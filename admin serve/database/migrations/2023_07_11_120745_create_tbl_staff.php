@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('tbl_staff', function (Blueprint $table) {
             $table->increments('staff_id');
-            $table->string('staff_code');
-            $table->string('staff_name');
+            $table->string('staff_code',10);
+            $table->string('staff_username');
             $table->string('staff_password');
             $table->string('staff_fullname');
-            $table->string('staff_phone');
             $table->string('staff_email');
-            $table->string('staff_position');
-            $table->string('staff_linkimg');
+            $table->integer('chucvu_id');
+            $table->text('staff_linkimg');
+            $table->text('staff_note');
+            $table->integer('staff_status');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

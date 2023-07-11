@@ -11,12 +11,12 @@ class userController extends Controller
 {
     public function user_list()
     {
-        $list_user = DB::table("tbl_users")->get();
+        $list_user = DB::table("tbl_users")->paginate(20); // Số lượng mục trên mỗi trang là 20
         $count = DB::table("tbl_users")->count();
         $manager_user = view('admin_include.page.user.list')
             ->with('list_user', $list_user)
             ->with('count', $count);
-        return  view('admin')->with('admin_include.page.user.list', $manager_user);
+        return view('admin')->with('admin_include.page.user.list', $manager_user);
     }
     public function user_deatil($user_id)
     {

@@ -63,12 +63,12 @@ return [
             'driver' => 'database',
             'table' => 'tbl_staff',
             'model' => App\Models\Staff::class,
-            'primaryKey' => 'id',
+            'primaryKey' => 'staff_id ',
             'password' => [
                 'column' => 'staff_password',
                 'provider' => 'users',
             ],
-            'remember_token' => '',
+            'remember_token' => 'remember_token',
         ],
     ],  
     

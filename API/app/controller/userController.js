@@ -48,7 +48,7 @@ exports.createUser = (req, res) => {
           return res.status(500).json({ error: 'Lỗi mã hóa mật khẩu' });
         }
 
-        const user = { user_fullname: fullname, user_phone: phone, user_password: hashedPassword, user_gender: 2 };
+        const user = { user_fullname: fullname, user_phone: phone, user_password: hashedPassword, user_gender: 2,user_accountCategory:1 };
         connection.query('INSERT INTO tbl_users SET ?', user, (error, results) => {
           if (error) {
             console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);

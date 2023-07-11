@@ -34,7 +34,7 @@ class staffController extends Controller
         $staff_deatil = DB::table('tbl_staff')
         ->join('tbl_chucvu', 'tbl_staff.chucvu_id', '=', 'tbl_chucvu.chucvu_id')
         ->select('tbl_staff.*', 'tbl_chucvu.chucvu_name')
-        ->where('tbl_staff.id', $staff_id)
+        ->where('tbl_staff.staff_id', $staff_id)
         ->get();
         return  view('admin_include.page.staff.staff.deatils') ->with('staff_deatil',$staff_deatil);
     }
@@ -54,7 +54,7 @@ class staffController extends Controller
 //       Kiểm tra xem dữ liệu đã tồn tại trong bảng tbl_staff hay chưa
        $staffExists = DB::table('tbl_staff')
                            ->where('staff_code', $staff_code)
-                           ->orWhere('staff_phone', $staff_phone)
+                           ->orWhere('staff_username', $staff_name)
                            ->exists();
    
        if ($staffExists) {
@@ -67,7 +67,7 @@ class staffController extends Controller
 
    ///Thêm dl vào csdl
        $data['staff_code']=$staff_code;
-       $data['staff_name']=$staff_name;
+       $data['staff_username']=$staff_name;
        $data['staff_password']=bcrypt($staff_password);
        $data['staff_fullname']=$staff_fullname;
        $data['staff_phone']=$staff_phone;
@@ -98,7 +98,7 @@ class staffController extends Controller
         $staff_update = DB::table('tbl_staff')
         ->join('tbl_chucvu', 'tbl_staff.chucvu_id', '=', 'tbl_chucvu.chucvu_id')
         ->select('tbl_staff.*', 'tbl_chucvu.chucvu_name')
-        ->where('tbl_staff.id', $staff_id)
+        ->where('tbl_staff.staff_id', $staff_id)
         ->get();
         $list_position=DB::table("tbl_chucvu")->get();
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
@@ -110,7 +110,7 @@ class staffController extends Controller
     public function post_staff_update(Request $request, $staff_id){
        
         $staff_deatil = DB::table('tbl_staff')
-        ->where('id', $staff_id)
+        ->where('staff_id', $staff_id)
         ->get();  
         $data=[];
         $check=true;
@@ -143,7 +143,7 @@ class staffController extends Controller
             $staffExists = DB::table('tbl_staff')
             ->where(function ($query) use ($staff_code, $staff_id) {
                 $query->where('staff_code', $staff_code)
-                    ->where('id', '<>', $staff_id);
+                    ->where('staff_id', '<>', $staff_id);
             })
             ->exists();
     
@@ -168,7 +168,7 @@ class staffController extends Controller
         $data['staff_note']=$status_mota;
         $data['staff_status']=1;
         $data['created_at'] = Carbon::now();
-        $update_staff= DB::table('tbl_staff')->where('id',$staff_id) ->update($data);
+        $update_staff= DB::table('tbl_staff')->where('staff_id',$staff_id) ->update($data);
         if($update_staff){
          $uploadPath = public_path('upload');
          if ($staff_img && $staff_img->isValid()) {
@@ -188,7 +188,7 @@ class staffController extends Controller
 
     }
     public function togggle_status($staff_id, $staff_status){
-        $product=DB::table('tbl_staff')->where('id',$staff_id)->first();
+        $product=DB::table('tbl_staff')->where('staff_id',$staff_id)->first();
         $status=0;
         $data=[];
         if($product->staff_status==1){
@@ -206,7 +206,7 @@ class staffController extends Controller
             }
         }
         $data['staff_status']=$status;
-        DB::table('tbl_staff')->where('id',$staff_id)->update($data); 
+        DB::table('tbl_staff')->where('staff_id',$staff_id)->update($data); 
         return " <script> alert('Cập nhật thành công'); window.location = '".route('staff_list')."';</script>";
     }
 }

@@ -38,13 +38,26 @@ class Ajax_classController extends Controller
     {
         $keyword = $request->input('content');
 
-        $list_theloai = DB::table('tbl_phanloai')
-        ->leftJoin('tbl_theloai', 'tbl_theloai.phanloai_id', '=', 'tbl_phanloai.phanloai_id')
-        ->leftJoin('tbl_category', 'tbl_category.category_id', '=', 'tbl_theloai.category_id')
-        ->select('tbl_theloai.*', 'tbl_category.category_name', 'tbl_phanloai.phanloai_name')
-        ->orWhere('tbl_theloai.theloai_name', 'LIKE', '%' . $keyword . '%')
-        ->get();
+        $list_theloai = DB::table('tbl_theloai')
+            ->leftJoin('tbl_category', 'tbl_category.category_id', '=', 'tbl_theloai.category_id')
+            ->leftJoin('tbl_phanloai', 'tbl_phanloai.phanloai_id', '=', 'tbl_theloai.phanloai_id')
+            ->select('tbl_theloai.*', 'tbl_category.category_name', 'tbl_phanloai.phanloai_name')
+            ->orWhere('tbl_theloai.theloai_name', 'LIKE', '%' . $keyword . '%')
+            ->get();
          return view('ohther.ajax.admin.search_theloai')->with('list_theloai', $list_theloai);
+    }
+    public function ajax_product(Request $request)
+    {
+        $keyword = $request->input('content');
+
+        $list_product = DB::table("tbl_product")
+        ->join("tbl_theloai", "tbl_product.theloai_id", "=", "tbl_theloai.theloai_id")
+        ->select("tbl_product.*", "tbl_theloai.theloai_name")
+        ->where("tbl_product.product_name", "LIKE", "%" . $keyword . "%")
+        ->orWhere("tbl_product.product_code", "LIKE", "%" . $keyword . "%")
+        ->orWhere("tbl_product.product_price", "LIKE", "%" . $keyword . "%")
+        ->get();
+         return view('ohther.ajax.admin.product_list')->with('list_product', $list_product);
     }
     public function ajax_size(Request $request)
     {
@@ -190,4 +203,65 @@ class Ajax_classController extends Controller
         ->get();
         return view('ohther.ajax.admin.product_list')->with('list_product', $list_product);
     }
+
+    
+
+    public function resetLoadtheloai()
+    {
+
+        $list_theloai = DB::table('tbl_theloai')
+        ->join('tbl_category', 'tbl_theloai.category_id', '=', 'tbl_category.category_id')
+        ->join('tbl_phanloai', 'tbl_theloai.phanloai_id', '=', 'tbl_phanloai.phanloai_id')
+        ->select('tbl_theloai.*', 'tbl_category.category_name', 'tbl_phanloai.phanloai_name')
+        ->get();
+        return view('ohther.ajax.admin.search_theloai')->with('list_theloai', $list_theloai);
+    }
+
+    public function select_data_theloai(Request $request)
+    {
+        $category = $request->input('category');
+        $phanloai = $request->input('phanloai');
+        $status = $request->input('status');
+        
+        $product_list = DB::table('tbl_theloai')
+        ->leftJoin('tbl_category', 'tbl_theloai.category_id', '=', 'tbl_category.category_id')
+        ->leftJoin('tbl_phanloai', 'tbl_theloai.phanloai_id', '=', 'tbl_phanloai.phanloai_id')
+        ->where('tbl_theloai.category_id', $category)
+        ->where('tbl_theloai.phanloai_id', $phanloai);
+    
+            if ($status != "all") {
+                $product_list->where('tbl_theloai.theloai_status', $status);
+            }
+    
+        $list_theloai = $product_list->select('tbl_theloai.*', 'tbl_category.*', 'tbl_phanloai.*')->get();
+    
+        
+        return view('ohther.ajax.admin.search_theloai')->with('list_theloai', $list_theloai);
+    }
+    
+    public function select_data_user(Request $request)
+    {
+        $categoryUser = $request->input('categoryUser');
+    $status = $request->input('status');
+    
+    $user_list = DB::table('tbl_users');
+    if ($categoryUser != "all") {
+        $user_list->where('user_accountCategory', $categoryUser);
+    }
+    if ($status != "all") {
+        $user_list->where('user_status', $status);
+    }
+
+    $page = $request->input('page') ?? 1; // Trang mặc định là 1 nếu không được chỉ định
+
+    $user_list_paginated = $user_list->paginate(20, ['*'], 'page', $page);
+
+    // Render view và trả về kết quả
+    $view = view('ohther.ajax.admin.search_user')
+        ->with('list_user', $user_list_paginated)
+        ->render();
+
+    return response($view);
+        
+}
 }

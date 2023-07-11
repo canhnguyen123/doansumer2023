@@ -39,12 +39,12 @@ Route::get('/', [homeController::class, 'index'])->name('trangchu');
 
 Route::prefix('/admin')->group(function () {
   
-    Route::get('/login-admin', [AdminController::class, '   '])->name('login');
+    Route::get('/login-admin', [AdminController::class, 'login'])->name('login');
     Route::post('/login-post', [AdminController::class, 'post_login'])->name('post_login');
     
   
  
-    Route::middleware(['auth'])->group(function () {
+   Route::middleware(['auth'])->group(function () {
         Route::get('/', [AdminController::class, 'home'])->name('home');
         Route::get('/logout-admin', [AdminController::class, 'logout'])->name('logout');
         Route::prefix('/page')->group(function () {
@@ -198,6 +198,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/category-search', [Ajax_classController::class, 'ajax_category'])->name('category_search');
                 Route::get('/phanloai-search', [Ajax_classController::class, 'ajax_phanloai'])->name('phanloai_search');
                 Route::get('/theloai-search', [Ajax_classController::class, 'ajax_theloai'])->name('theloai_search');
+                Route::get('/theloai-product', [Ajax_classController::class, 'ajax_product'])->name('ajax_product');
                 Route::get('/size-search', [Ajax_classController::class, 'ajax_size'])->name('ajax_size');
                 Route::get('/status-search', [Ajax_classController::class, 'ajax_status'])->name('ajax_status');
                 Route::get('/color-search', [Ajax_classController::class, 'ajax_color'])->name('ajax_color');
@@ -208,7 +209,10 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/get-payment-status/{hoadon_status}', [Ajax_classController::class, 'get_payment_status'])->name('get_payment_status');
                 Route::post('/select-allPrice', [Ajax_classController::class, 'get_allPrice'])->name('get_allPrice');
                 Route::post('/select-data-table', [Ajax_classController::class, 'select_data_table'])->name('select_data_table');
-                Route::get('/reset-load', [Ajax_classController::class, 'resetLoad'])->name('resetLoad');
+                Route::get('/reset-load-product', [Ajax_classController::class, 'resetLoad'])->name('resetLoad');
+                Route::post('/select-data-theloai', [Ajax_classController::class, 'select_data_theloai'])->name('select_data_theloai');
+                Route::get('/reset-load-theloai', [Ajax_classController::class, 'resetLoadtheloai'])->name('resetLoadtheloai');
+                Route::post('/select-data-user', [Ajax_classController::class, 'select_data_user'])->name('select_data_user');
             });
         });
      });
