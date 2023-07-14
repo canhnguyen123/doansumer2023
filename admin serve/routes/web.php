@@ -143,6 +143,7 @@ Route::prefix('/admin')->group(function () {
                     Route::post('/post-add', [productController::class, 'post_product_add'])->name('post_product_add');
                     Route::post('/post-update/{product_id}', [productController::class, 'post_product_update'])->name('post_product_update');
                     Route::post('/post-add-quantity/{product_id}', [productController::class, 'post_quantity_add'])->name('post_quantity_add');
+                    Route::post('/post-update-quantity/{quantity_id}', [productController::class, 'post_quantity_update'])->name('post_quantity_update');
                     Route::get('/togggle-status-quantity/{quantity_id}/{quantity_status}/{product_id}', [productController::class, 'togggle_status_quantity'])->name('togggle_status_quantity');
                   
                 });
@@ -191,7 +192,11 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/post-update/{voucher_id}', [voucherController::class, 'post_voucher_update'])->name('post_voucher_update');
             });
         });
-      
+        Route::prefix('/account')->group(function () {
+            Route::get('/setting/{id}', [admincontroller::class, 'setting'])->name('setting');
+            Route::get('/update-password', [admincontroller::class, 'viewUpdatePassword'])->name('viewUpdatePassword');
+            Route::post('/update-password-post/{id}', [admincontroller::class, 'updatePassword'])->name('updatePassword');
+        });
         
         Route::prefix('/ajax')->group(function () {
             Route::prefix('/admin')->group(function () {

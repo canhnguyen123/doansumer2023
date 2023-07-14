@@ -14,21 +14,17 @@ class Staff extends Authenticatable
     protected $fillable = [
         'staff_name', 'staff_password',
     ];
-
     protected $hidden = [
         'staff_password',
     ];
-    public function getKeyName()
-{
-    return 'staff_id';
-}
-    public function getAuthPassword()
-{
-    return $this->staff_password;
-}
 
-public function getAuthIdentifier()
-{
-    return $this->staff_id;
-}
+    public function getAuthPassword()
+    {
+        return $this->staff_password;
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->staff_id;
+    }
 }

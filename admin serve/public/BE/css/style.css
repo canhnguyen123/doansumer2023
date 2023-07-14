@@ -4082,3 +4082,15 @@ box-shadow: 10px 10px 10px #ccc;
 .input-search input::placeholder{
     color: #000000;
 }
+.ip-form p i,.ip-form p label{
+    margin-left: 5px;
+}
+.pd-10{
+    padding: 10px 0;
+}
+.input-pass-form{
+    width: 700px;
+}
+.mg-0{
+    margin: 0;
+}

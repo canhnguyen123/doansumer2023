@@ -47,9 +47,10 @@ class validateRequet extends FormRequest
             ],
             'brand_code' => 'alpha|min:1|max:15',
 
-            'sizeName' => ['regex:/^[A-Za-z]+$/i', 'min:1', 'max:5']
-
-            
+            'sizeName' => ['regex:/^[A-Za-z]+$/i', 'min:1', 'max:5'],
+            'oldPass'=>'min:6|max:35|',
+            'newPass'=>'min:6|max:35|',
+            'anewPass'=>'min:6|max:35|',
         ];
     }
     
@@ -76,6 +77,13 @@ class validateRequet extends FormRequest
             'sizeName.alpha'=>'Bạn không được nhập :attribute là dạng gì ngoài chữ cái tiếng anh',
             'sizeName.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
             'sizeName.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+
+            'oldPass.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'oldPass.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'newPass.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'newPass.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'anewPass.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'anewPass.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
         ];
     }
     public function attributes()
@@ -87,7 +95,11 @@ class validateRequet extends FormRequest
             'phanloai_code'=>'mã phân loại',
             'brand_name'=>'tên thương hiệu',
             'brand_code'=>'mã thương hiệu',
-            'sizeName'=>'tên size'
+            'sizeName'=>'tên size',
+            'oldPass'=>'mật khẩu cũ',
+            'newPass'=>'mật khẩu mới',
+            'anewPass'=>'xác nhận mật khẩu',
+
         ];
     }
     private function validateVietnameseCharacters($attribute, $value, $fail)

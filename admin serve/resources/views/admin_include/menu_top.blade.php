@@ -192,7 +192,7 @@
         <ul class="nav pull-right top-menu">
            <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                    <img alt="" src="{{ asset("BE/images/img-user.jpg") }}">
+                    <img alt="" src="{{asset('upload/BE/'.Session::get('staff_linkimg'))}}">
                     <span class="username">
                         <?php
                             $name=Session::get('staff_fullname');
@@ -204,8 +204,8 @@
                   
                 </a>
                 <ul class="dropdown-menu extended logout">
-                    <li><a href="#"><i class=" fa fa-suitcase"></i>Thông tin cá nhân</a></li>
-                    <li><a href="#"><i class="fa fa-cog"></i> Cài đặt</a></li>
+                    <li><a href="{{route('setting',['id'=>Session::get('id')])}}"><i class=" fa fa-suitcase"></i>Thông tin cá nhân</a></li>
+                    <li><a href="{{route('viewUpdatePassword')}}"><i class="fa-solid fa-user-pen"></i> Thay đổi mật khẩu</a></li>
                     <li><a  href="{{ route('logout') }}"><i class="fa fa-key"></i> Đăng Xuất</a></li>
                 </ul>
             </li>

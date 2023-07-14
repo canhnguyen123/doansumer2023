@@ -29,7 +29,34 @@
           <span id="response-money-data"></span>
         </div>
         <div class="col-12 titel-header">
-          <h4>Doanh thu tháng gần đây</h4>
+          <h4>Kiểm tra doanh số</h4>
+        </div>
+        <div class="col-12 row">
+         
+            <div class="col-3 ip-form agin_center">
+             <select name="" id="">
+              <option value="">Hôm nay</option>
+              <option value="">Hôm qua</option>
+              <option value="">Tuần trước</option>
+              <option value="">Tháng trước</option>
+              <option value="">Năm trước</option>
+             </select>
+             
+            </div>
+            <div class="col-3 ip-form agin_center">
+              <button>Tra </button>
+            </div>
+          
+        </div>
+      
+        <div class="col-12 titel-header">
+          <h4>Doanh thu 6 tháng gần đây</h4>
+        </div>
+        <div class="col-12">
+          <canvas id="myChartbill"></canvas>
+        </div>
+        <div class="col-12 titel-header">
+          <h4>Tỉ lệ chôt/hủy đơn 6 tháng gần đây</h4>
         </div>
         <div class="col-12">
           <canvas id="myChart"></canvas>

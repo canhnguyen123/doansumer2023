@@ -33,7 +33,7 @@
 
                                 <div class="col-6 row">
                                     <div class="col-12  ip-form ">
-                                         <p> <label>Tên đăng nhập</label> :{{$item_deatil->staff_name}}</p>
+                                         <p> <label>Tên đăng nhập</label> :{{$item_deatil->staff_username}}</p>
                                     </div>
                                 </div>
                                 <div class="col-6 row">

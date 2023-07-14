@@ -56,8 +56,10 @@
                         </div>
 
                     </div>
-
-
+                    <div class="col-12">
+                        <span id="data-id-text" style="display: none"></span>
+                    </div>
+                  
                     <div class="col-12 row mg-20">
                         <div class="col-12 ip-form input-lable-form">
                             <input type="text" id="quantityItem" name="quantityPros"  class="quantityPro input-quantity-ls" value="1" required>
@@ -65,18 +67,18 @@
                         </div>
 
                     </div>
+                   
                     <div class="col-12 input-lable-form pd-0">
                         <button type="submit" id="btn-add-list-q">Thêm</button>
-                        {{-- <button id="btn-update-list-q" style="display: none" onclick="update_quantity(event, $item_size->quantity_id, $itemdeatilProduct->product_id)">Sửa</button> --}}
-                        {{-- <button id="btn-update-list-q" style="display: none" onclick="update_quantity(event)">Sửa</button> --}}
-                        {{-- <div class="btn-update flex_center"   id="btn-update-list-q"  onclick="update_quantity(event,{{$item_size->quantity_id}}, {{$itemdeatilProduct->product_id}})"  style="display: none">Cập nhật </div> --}}
+                        <button type="submit" id="btn-update-list-q" style="display: none" onclick="updateQuantity(event, {{$itemdeatilProduct->product_id}})">Cập nhật</button>
+                      
                     </div>
                 </form>
 
 
                 <div class="col-12 res-them res-them-quantity  pd-0">
                     @foreach ($list_quantytyProduct as $item_quantity)
-                    <div class="item-req p-l-20">
+                    <div class="item-req p-l-20" data-id="{{$item_quantity->quantity_id}}">
                         <div class="item-res-pro">
                             <p>Color</p>: <p class="color-quantity-d" id="item-res-color-Pro">{{ $item_quantity->quantity_color }}</p>
                         </div>

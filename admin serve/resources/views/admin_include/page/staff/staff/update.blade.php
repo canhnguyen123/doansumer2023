@@ -71,7 +71,7 @@
             <div class="col-12  ip-form input-lable">
                 <div class="icon-form-input"><i class="fa-solid fa-user"></i></div>
               
-                <input type="text" name="staff_name" value="{{$item_update->staff_name}}" required>
+                <input type="text" name="staff_name" value="{{$item_update->staff_username}}" required>
                 <label>Tên đăng nhập</label>
             </div>
             <div class="col-12 err"><span>

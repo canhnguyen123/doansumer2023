@@ -1,7 +1,9 @@
 @php
 $i = 0;
 @endphp
-@foreach ($list_product as $key => $item_product)
+@if ($list_product)
+   
+    @foreach ($list_product as $key => $item_product)
 @php
     $i++;
 @endphp
@@ -46,3 +48,6 @@ $i = 0;
     </td>
 </tr>
 @endforeach
+@else
+    
+@endif

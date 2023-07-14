@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-
+use App\Http\Requests\validateRequet;
 class admincontroller extends Controller
 {
     public function login(){
@@ -17,6 +17,14 @@ class admincontroller extends Controller
     }
     public function admin(){
         return  view('admin');
+    }
+    public function setting($id){
+       $in4user = DB::table('tbl_staff')
+            ->join('tbl_chucvu', 'tbl_staff.chucvu_id', '=', 'tbl_chucvu.chucvu_id')
+            ->where('tbl_staff.id', $id)
+            ->select('tbl_staff.*', 'tbl_chucvu.chucvu_name')
+            ->get();
+        return  view('admin_include.account.setting')->with('in4user',$in4user);
     }
     public function home(){
      
@@ -40,23 +48,72 @@ class admincontroller extends Controller
     }
     public function post_login(Request $request)
     {
+        // $username = $request->input('username_nv');
+        // $password = $request->input('password_nv');
+
+        // $user = Staff::where('staff_username', $username)->first();
+
+        // if ($user && Hash::check($password, $user->staff_password)) {
+        //     Auth::guard('users')->loginUsingId($user->id, $request->has('remember'));
+
+        //     if ($request->has('remember')) {
+        //         $rememberToken = Str::random(60);
+        //         Staff::where('staff_id', $user->staff_id)
+        //             ->update(['remember_token' => $rememberToken]);
+        //         Cookie::queue('remember_token', $rememberToken, 525600); // Lưu remember token trong cookie trong 1 năm (525600 phút)
+        //     }
+
+        //     return redirect()->route('home')->with('mess', 'Đăng nhập thành công');
+        // } else {
+        //     return redirect()->route('login')->with('mess', 'Sai tên đăng nhập hoặc mật khẩu');
+        // }
+
         $username = $request->input('username_nv');
         $password = $request->input('password_nv');
 
-        $user = DB::table('tbl_staff')->where('staff_name', $username)->first();
+        $user = DB::table('tbl_staff')->where('staff_username', $username)->first();
 
         if ($user && Hash::check($password, $user->staff_password)) {
-            Auth::loginUsingId($user->staff_id);
+            Auth::loginUsingId($user->id);
          
         // Truyền toàn bộ hàng trong bảng vào phiên làm việc (session)
               Session::put('user', $user);
+               Session::put('id', $user->id);
               Session::put('staff_fullname', $user->staff_fullname);
-            return redirect()->route('home')->with('success', 'Đăng nhập thành công');
+              Session::put('staff_linkimg', $user->staff_linkimg);
+              return redirect()->route('home')->with('mess', 'Đăng nhập thành công');
         } else {
-            return redirect()->route('login')->with('error', 'Sai tên đăng nhập hoặc mật khẩu');
+            return redirect()->route('login')->with('mess', 'Sai tên đăng nhập hoặc mật khẩu');
         }  
+        
     }
-
+    public function viewUpdatePassword()
+    {
+        return  view('admin_include.account.update');
+        
+    }
+    public function updatePassword(validateRequet $request,$id)
+    {   $check = true;
+        $oldPass = $request->oldPass;
+        $newPass = $request->newPass;
+        $anewPass = $request->anewPass;
+        $user = DB::table('tbl_staff')->where('id', $id)->first();
+        $password = $user->staff_password;
+        $errorMessage = "Có lỗi xảy ra kiểm tra lại lỗi";
+        
+        if (!Hash::check($oldPass, $password)) {
+            $errorMessage = "Mật khẩu không cùng với mật khẩu cũ";
+            return redirect()->back()->withErrors(['oldPass' => $errorMessage]);
+        } elseif ($newPass != $anewPass) {
+            $errorMessage = "Xác nhận mật khẩu không cùng với mật khẩu mới";
+            return redirect()->back()->withErrors(['anewPass' => $errorMessage]);
+        } else {
+            $data['staff_password']=bcrypt($newPass);
+            DB::table('tbl_staff')->where('id', $id)->update($data);
+            return " <script> alert('Cập nhật thành công'); window.location = '".route('home')."';</script>";
+        }
+        
+    }
     public function logout()
     {
         Session::forget('user');

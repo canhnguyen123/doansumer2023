@@ -178,11 +178,72 @@ class productController extends Controller
         $data['quantity_status'] = 0;
         $inserted_quan = DB::table('tbl_quantity_product')->insert($data);
         if ($inserted_quan) {
-            return " <script> alert('Thêm thành công'); window.location = '" . route('quantityProduct_list', ['product_id' => $product_id]) . "';</script>";
+            return " <script> alert('Cập nhật thành công'); window.location = '" . route('quantityProduct_list', ['product_id' => $product_id]) . "';</script>";
         } else {
-            return " <script> alert('Thêm thất bại'); window.location = '" . route('quantityProduct_list', ['product_id' => $product_id]) . "';</script>";
+            return " <script> alert('Cập nhật thất bại'); window.location = '" . route('quantityProduct_list', ['product_id' => $product_id]) . "';</script>";
         }
     }
+
+    // public function post_quantity_update(Request $request,$quantity_id)
+    // {
+    //     $data =[];
+    //     $quantityProSize = $request->input('size');
+    //     $quantityProColor = $request->input('color');
+    //     $quantityPro = $request->input('quantity');
+   
+    //     // $checkquantity = DB::table('tbl_quantity_product')
+    //     //         ->where('quantity_size', $quantityProSize)
+    //     //         ->where('quantity_color', $quantityProColor)
+    //     //         ->where('quantity_id','<>', $quantity_id )
+    //     //         ->exists();
+
+    //     // if ($checkquantity) {
+    //     //     // Dữ liệu đã tồn tại trong bảng tbl_product
+    //     //     $errorMessage = "Số lượng tính theo size và màu sắc này đã tồn tại mời nhập lại";
+    //     //     session()->flash('errorMessage', $errorMessage);
+    //     //     return redirect()->back();
+    //     // }
+    //     $data['quantity_size'] = $quantityProSize;
+    //     $data['quantity_color'] = $quantityProColor;
+    //     $data['quantity_sl'] = $quantityPro;
+    //     $update = DB::table('tbl_quantity_product')->where('quantity_id',$quantity_id)->update($data);
+
+
+    //     if ($update) {
+    //         return response()->json(['status' =>'success', 'message' => "Sửa thành công"]);
+    //     } else {
+    //         return response()->json(['status' =>'fall', 'message' => "Sửa thất bại"]);
+    //     }
+    // }
+    public function post_quantity_update(Request $request, $quantity_id)
+    {
+        $data = [];
+        $quantityProSize = $request->input('size');
+        $quantityProColor = $request->input('color');
+        $quantityPro = $request->input('quantity');
+    
+        $checkquantity = DB::table('tbl_quantity_product')
+                ->where('quantity_size', $quantityProSize)
+                ->where('quantity_color', $quantityProColor)
+                ->where('quantity_id','<>', $quantity_id )
+                ->exists();
+
+        if ($checkquantity) {
+            // Dữ liệu đã tồn tại trong bảng tbl_product
+            $errorMessage = "Số lượng tính theo size và màu sắc này đã tồn tại mời nhập lại";
+            return response()->json(['status' => 'fall', 'message' => $errorMessage]);
+
+        }
+    
+        $data['quantity_size'] = $quantityProSize;
+        $data['quantity_color'] = $quantityProColor;
+        $data['quantity_sl'] = $quantityPro;
+        DB::table('tbl_quantity_product')->where('quantity_id', $quantity_id)->update($data);
+        return response()->json(['status' => 'success', 'message' => "Sửa thành công"]);
+
+     
+    }
+    
     public function product_update($product_id)
     {   $select_product = DB::table("tbl_product")
         ->join("tbl_theloai", "tbl_product.theloai_id", "=", "tbl_theloai.theloai_id")
