@@ -23,17 +23,40 @@
         
         <div class="col-12">
          <div class="col-12 row">
-            <div class="col-8 ip-form">
+            <div class="col-6 ip-form">
                 <label for="">Tên voucher</label>
                 <input type="text" name="voucher_name"  required>
             </div>
-            <div class="col-4 ip-form">
+            <div class="col-3 ip-form">
                 <label for="">Mã voucher</label>
                 <input type="text" name="voucher_code" required>
             </div>
-            <div class="col-4 ip-form">
-                <label for="">% giảm giá</label>
+            <div class="col-3 ip-form">
+                <label for="">Số tiền giảm giá</label>
                 <input type="text" name="voucher_down" required>
+            </div>
+            <div class="col-4 ip-form">
+                <label for="">Thể  loại giảm giá</label>
+                <select name="voucher_type" id="voucher_type">
+                    <option value="0">Giảm theo phần trăm</option>
+                    <option value="1">Giảm theo số tiền VNĐ</option>
+                    <option value="2">FreeShip</option>
+                    <option value="3">Không áp mã</option>
+                </select>
+            </div>
+           
+            <div class="col-3 ip-form">
+                <label for="">Đơn vị</label>
+                <input type="text" name="voucher_unit" id="voucher_unit" value="%" required readonly>
+            </div>
+            <div class="col-5 ip-form">
+                <label for="">Thể loại thanh toán</label>
+                <select name="voucher_category_payment" id="">
+                    @foreach ($list_category_payment as $item)
+                        <option value="{{$item->category_payment_id}}">{{$item->category_payment_name}}</option>
+                     @endforeach
+                  
+                </select>
             </div>
             <div class="col-4 ip-form">
                 <label for="">Ngày bắt đầu áp dụng</label>
@@ -43,6 +66,10 @@
             <div class="col-4 ip-form">
                 <label for="">Ngày kết thúc</label>
                 <input type="text"  class="timepiker"  name="voucher_endDate" required>
+            </div>
+            <div class="col-4 ip-form">
+                <label for="">Số lượng voucher</label>
+                <input type="text"  class=""  name="voucher_quantity" required>
             </div>
             <div class="col-12 ip-form">
                 <label for="">Mô tả voucher</label>

@@ -33,9 +33,12 @@ class admincontroller extends Controller
         ->latest() // Sắp xếp theo thứ tự mới nhất
         ->take(10) // Giới hạn số lượng kết quả là 10
         ->get();
-
+        $theloai=DB::table('tbl_theloai')->where('theloai_status',1)->get();
+        $count_theloai = DB::table("tbl_theloai")->where('show_home',1)->count();
         $manager_banner = view('admin_include.page.home')
-            ->with('list_banner', $list_banner);
+            ->with('list_banner', $list_banner)
+            ->with('theloai',$theloai)
+            ->with('count_theloai',$count_theloai);
         return  view('admin')->with('admin_include.page.home', $manager_banner);
     }
     public function check_accountLogin(){
@@ -114,6 +117,20 @@ class admincontroller extends Controller
         }
         
     }
+    public function updateShowHome(Request $request)
+    {  
+        $theloaiItem = $request->theloaiItem;
+        if(count($theloaiItem)>4){
+            return " <script> alert('Tổng số thể loại hiển thị ở trang chủ của app không được vượt quá 4 thể loại'); window.location = '".route('home')."';</script>";
+        }else{
+            foreach($theloaiItem as $item){
+                $data['show_home']=1;
+                DB::table('tbl_theloai')->where('theloai_id',$item)->update($data);
+            }
+            return " <script> alert('Cập nhật thành công'); window.location = '".route('home')."';</script>";
+            }
+        }
+        
     public function logout()
     {
         Session::forget('user');

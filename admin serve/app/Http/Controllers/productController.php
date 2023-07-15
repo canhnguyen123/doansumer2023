@@ -18,7 +18,7 @@ class productController extends Controller
         $list_product = DB::table("tbl_product")
         ->join("tbl_theloai", "tbl_product.theloai_id", "=", "tbl_theloai.theloai_id")
         ->select("tbl_product.*", "tbl_theloai.theloai_name")
-        ->get();
+        ->paginate(20);
         $list_category= DB::table('tbl_category')->where('category_status',1)->get();
         $list_phanloai= DB::table('tbl_phanloai')->where('phanloai_status',1)->get();
         $count = DB::table("tbl_product")->count();
@@ -26,7 +26,7 @@ class productController extends Controller
         $manager_product = view('admin_include.page.product.product.list')
             ->with('list_product', $list_product)
             ->with('list_category',$list_category)
-             ->with('list_phanloai',$list_phanloai)
+            ->with('list_phanloai',$list_phanloai)
             ->with('count', $count);
         return  view('admin')->with('admin_include.page.product.product.list', $manager_product);
     }

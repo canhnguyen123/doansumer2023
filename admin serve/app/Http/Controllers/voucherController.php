@@ -17,10 +17,12 @@ class voucherController extends Controller
         $manager_voucher=view('admin_include.page.voucher.list')
         ->with('list_voucher',$list_voucher)
         ->with('count',$count);
+      
         return  view('admin')->with('admin_include.page.voucher.list',$manager_voucher);
     }
     public function voucher_add(){
-        return  view('admin_include.page.voucher.add');
+        $list_category_payment=DB::table("tbl_category_payment")->where('category_payment_status',1)->get();
+        return  view('admin_include.page.voucher.add') ->with('list_category_payment',$list_category_payment);
     }
     public function post_voucher_add(Request $request){
        $data=[];
@@ -30,8 +32,10 @@ class voucherController extends Controller
        $voucher_startDate = $request->input('voucher_startDate');
        $voucher_endDate = $request->input('voucher_endDate');
        $mota_voucher = html_entity_decode($request->input('mota_voucher'));
-    
-   
+       $voucher_type = $request->input('voucher_type');
+       $voucher_unit = $request->input('voucher_unit');
+       $voucher_quantity = $request->input('voucher_quantity');
+       $voucher_category_payment = $request->input('voucher_category_payment');
        // Kiểm tra xem dữ liệu đã tồn tại trong bảng tbl_vocher hay chưa
        $voucherExists = DB::table('tbl_vocher')
                            ->where('voucher_code', $voucher_code)
@@ -48,11 +52,14 @@ class voucherController extends Controller
    ///Thêm dl vào csdl
        $data['voucher_code']=$voucher_code;
        $data['voucher_name']= $voucher_name;
-       $data['voucher_name']=$voucher_name;
        $data['voucher_context']= $mota_voucher;
        $data['voucher_down']=$voucher_down;
        $data['voucher_start']= $voucher_startDate;
        $data['voucher_end']= $voucher_endDate;
+       $data['voucher_category']=$voucher_type;
+       $data['voucher_unit']= $voucher_unit;
+       $data['voucher_limit']= $voucher_quantity;
+       $data['category_payment_id']=  $voucher_category_payment;
        $data['voucher_status']= 0;
        $data['created_at']= Carbon::now();
        DB::table('tbl_vocher')->insert($data);

@@ -185,3 +185,17 @@ exports.updatePassword = (req, res) => {
     });
   });
 };
+exports.checkPhone = (req, res) => {
+  const phone = req.body.user_phone;
+  connection.query("SELECT * FROM tbl_users WHERE user_phone = ?", [phone], (error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    if (results.length > 0) {
+      return res.json({ status: 'success', mess: 'có tài khoản này' });
+    } else {
+      return res.json({ status: 'fall', mess: 'Không tìm thấy tài khoản này' });
+    }
+  });
+}

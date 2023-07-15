@@ -213,6 +213,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <script src="{{ asset('BE/js/callAPI.js') }}"></script>
     <script>
+    $("#voucher_type").change(function() {
+ 
+        var voucher_type = $("#voucher_type").val();
+        if(voucher_type==0){
+            $('#voucher_unit').val('%')
+        }
+        if(voucher_type==1){
+            $('#voucher_unit').val('VNĐ')
+        }
+        if(voucher_type==2){
+            $('#voucher_unit').val('freeship')
+        }
+        if(voucher_type==3){
+            $('#voucher_unit').val('')
+        }
+    });
+
         var swiper = new Swiper(".mySwiper", {
             cssMode: true,
             navigation: {

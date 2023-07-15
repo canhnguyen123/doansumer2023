@@ -46,6 +46,7 @@ Route::prefix('/admin')->group(function () {
  
    Route::middleware(['auth'])->group(function () {
         Route::get('/', [AdminController::class, 'home'])->name('home');
+        Route::post('/', [AdminController::class, 'updateShowHome'])->name('updateShowHome');
         Route::get('/logout-admin', [AdminController::class, 'logout'])->name('logout');
         Route::prefix('/page')->group(function () {
             Route::prefix('/payment')->group(function(){
