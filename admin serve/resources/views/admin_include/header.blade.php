@@ -40,8 +40,8 @@
                 <ul class="sub">
                     <li><a href="{{ route('position_list') }}"> chức vụ</a></li>
                     <li><a href="{{route('staff_list')}}"><i class="fa fa-user"></i> nhân viên</a></li>
-                    <li><a href="{{ route('position_list') }}"> Phân quyền</a></li>
-                    
+                    <li><a href="{{ route('phanquyen_list') }}"> Nhóm phân quyền</a></li>
+                    <li><a href="{{ route('phanquyenDeatil_list') }}"> Phân quyền chi tiết</a></li>
                 </ul>
             </li>
             <li class="sub-menu">

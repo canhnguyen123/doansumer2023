@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-
+use App\Http\Requests\validateRequet;
 session_start();
 
 class statusController extends Controller
@@ -25,7 +25,7 @@ class statusController extends Controller
     public function status_add(){
         return  view('admin_include.page.product.status.add');
     }
-    public function post_status_add(Request $request){
+    public function post_status_add(validateRequet $request){
        $data=[];
        $statusName = $request->status_name;
        $statusCode = $request->status_code;
@@ -57,7 +57,7 @@ class statusController extends Controller
         $manager_status=view('admin_include.page.product.status.update')->with('update_status',$update_status);
         return  view('admin')->with('admin_include.page.product.status.update',$manager_status);
     }
-    public function post_status_update(Request $request, $status_id){
+    public function post_status_update(validateRequet $request, $status_id){
         $data=[];
                  // Kiểm tra xem dữ liệu đã tồn tại trong bảng tbl_status_product hay chưa
          $statusExists = DB::table('tbl_status_product')

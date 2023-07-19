@@ -1,4 +1,6 @@
 <?php
+// Staff.php
+// Staff.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,21 +12,17 @@ class Staff extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $table = 'tbl_staff';
-    protected $primaryKey = 'staff_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'staff_name', 'staff_password',
+        'staff_username', 'staff_password',
     ];
     protected $hidden = [
         'staff_password',
     ];
 
-    public function getAuthPassword()
+    // Định nghĩa mối quan hệ với bảng chung gian tbl_phanquyendeatil_user
+    public function permissions()
     {
-        return $this->staff_password;
-    }
-
-    public function getAuthIdentifier()
-    {
-        return $this->staff_id;
+        return $this->belongsToMany(PhanQuyenDeatil::class, 'tbl_phanquyendeatil_user', 'id', 'phanquyenDeatil_Id');
     }
 }

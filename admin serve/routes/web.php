@@ -20,6 +20,8 @@ use App\Http\Controllers\theloai_paymentController;
 use App\Http\Controllers\staffController;
 use App\Http\Controllers\paymentController;
 use App\Http\Controllers\statisticalController;
+use App\Http\Controllers\phanquyenController;
+use App\Http\Controllers\phanquyenDeatilController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,7 +45,7 @@ Route::prefix('/admin')->group(function () {
     Route::post('/login-post', [AdminController::class, 'post_login'])->name('post_login');
     
   
- 
+// 
    Route::middleware(['auth'])->group(function () {
         Route::get('/', [AdminController::class, 'home'])->name('home');
         Route::post('/', [AdminController::class, 'updateShowHome'])->name('updateShowHome');
@@ -101,7 +103,6 @@ Route::prefix('/admin')->group(function () {
                     Route::get('/list', [sizeProductController::class, 'size_list'])->name('size_list');
                     Route::get('/size-add', [sizeProductController::class, 'size_add'])->name('size_add');
                     Route::get('/size-update/{id_size}', [sizeProductController::class, 'size_update'])->name('size_update');
-                    Route::get('/size-delete/{id_size}', [sizeProductController::class, 'size_delete'])->name('size_delete');
                     Route::get('/togggle-status/{id_size}/{status_size}', [sizeProductController::class, 'togggle_status'])->name('togggle_status_size');
                     Route::post('/post-size-add', [sizeProductController::class, 'post_size_add'])->name('post_size_add');
                    Route::post('/post-size-update/{id_size}', [sizeProductController::class, 'post_size_update'])->name('post_size_update');
@@ -154,8 +155,11 @@ Route::prefix('/admin')->group(function () {
                 Route::prefix('/position')->group(function () {
                     Route::get('/list', [positionController::class, 'position_list'])->name('position_list');
                     Route::get('/add', [positionController::class, 'position_add'])->name('position_add');
-                    Route::get('/delete/{position_id}', [positionController::class, 'position_delete'])->name('position_delete');
+                    Route::get('/update/{position_id}', [positionController::class, 'position_update'])->name('position_update');
+                    Route::get('/deatil/{position_id}', [positionController::class, 'position_deatil'])->name('position_deatil');
+                    Route::get('/togggle-status/{position_id}/{chucvu_status}', [positionController::class, 'togggle_status'])->name('togggle_status_position');
                     Route::post('/post-add', [positionController::class, 'post_position_add'])->name('post_position_add'); 
+                    Route::post('/post-update/{position_id}', [positionController::class, 'post_position_update'])->name('post_position_update'); 
                 });
                 Route::prefix('/staff')->group(function(){
                     Route::get('/list', [staffController::class, 'staff_list'])->name('staff_list');
@@ -165,6 +169,22 @@ Route::prefix('/admin')->group(function () {
                     Route::get('/togggle-status/{staff_id}/{staff_status}', [staffController::class, 'togggle_status'])->name('togggle_status_staff');
                     Route::post('/post-add', [staffController::class, 'post_staff_add'])->name('post_staff_add'); 
                     Route::post('/post-update/{staff_id}', [staffController::class, 'post_staff_update'])->name('post_staff_update'); 
+                });
+                Route::prefix('/phanquyen')->group(function () {
+                    Route::get('/list', [phanquyenController::class, 'phanquyen_list'])->name('phanquyen_list');
+                    Route::get('/add', [phanquyenController::class, 'phanquyen_add'])->name('phanquyen_add');
+                    Route::get('/update/{phanquyen_id}', [phanquyenController::class, 'phanquyen_update'])->name('phanquyen_update');
+                    Route::get('/togggle-status/{phanquyen_id}/{phanquyen_status}', [phanquyenController::class, 'togggle_status_phannuyen'])->name('togggle_status_phannuyen');
+                    Route::post('/post-add', [phanquyenController::class, 'post_phanquyen_add'])->name('post_phanquyen_add'); 
+                    Route::post('/post-update/{phanquyen_id}', [phanquyenController::class, 'post_phanquyen_update'])->name('post_phanquyen_update'); 
+                });
+                Route::prefix('/phanquyenDeatil')->group(function () {
+                    Route::get('/list', [phanquyenDeatilController::class, 'phanquyenDeatil_list'])->name('phanquyenDeatil_list');
+                    Route::get('/add', [phanquyenDeatilController::class, 'phanquyenDeatil_add'])->name('phanquyenDeatil_add');
+                    Route::get('/update/{phanquyenDeatil_id}', [phanquyenDeatilController::class, 'phanquyenDeatil_update'])->name('phanquyenDeatil_update');
+                    Route::get('/togggle-status/{phanquyenDeatil_id}/{phanquyenDeatil_status}', [phanquyenDeatilController::class, 'togggle_status_phanquyenDeatl'])->name('togggle_status_phanquyenDeatl');
+                    Route::post('/post-add', [phanquyenDeatilController::class, 'post_phanquyenDeatil_add'])->name('post_phanquyenDeatil_add'); 
+                    Route::post('/post-update/{phanquyenDeatil_id}', [phanquyenDeatilController::class, 'post_phanquyenDeatil_update'])->name('post_phanquyenDeatil_update'); 
                 });
             });
             Route::prefix('/banner')->group(function () {
@@ -187,7 +207,8 @@ Route::prefix('/admin')->group(function () {
             Route::prefix('/voucher')->group(function () {
                 Route::get('/list', [voucherController::class, 'voucher_list'])->name('voucher_list');
                 Route::get('/add', [voucherController::class, 'voucher_add'])->name('voucher_add');
-                 Route::get('/update/{voucher_id}', [voucherController::class, 'voucher_update'])->name('voucher_update');
+                Route::get('/update/{voucher_id}', [voucherController::class, 'voucher_update'])->name('voucher_update');
+                 Route::get('/deatil/{voucher_id}', [voucherController::class, 'voucher_deatil'])->name('voucher_deatil');
                 Route::get('/togggle-status/{voucher_id}/{voucher_status}', [voucherController::class, 'togggle_status'])->name('togggle_status_voucher');
                 Route::post('/post-add', [voucherController::class, 'post_voucher_add'])->name('post_voucher_add');
                 Route::post('/post-update/{voucher_id}', [voucherController::class, 'post_voucher_update'])->name('post_voucher_update');

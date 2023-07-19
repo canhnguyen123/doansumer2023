@@ -6,43 +6,46 @@
 		<div class="table-agile-info">
  <div class="panel panel-default row">
     <div class="panel-heading heading">
-     Thêm mới màu sắc
+     Thêm mới nhóm quyền
     </div>
     <div class="content col-12 ">
-        <form action="{{ route('post_color_add') }}" method="post" class="row ">
+        <form action="{{ route('post_phanquyen_add')}}" method="post" class="row ">
             {{ csrf_field() }}
             @if ($errors->any())
                 <div class="alert alert-danger text-center">
                  <span>Có lỗi xảy ra vui lòng kiểm tra lại dữ liệu</span>
                 </div>
             @endif
-            <div class="col-6">
+            <div class="col-12">
                 <div class="col-12 ip-form">
-                    <label for="">Tên màu sắc</label>
-                    <input type="text" name="color_name" value="{{ old('color_name') }}" required>
+                    <label for="">Tên nhóm quyền</label>
+                    <input type="text" name="phanquyen_name" value="{{ old('phanquyen_name') }}" required>
                 </div>
                 <div class="col-12 err"><span>
-                    @error('color_name')
+                    @error('phanquyen_name')
                         {{ $message }}
                     @enderror    
-
             </span></div>
             </div>
-            <div class="col-6">
+        
+            <div class="col-12">
                 <div class="col-12 ip-form">
-                    <label for="">Mã màu sắc</label>
-                    <input type="text" name="color_code"  value="{{ old('color_code') }}" required>
+                    <label for="">Mô tả</label>
+                    <textarea name="phanquyen_mota" class="editor" cols="30" rows="10" required></textarea>
                 </div>
-              
                 <div class="col-12 err"><span>
-                    @error('color_code')
-                    {{ $message }}
-                     @enderror
-                    </span></div>
+                    @error('theloai_name')
+                        {{ $message }}
+                    @enderror    
+                @if(session('errorMessage'))
+               
+                    {{ session('errorMessage') }}
+               
+                @endif
+            </span></div>
             </div>
-           
             <div class="col-12 ip-form">
-                <button type="submit" name="add-color"><i class="fa-sharp fa-solid fa-plus"></i> Thêm màu sắc</button>
+                <button type="submit" name="add-phanquyen"><i class="fa-sharp fa-solid fa-plus"></i> Thêm nhóm quyền</button>
             </div>
         </form>
     </div>

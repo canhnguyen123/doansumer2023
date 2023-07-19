@@ -48,9 +48,28 @@ class validateRequet extends FormRequest
             'brand_code' => 'alpha|min:1|max:15',
 
             'sizeName' => ['regex:/^[A-Za-z]+$/i', 'min:1', 'max:5'],
+
             'oldPass'=>'min:6|max:35|',
             'newPass'=>'min:6|max:35|',
             'anewPass'=>'min:6|max:35|',
+
+            'status_name'=>[
+                'max:35',
+                'min:2',
+                function ($attribute, $value, $fail) {
+                    $this->validateVietnameseCharacters($attribute, $value, $fail);
+                },
+            ],
+            'status_code'=>'integer|',
+
+            'color_name'=>[
+                'max:35',
+                'min:2',
+                function ($attribute, $value, $fail) {
+                    $this->validateVietnameseCharacters($attribute, $value, $fail);
+                },
+            ],
+            'color_code'=>'min:2|max:35',
         ];
     }
     
@@ -84,6 +103,16 @@ class validateRequet extends FormRequest
             'newPass.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
             'anewPass.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
             'anewPass.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+
+            'status_name.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'status_name.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'status_name.alpha_spaces'=>'Bạn không được nhập :attribute dang nào ngoài chữ cái dạng tiếng việt',
+            'status_code.integer'=>'Bạn không được nhập :attribute ngoài số',
+
+            'color_name.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'color_name.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'color_code.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'color_code.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
         ];
     }
     public function attributes()
@@ -99,7 +128,10 @@ class validateRequet extends FormRequest
             'oldPass'=>'mật khẩu cũ',
             'newPass'=>'mật khẩu mới',
             'anewPass'=>'xác nhận mật khẩu',
-
+            'status_code'=>'mã trạng thái',
+            'status_name'=>'tên trạng thái',
+            'color_name'=>'tên màu sắc',
+            'color_code'=>'mã màu sắc',
         ];
     }
     private function validateVietnameseCharacters($attribute, $value, $fail)

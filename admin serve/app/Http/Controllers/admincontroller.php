@@ -118,18 +118,25 @@ class admincontroller extends Controller
         
     }
     public function updateShowHome(Request $request)
-    {  
-        $theloaiItem = $request->theloaiItem;
-        if(count($theloaiItem)>4){
-            return " <script> alert('Tổng số thể loại hiển thị ở trang chủ của app không được vượt quá 4 thể loại'); window.location = '".route('home')."';</script>";
-        }else{
-            foreach($theloaiItem as $item){
-                $data['show_home']=1;
-                DB::table('tbl_theloai')->where('theloai_id',$item)->update($data);
-            }
-            return " <script> alert('Cập nhật thành công'); window.location = '".route('home')."';</script>";
-            }
-        }
+{
+    $theloaiItem = $request->theloaiItem;
+
+    // Get all the existing items from the database
+    $allTheloai = DB::table('tbl_theloai')->get();
+
+    // Update the show_home field based on the selected checkboxes
+    foreach ($allTheloai as $item) {
+        $data['show_home'] = in_array($item->theloai_id, $theloaiItem) ? 1 : 0; 
+        DB::table('tbl_theloai')->where('theloai_id', $item->theloai_id)->update($data);
+    }
+
+    if (count($theloaiItem) > 4) {
+        return "<script> alert('Tổng số thể loại hiển thị ở trang chủ của app không được vượt quá 4 thể loại'); window.location = '" . route('home') . "';</script>";
+    } else {
+        return "<script> alert('Cập nhật thành công'); window.location = '" . route('home') . "';</script>";
+    }
+}
+
         
     public function logout()
     {

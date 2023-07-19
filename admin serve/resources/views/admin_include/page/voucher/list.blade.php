@@ -74,6 +74,9 @@
               </td>
             
             <td ><div class="flex_center icons">
+              <div class="icon bg-yellow flex_center">
+                <a href="{{ route('voucher_deatil', ['voucher_id' => $item_voucher->voucher_id]) }}"><i class="fa-solid fa-eye"></i></a> 
+               </div>
                 <div class="icon bg-bule flex_center">
                  <a href="{{ route('voucher_update', ['voucher_id' => $item_voucher->voucher_id]) }}"> <i class="fa-solid fa-pen"></i></a> 
                 </div>

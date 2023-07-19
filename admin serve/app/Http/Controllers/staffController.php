@@ -78,8 +78,23 @@ class staffController extends Controller
        $data['staff_status']=1;
        $data['chucvu_id']=$staff_postition;
        $data['created_at'] = Carbon::now();
-       $insert_staff= DB::table('tbl_staff')->insert($data);
+       $insert_staff = DB::table('tbl_staff')->insert($data);
+       
        if($insert_staff){
+        $staff_id = DB::getPdo()->lastInsertId();
+        $select_phanquyen=DB::table('tbl_groupquyen_prosition')->where('chucvu_id',$staff_postition)->where('group_status',1)->get();
+        foreach($select_phanquyen as $item_select_postition){
+            $phanquyen_id= $item_select_postition->phanquyen_id;
+            $select_deatilQuyen=DB::table('tbl_phanquyen_deatil')->where('phanquyen_id',$phanquyen_id)->where('phanquyenDeatil_status',1)->get();
+            foreach($select_deatilQuyen as $item_deatil_quyen){
+                $phanquyenDeatil_Id= $item_deatil_quyen->phanquyenDeatil_Id;
+
+                $data2['id']=$staff_id;
+                $data2['phanquyenDeatil_Id']=$phanquyenDeatil_Id;
+                $data2['phanquyenDeatil_user_status']=1;
+                $insert_staff= DB::table('tbl_phanquyendeatil_user')->insert($data2);
+            }
+        }
         $uploadPath = public_path('upload');
 
             if (!File::exists($uploadPath)) {

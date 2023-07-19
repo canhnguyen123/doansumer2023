@@ -94,10 +94,10 @@
                             <div class="item-theloai-check">
                                 @if ($itemtheloai->show_home == 1)
                                     <input type="checkbox" name="theloaiItem[]" value="{{ $itemtheloai->theloai_id}}" checked />
-                                    {{ $itemtheloai->theloai_name }}
+                                    {{ $itemtheloai->theloai_name}}
                                 @else
                                     <input type="checkbox" name="theloaiItem[]" value="{{ $itemtheloai->theloai_id}}" />
-                                    {{ $itemtheloai->theloai_name }}
+                                    {{ $itemtheloai->theloai_name}}
                                 @endif
                             </div>
                         @endforeach

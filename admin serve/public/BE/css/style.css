@@ -4097,9 +4097,47 @@ box-shadow: 10px 10px 10px #ccc;
 .theloai-check{
     display: flex;
 }
+.block{
+display: inline-block;
+}
+.ip-form p.text-ip{
+    color: #727272;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 350;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 22px;
+    text-align: left;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+}
+.block{
+    min-width:  150px;
+    color: #727272;
+    font-family: Roboto;
+    font-size: 12px;
+    font-weight: 350;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 22px;
+    text-align: left;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+}
+.block input{
+margin-right: 5px;
+}
+.mg-10{
+   
+    padding: 10px;
+}
 .item-theloai-check{
     margin: 10px;
 }
+
 .titel-f-25 {
     font-size: 25px !important;
     letter-spacing: 1px !important;

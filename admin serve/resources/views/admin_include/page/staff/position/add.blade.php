@@ -32,7 +32,14 @@
                 @endif
             </span></div>
             </div>
-        
+            <div class="col-12">
+                @foreach ($list_phanquyen as $item)
+                <div class="block mg-10">
+                    <input type="checkbox" name="listQuyen[]" value="{{$item->phanquyen_id}}">{{$item->phanquyen_nameGroup}}
+                </div>
+                @endforeach
+                
+            </div>
            
             <div class="col-12 ip-form">
                 <button type="submit" name="add-position"><i class="fa-sharp fa-solid fa-plus"></i> Thêm chức vụ</button>
