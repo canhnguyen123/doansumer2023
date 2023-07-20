@@ -15,7 +15,7 @@ class phanquyenDeatilController extends Controller
         $list_phanquyenDeatil = DB::table('tbl_phanquyen_deatil')
             ->join('tbl_phanquyen', 'tbl_phanquyen.phanquyen_id', '=', 'tbl_phanquyen_deatil.phanquyen_id')
             ->select('tbl_phanquyen_deatil.*', 'tbl_phanquyen.phanquyen_nameGroup')
-            ->get();
+            ->paginate(10);
       
         $count=DB::table("tbl_phanquyen_deatil")->count();
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);

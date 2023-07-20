@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\validateRequet;
 use App\Http\Requests;
-
 session_start();
 
 class brandController extends Controller

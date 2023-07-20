@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
-use App\Models\YourModel;
-
+use App\Http\Requests\validateRequet;
 session_start();
 class productController extends Controller
 {

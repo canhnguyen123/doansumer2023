@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
-use App\Models\YourModel;
+
 use Illuminate\Support\Facades\File;
 
-
+use App\Http\Requests\validateRequet;
 session_start();
 
 class staffController extends Controller
@@ -38,7 +38,7 @@ class staffController extends Controller
         ->get();
         return  view('admin_include.page.staff.staff.deatils') ->with('staff_deatil',$staff_deatil);
     }
-    public function post_staff_add(Request $request){
+    public function post_staff_add(validateRequet $request){
        $data=[];
        $staff_code = $request->staff_code;
        $staff_name = $request->staff_name;
@@ -122,7 +122,7 @@ class staffController extends Controller
         ->with('list_position',$list_position);
         return  view('admin')->with('admin_include.page.staff.staff.update',$manager_staff);
     }
-    public function post_staff_update(Request $request, $staff_id){
+    public function post_staff_update(validateRequet $request, $staff_id){
        
         $staff_deatil = DB::table('tbl_staff')
         ->where('id', $staff_id)

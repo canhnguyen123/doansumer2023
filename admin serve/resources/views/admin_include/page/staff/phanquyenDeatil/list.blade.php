@@ -79,6 +79,42 @@
       
           
         </tbody>
+        <tfoot>
+          <tr>
+              <td colspan="6">
+                  @if ($list_phanquyenDeatil->total() > $list_phanquyenDeatil->perPage())
+                      <div class="pagination">
+                          <ul class="pagination">
+                              <!-- Nút Previous -->
+                              @if ($list_phanquyenDeatil->currentPage() > 1)
+                                  <li class="page-item">
+                                      <a class="page-link" href="{{ $list_phanquyenDeatil->previousPageUrl() }}" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                      </a>
+                                  </li>
+                              @endif
+      
+                              <!-- Các trang -->
+                              @for ($i = 1; $i <= $list_phanquyenDeatil->lastPage(); $i++)
+                                  <li class="page-item{{ ($list_phanquyenDeatil->currentPage() == $i) ? ' active' : '' }}">
+                                      <a class="page-link" href="{{ $list_phanquyenDeatil->url($i) }}">{{ $i }}</a>
+                                  </li>
+                              @endfor
+      
+                              <!-- Nút Next -->
+                              @if ($list_phanquyenDeatil->currentPage() < $list_phanquyenDeatil->lastPage())
+                                  <li class="page-item">
+                                      <a class="page-link" href="{{ $list_phanquyenDeatil->nextPageUrl() }}" aria-label="Next">
+                                          <span aria-hidden="true">&raquo;</span>
+                                      </a>
+                                  </li>
+                              @endif
+                          </ul>
+                      </div>
+                  @endif
+              </td>
+          </tr>
+      </tfoot>
       </table>
     </div>
   </div>

@@ -79,6 +79,42 @@
       
           
         </tbody>
+        <tfoot>
+          <tr>
+              <td colspan="6">
+                  @if ($list_phanquyen->total() > $list_phanquyen->perPage())
+                      <div class="pagination">
+                          <ul class="pagination">
+                              <!-- Nút Previous -->
+                              @if ($list_phanquyen->currentPage() > 1)
+                                  <li class="page-item">
+                                      <a class="page-link" href="{{ $list_phanquyen->previousPageUrl() }}" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                      </a>
+                                  </li>
+                              @endif
+      
+                              <!-- Các trang -->
+                              @for ($i = 1; $i <= $list_phanquyen->lastPage(); $i++)
+                                  <li class="page-item{{ ($list_phanquyen->currentPage() == $i) ? ' active' : '' }}">
+                                      <a class="page-link" href="{{ $list_phanquyen->url($i) }}">{{ $i }}</a>
+                                  </li>
+                              @endfor
+      
+                              <!-- Nút Next -->
+                              @if ($list_phanquyen->currentPage() < $list_phanquyen->lastPage())
+                                  <li class="page-item">
+                                      <a class="page-link" href="{{ $list_phanquyen->nextPageUrl() }}" aria-label="Next">
+                                          <span aria-hidden="true">&raquo;</span>
+                                      </a>
+                                  </li>
+                              @endif
+                          </ul>
+                      </div>
+                  @endif
+              </td>
+          </tr>
+      </tfoot>
       </table>
     </div>
   </div>

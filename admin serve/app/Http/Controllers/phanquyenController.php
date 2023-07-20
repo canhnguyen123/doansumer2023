@@ -14,7 +14,7 @@ session_start();
 class phanquyenController extends Controller
 {
     public function phanquyen_list(){
-        $list_phanquyen=DB::table("tbl_phanquyen")->get();
+        $list_phanquyen=DB::table("tbl_phanquyen")->paginate(10);
         $count=DB::table("tbl_phanquyen")->count();
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_phanquyen=view('admin_include.page.staff.phanquyen.list')

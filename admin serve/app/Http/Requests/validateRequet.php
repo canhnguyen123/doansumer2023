@@ -70,8 +70,31 @@ class validateRequet extends FormRequest
                 },
             ],
             'color_code'=>'min:2|max:35',
+            'position_name'=>[
+                'max:35',
+                'min:2',
+                function ($attribute, $value, $fail) {
+                    $this->validateVietnameseCharacters($attribute, $value, $fail);
+                },
+            ],
+            // 'staff_code'=>'min:8|max:8',
+            'staff_name'=>'min:6|max:60',
+            'staff_password'=>'min:4|max:60',
+            'staff_fullname'=>[
+                'max:35',
+                'min:2',
+                function ($attribute, $value, $fail) {
+                    $this->validateVietnameseCharacters($attribute, $value, $fail);
+                },
+            ],
+            'staff_phone'=>'min:10|max:15|integer',
+            'staff_email'=>'min:6|max:150',
+            'staff_address_deatil'=>'min:2|max:150',
         ];
     }
+
+
+
     
    
     
@@ -113,6 +136,23 @@ class validateRequet extends FormRequest
             'color_name.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
             'color_code.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
             'color_code.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+
+            'position_name.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'position_name.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+
+            'staff_name.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'staff_name.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'staff_password.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'staff_password.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'staff_fullname.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'staff_fullname.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'staff_phone.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'staff_phone.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'staff_phone.integer'=>'Bạn phải nhập :attribute là dạng số',
+            'staff_email.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'staff_email.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'staff_address_deatil.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'staff_address_deatil.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
         ];
     }
     public function attributes()
@@ -132,6 +172,13 @@ class validateRequet extends FormRequest
             'status_name'=>'tên trạng thái',
             'color_name'=>'tên màu sắc',
             'color_code'=>'mã màu sắc',
+            'position_name'=>'tên chức vụ',
+            'staff_name'=>'tên đăng nhập',
+            'staff_password'=>'mật khẩu',
+            'staff_fullname'=>'họ tên',
+            'staff_phone'=>'số điện thoại',
+            'staff_email'=>'email',
+            'staff_address_deatil'=>'địa chỉ chi tiết',
         ];
     }
     private function validateVietnameseCharacters($attribute, $value, $fail)

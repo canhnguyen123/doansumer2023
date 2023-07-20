@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use App\Http\Requests\validateRequet;
 class positionController extends Controller
 {
     public function position_list(){
@@ -23,7 +23,7 @@ class positionController extends Controller
         return  view('admin_include.page.staff.position.add')
         ->with('list_phanquyen',$list_phanquyen);
     }
-    public function post_position_add(Request $request){
+    public function post_position_add(validateRequet $request){
        $data=[];
        $positionName = $request->position_name;
         $listQuyen= $request->listQuyen;
@@ -67,7 +67,7 @@ class positionController extends Controller
         ->with('list_phanquyen',$list_phanquyen)
         ->with('groupquyen_prosition',$groupquyen_prosition);
     }
-    public function post_position_update(Request $request, $position_id)
+    public function post_position_update(validateRequet $request, $position_id)
     {
         $data = [];
         $positionName = $request->position_name;
@@ -96,29 +96,32 @@ class positionController extends Controller
                                 ->toArray();
     
         // Cập nhật trạng thái và thêm mới các hàng trong bảng tbl_groupquyen_prosition
-        foreach ($listQuyen as $phanquyenId) {
-            if (in_array($phanquyenId, $existingPhanQuyenIds)) {
-                // Cập nhật trạng thái thành 1
-                DB::table('tbl_groupquyen_prosition')
-                    ->where('chucvu_id', $position_id)
-                    ->where('phanquyen_id', $phanquyenId)
-                    ->update(['group_status' => 1]);
-            } else {
-                // Thêm mới hàng nếu chưa tồn tại
-                DB::table('tbl_groupquyen_prosition')->insert([
-                    'chucvu_id' => $position_id,
-                    'phanquyen_id' => $phanquyenId,
-                    'group_status' => 1
-                ]);
+        if($listQuyen){
+            foreach ($listQuyen as $phanquyenId) {
+                if (in_array($phanquyenId, $existingPhanQuyenIds)) {
+                    // Cập nhật trạng thái thành 1
+                    DB::table('tbl_groupquyen_prosition')
+                        ->where('chucvu_id', $position_id)
+                        ->where('phanquyen_id', $phanquyenId)
+                        ->update(['group_status' => 1]);
+                } else {
+                    // Thêm mới hàng nếu chưa tồn tại
+                    DB::table('tbl_groupquyen_prosition')->insert([
+                        'chucvu_id' => $position_id,
+                        'phanquyen_id' => $phanquyenId,
+                        'group_status' => 1
+                    ]);
+                }
             }
+        
+            // Cập nhật trạng thái của các hàng còn lại thành 0
+            DB::table('tbl_groupquyen_prosition')
+                ->where('chucvu_id', $position_id)
+                ->whereNotIn('phanquyen_id', $listQuyen)
+                ->update(['group_status' => 0]);
+        
         }
-    
-        // Cập nhật trạng thái của các hàng còn lại thành 0
-        DB::table('tbl_groupquyen_prosition')
-            ->where('chucvu_id', $position_id)
-            ->whereNotIn('phanquyen_id', $listQuyen)
-            ->update(['group_status' => 0]);
-    
+       
         return "<script> alert('Cập nhật thành công'); window.location = '".route('position_list')."';</script>";
     }
     

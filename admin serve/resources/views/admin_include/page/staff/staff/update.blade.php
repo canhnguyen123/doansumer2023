@@ -15,13 +15,8 @@
     <form  class="row" action="{{route('post_staff_update',['staff_id'=>$item_update->id])}}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         @if ($errors->any())
-            <div class="col-12 alert alert-danger text-center">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-        
+            <div class="alert alert-danger text-center">
+            <span>Có lỗi xảy ra vui lòng kiểm tra lại dữ liệu</span>
             </div>
         @endif
         <div class="col-4">
@@ -56,7 +51,7 @@
                 <label>Mã nhân viên</label>
             </div>
             <div class="col-12 err"><span>
-                @error('category_code')
+                @error('staff_code')
                 {{ $message }}
                     @enderror 
                     @if(session('errorMessage'))
@@ -75,7 +70,7 @@
                 <label>Tên đăng nhập</label>
             </div>
             <div class="col-12 err"><span>
-                @error('category_code')
+                @error('staff_name')
                 {{ $message }}
                     @enderror 
                     @if(session('errorMessage'))
@@ -92,7 +87,7 @@
                 <label>Họ tên</label>
             </div>
             <div class="col-12 err"><span>
-                @error('category_code')
+                @error('staff_fullname')
                 {{ $message }}
                     @enderror 
                     @if(session('errorMessage'))
@@ -110,7 +105,7 @@
                 <label>Số điện thoại</label>
             </div>
             <div class="col-12 err"><span>
-                @error('category_code')
+                @error('staff_phone')
                 {{ $message }}
                     @enderror 
                     @if(session('errorMessage'))
@@ -127,7 +122,7 @@
                 <label>Email</label>
             </div>
             <div class="col-12 err"><span>
-                @error('category_code')
+                @error('staff_email')
                 {{ $message }}
                     @enderror 
                     @if(session('errorMessage'))
@@ -170,6 +165,16 @@
                 <input type="text" name="staff_address_deatil" value="">
                 <label>Địa chỉ cụ thể</label>
             </div>
+            <div class="col-12 err"><span>
+                @error('staff_address_deatil')
+                {{ $message }}
+                    @enderror 
+                    @if(session('errorMessage'))
+           
+                    {{ session('errorMessage') }}
+               
+                @endif
+                </span></div>
         </div>
         <div class="col-12">
             <input type="hidden" name="staff_address" id="result_local" value="" required>
