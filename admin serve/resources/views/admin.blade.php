@@ -213,22 +213,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <script src="{{ asset('BE/js/callAPI.js') }}"></script>
     <script>
-    $("#voucher_type").change(function() {
- 
-        var voucher_type = $("#voucher_type").val();
-        if(voucher_type==0){
-            $('#voucher_unit').val('%')
-        }
-        if(voucher_type==1){
-            $('#voucher_unit').val('VNĐ')
-        }
-        if(voucher_type==2){
-            $('#voucher_unit').val('freeship')
-        }
-        if(voucher_type==3){
-            $('#voucher_unit').val('')
-        }
-    });
+        $("#voucher_type").change(function() {
+
+            var voucher_type = $("#voucher_type").val();
+            if (voucher_type == 0) {
+                $('#voucher_unit').val('%')
+            }
+            if (voucher_type == 1) {
+                $('#voucher_unit').val('VNĐ')
+            }
+            if (voucher_type == 2) {
+                $('#voucher_unit').val('freeship')
+            }
+            if (voucher_type == 3) {
+                $('#voucher_unit').val('')
+            }
+        });
 
         var swiper = new Swiper(".mySwiper", {
             cssMode: true,
@@ -515,45 +515,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         }
 
-        function updateQuantity(e,product_id) {
-                e.preventDefault();
-                var id = $('#data-id-text').text();
-                var color = $('input[class="product-color-item"]:checked').val();
-                var size = $('input[class="product-size-item"]:checked').val();
-                var quantity = $('#quantityItem').val();
-                var url = "{{ route('post_quantity_update', ['quantity_id' => 0]) }}";
-                url = url.slice(0, -1) + id;
-                var rendeUrl = "{{ route('quantityProduct_list', ['product_id' => 0]) }}";
-                rendeUrl = rendeUrl.slice(0, -1) + product_id;
-                var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        size: size,
-                        color: color,
-                        quantity: quantity
-                    },
-                    success: function(response) {
-                       if(response.status==='success'){
+        function updateQuantity(e, product_id) {
+            e.preventDefault();
+            var id = $('#data-id-text').text();
+            var color = $('input[class="product-color-item"]:checked').val();
+            var size = $('input[class="product-size-item"]:checked').val();
+            var quantity = $('#quantityItem').val();
+            var url = "{{ route('post_quantity_update', ['quantity_id' => 0]) }}";
+            url = url.slice(0, -1) + id;
+            var rendeUrl = "{{ route('quantityProduct_list', ['product_id' => 0]) }}";
+            rendeUrl = rendeUrl.slice(0, -1) + product_id;
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    size: size,
+                    color: color,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
                         alert(response.message);
-                            
-                       }else if(response.status==='fall'){
+
+                    } else if (response.status === 'fall') {
                         alert(response.message);
-                       }
-                            
-                       window.location.href = rendeUrl;
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Lỗi: ' + error);
                     }
-    });
-}
+
+                    window.location.href = rendeUrl;
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                }
+            });
+        }
 
         function close_update(dataQuantity) {
             const parentDiv = $(dataQuantity).closest('.item-req.p-l-20');
@@ -769,10 +769,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         }
-        // function select_quantity() {
-        //     console.log('321312')
-
-        // }
+    
         var itemCount = 1; // Biến đếm ban đầu
         var addedItems = []; // Mảng lưu trữ các mặt hàng đã được thêm vào
 
@@ -922,10 +919,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     console.log('Lỗi: ' + error);
                 }
             });
-
-            // Các tác vụ khác...
-
-        });
+          });
 
         $(".tab-item-table").click(function() {
             $(".tab-item-table").removeClass("active");
@@ -1081,13 +1075,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 return true;
             }
-
-
-
             loadProductTheloai();
             $('#category_id_Pro, #phanloai_id_Pro').change(function() {
                 loadProductTheloai();
             });
+            $('#permission-fiter-deatil').click(function() {
+                const permission = $('#permission-fiter-group').val();
+                const status = $('#status-fiter-permission').val();
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: '{{ route('select_data_permission') }}',
+                    method: 'POST',
+                    data: {
+                        permission: permission,
+                        status: status
+                    },
+                    success: function(response) {
+                        $('#phanquyenDeatil_list_table').html(response)
+                        $('#tfoot-permission').hide();
+                    },
+                    error: function() {
+                        console.log("gửi thất bại");
+                    }
+                });
+            })
+
+            $('#reaload-permission').click(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('resetLoadpermission') }}",
+                    success: function(data) {
+                        $('#phanquyenDeatil_list_table').html(data);
+                        $('#tfoot-permission').show();
+                    },
+
+                });
+            })
 
             function loadProductTheloai() {
                 var product_category = $('#category_id_Pro').val();
@@ -1220,18 +1248,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $('#theloai-status-fiter').change(function() {
             var selectedValue = $('#theloai-status-fiter').val();
             var products = $('.theloai-item');
-
-            // for (var i = 0; i < products.length; i++) {
-            //   var product = products[i];
-            //   var productValue = product.getAttribute("data-value");
-
-            //   if (selectedValue === 1|| productValue === selectedValue) {
-            //     product.style.display = "table-row";
-            //   } else {
-            //     product.style.display = "none";
-            //   }
-
-            // }
         });
 
 
@@ -1471,6 +1487,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     },
                     success: function(data) {
                         $('#user_list_table').html(data);
+                    },
+
+                });
+            })
+
+            $('#search_ajax_phanquyenDeatil').keyup(function() {
+                if ($(this).val().length > 0) {
+                    $('#close_search').show();
+                } else {
+                    $('#close_search').hide();
+                }
+                var content = $('#search_ajax_phanquyenDeatil').val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('ajax_permission') }}",
+                    data: {
+                        content: content
+                    },
+                    success: function(data) {
+                        $('#phanquyenDeatil_list_table').html(data);
+                        $('#tfoot-permission').hide();
                     },
 
                 });

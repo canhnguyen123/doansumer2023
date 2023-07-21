@@ -83,7 +83,7 @@
           <tr>
               <td colspan="6">
                   @if ($list_phanquyen->total() > $list_phanquyen->perPage())
-                      <div class="pagination">
+                      <div class="pagination flex_center">
                           <ul class="pagination">
                               <!-- Nút Previous -->
                               @if ($list_phanquyen->currentPage() > 1)

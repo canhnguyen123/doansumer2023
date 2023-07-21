@@ -29,16 +29,13 @@
                 <label>Tên phương thưc</label>
                 <input type="text" name="category_payment_name" value="{{$item_category_payment->category_payment_name}}"><br>
             </div>
-            <div class="col-12 err"><span>
-                @error('category_code')
-                {{ $message }}
-                    @enderror 
-                    @if(session('errorMessage'))
-           
-                    {{ session('errorMessage') }}
-               
-                @endif
-                </span></div>
+            <div class="col-12 err">
+                <span>
+                    @error('category_payment_name')
+                    {{ $message }}
+                        @enderror 
+                 </span>
+        </div>
         </div>
         <div class="col-12">
             <div class="col-12 ip-form">

@@ -7,6 +7,12 @@
                 <h3>Tổng số quyền chi tiết : {{ $count }} </h3>
             </div>
             <div class="col-6 right">
+                <div class="search_icon icon flex_center  bg-bule" id="reaload-permission">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                </div>
+                <div class="search_icon icon flex_center fiter-toggle bg-bule" id="fiter_icon">
+                    <i class="fa-solid fa-filter"></i>
+                </div>
                 <div class="search_icon icon flex_center bg-bule" id="search_icon">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
@@ -16,9 +22,40 @@
             </div>
         </div>
         <div class="col-12 input-search mg-20" style="display: none;" id="search_input">
-            <input type="text" id="search_ajax_phanquyen" placeholder="Nhập thông tin cần tìm">
+            <input type="text" id="search_ajax_phanquyenDeatil" placeholder="Nhập thông tin cần tìm">
             <i class="fa-sharp fa-solid fa-magnifying-glass  icon-search-form"></i>
             <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none"  id="close_search"></i>
+        </div><div class="col-12 mg-20 data-fiter row" style="display: none">
+            <div class="col-12 row">
+                <div class="col-3 fiter">
+                    <label for="">Trạng thái
+                        <i class="fa-solid fa-thumbs-up bg-cl-green mg-10-l check-status" id="like-up"
+                            onclick="openThumdown()"></i>
+                        <i class="fa-solid fa-thumbs-down bg-cl-red mg-10-l check-status" id="like-down"
+                            onclick="openThumup()" style="display: none"></i>
+                    </label>
+                    <select name="" id="status-fiter-permission">
+                        <option value="all">Tất cả</option>
+                        <option value="1">Đang bật</option>
+                        <option value="0">Đang tắt</option>
+                    </select>
+                </div>
+              
+                <div class="col-3 fiter">
+                    <label for="">Nhóm Quyền</label>
+                        <select name="" id="permission-fiter-group">
+                        <option value="all">Tất cả</option>
+                        @foreach ($listPhanquyen as  $item)
+                        <option value="{{$item->phanquyen_id}}">{{$item->phanquyen_nameGroup}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3 ip-form flex_center" style="display: flex;align-items: flex-end">
+               
+                    <button class="" id="permission-fiter-deatil" onclick="">Lọc</button>
+                </div>
+            </div>
+           
         </div>
 		<div class="table-agile-info">
  <div class="panel panel-default row">
@@ -38,13 +75,14 @@
         }}'>
         <thead >
           <tr>
-            <th data-breakpoints="xs">STT</th>
+            <th>STT</th>
             <th>Nhóm quyền </th>
             <th>Tên quyền chi tiết</th>
+            <th style="text-align: center;">Trạng thái</th>
            <th style="text-align: center;">Thao tác</th>
           </tr>
         </thead>
-        <tbody id="phanquyen_list_table">
+        <tbody id="phanquyenDeatil_list_table">
           @php
           $i = 0;
          @endphp
@@ -55,7 +93,14 @@
           <tr data-expanded="true">
             <td>{{ $i }}</td>
            <td>{{ $item_phanquyen->phanquyen_nameGroup}}</td>
-            <td>{{ $item_phanquyen->phanquyenDeatil_name}}</td>
+            <td>{{ $item_phanquyen->phanquyenDeatil_name}} ({{ $item_phanquyen->phanquyenDeatil_route}})</td>
+            <td style="text-align: center;"> 
+                 @if ($item_phanquyen->phanquyenDeatil_status == 1)
+                    <i class="fa-sharp fa-solid fa-check bg-cl-green"></i>
+                @elseif($item_phanquyen->phanquyenDeatil_status == 0)
+                    <i class="fa-solid fa-xmark bg-cl-red" alt="Ẩn"></i>
+                @endif
+            </td>
             <td ><div class="flex_center icons">
               <div class="icon bg-bule flex_center">
                 <a href="{{ route('phanquyenDeatil_update', ['phanquyenDeatil_id' => $item_phanquyen->phanquyenDeatil_Id]) }}"> <i class="fa-solid fa-pen"></i></a> 
@@ -79,11 +124,11 @@
       
           
         </tbody>
-        <tfoot>
+        <tfoot id="tfoot-permission">
           <tr>
               <td colspan="6">
                   @if ($list_phanquyenDeatil->total() > $list_phanquyenDeatil->perPage())
-                      <div class="pagination">
+                      <div class="pagination flex_center">
                           <ul class="pagination">
                               <!-- Nút Previous -->
                               @if ($list_phanquyenDeatil->currentPage() > 1)

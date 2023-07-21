@@ -32,20 +32,16 @@
                 <input type="text" name="category_payment_name" value=""><br>
             </div>
             <div class="col-12 err"><span>
-                @error('category_code')
-                {{ $message }}
+                @error('category_payment_name')
+                    {{ $message }}
                     @enderror 
-                    @if(session('errorMessage'))
-           
-                    {{ session('errorMessage') }}
-               
-                @endif
+                  
                 </span></div>
         </div>
         <div class="col-12">
             <div class="col-12 ip-form">
                 <label for="">Mô tả ngắn</label>
-                <textarea name="category_payment_mota" class="editor" cols="30" rows="10"></textarea>
+                <textarea name="category_payment_mota" class="editor" cols="30" rows="10" required></textarea>
             </div>
 
         </div>

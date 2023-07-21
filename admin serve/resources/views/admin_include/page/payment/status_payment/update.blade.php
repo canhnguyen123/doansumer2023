@@ -33,7 +33,7 @@
                 <input type="text" name="status_hoadon_name" value="{{$item_status_payment->status_payment_name}}"><br>
             </div>
             <div class="col-12 err"><span>
-                @error('category_code')
+                @error('status_hoadon_name')
                 {{ $message }}
                     @enderror 
                     @if(session('errorMessage'))

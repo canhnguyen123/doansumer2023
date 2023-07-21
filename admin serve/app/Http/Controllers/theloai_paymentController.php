@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use App\Http\Requests\validateRequet;
 use Illuminate\Support\Facades\DB;
 
 
@@ -23,7 +23,7 @@ class theloai_paymentController extends Controller
     public function category_payment_add(){
         return  view('admin_include.page.payment.theloai_payment.add');
     }
-    public function post_category_payment_add(Request $request){
+    public function post_category_payment_add(validateRequet $request){
        $data=[];
        $category_payment_name = $request->input('category_payment_name');
         $category_payment_mota = html_entity_decode($request->input('category_payment_mota'));
@@ -56,7 +56,7 @@ class theloai_paymentController extends Controller
         $manager_category_payment=view('admin_include.page.payment.theloai_payment.update')->with('update_category_payment',$update_category_payment);
         return  view('admin')->with('admin_include.page.payment.theloai_payment.update',$manager_category_payment);
     }
-    public function post_category_payment_update(Request $request, $category_payment_id){
+    public function post_category_payment_update(validateRequet $request, $category_payment_id){
         $data=[];
         $category_payment_name = $request->input('category_payment_name');
          $category_payment_mota = html_entity_decode($request->input('category_payment_mota'));

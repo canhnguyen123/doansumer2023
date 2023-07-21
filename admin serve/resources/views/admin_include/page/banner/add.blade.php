@@ -50,7 +50,7 @@
                 <textarea name="mota_banner" id="mota_banner" class="editor" cols="30" rows="10"></textarea>
             </div>
             <div class="col-12 err"><span>
-                @error('theloai_name')
+                @error('mota_banner')
                     {{ $message }}
                 @enderror    
             @if(session('errorMessage'))

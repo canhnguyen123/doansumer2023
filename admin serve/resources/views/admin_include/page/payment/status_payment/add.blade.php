@@ -32,31 +32,18 @@
                 <input type="text" name="status_hoadon_name" value=""><br>
             </div>
             <div class="col-12 err"><span>
-                @error('category_code')
-                {{ $message }}
+                  @error('status_hoadon_name')
+                    {{ $message }}
                     @enderror 
-                    @if(session('errorMessage'))
-           
-                    {{ session('errorMessage') }}
-               
-                @endif
+                   
                 </span></div>
         </div>
         <div class="col-12">
             <div class="col-12 ip-form">
                 <label for="">Mô tả</label>
-                <textarea name="status_hoadon_mota" class="editor" cols="30" rows="10"></textarea>
+                <textarea name="status_hoadon_mota" class="editor" cols="30" rows="10" required></textarea>
             </div>
-            <div class="col-12 err"><span>
-                @error('theloai_name')
-                    {{ $message }}
-                @enderror    
-            @if(session('errorMessage'))
-           
-                {{ session('errorMessage') }}
-           
-            @endif
-        </span></div>
+    
         </div>
         <div class="col-12 ip-form">
             <button type="submit"><i class="fa-sharp fa-solid fa-plus"></i> Thêm trạng thái hóa đơn</button>

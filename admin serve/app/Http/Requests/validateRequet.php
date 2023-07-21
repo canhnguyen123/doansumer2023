@@ -90,6 +90,22 @@ class validateRequet extends FormRequest
             'staff_phone'=>'min:10|max:15|integer',
             'staff_email'=>'min:6|max:150',
             'staff_address_deatil'=>'min:2|max:150',
+            'phanquyenDeatil_name'=>'min:4|max:150',
+            'phanquyenDeatil_route'=>'min:2|max:150',
+            'status_hoadon_name'=>[
+                'max:100',
+                'min:2',
+                function ($attribute, $value, $fail) {
+                    $this->validateVietnameseCharacters($attribute, $value, $fail);
+                },
+            ],
+            'category_payment_name'=>[
+                'max:100',
+                'min:2',
+                function ($attribute, $value, $fail) {
+                    $this->validateVietnameseCharacters($attribute, $value, $fail);
+                },
+            ],
         ];
     }
 
@@ -153,6 +169,17 @@ class validateRequet extends FormRequest
             'staff_email.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
             'staff_address_deatil.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
             'staff_address_deatil.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+
+            'phanquyenDeatil_name.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'phanquyenDeatil_name.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+            'phanquyenDeatil_route.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'phanquyenDeatil_route.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+
+            'status_hoadon_name.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'status_hoadon_name.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
+
+            'category_payment_name.min'=>'Bạn không được nhập :attribute nhỏ hơn :min  kí tự',
+            'category_payment_name.max'=>'Bạn không được nhập :attribute lớn hơn :max  kí tự',
         ];
     }
     public function attributes()
@@ -179,6 +206,10 @@ class validateRequet extends FormRequest
             'staff_phone'=>'số điện thoại',
             'staff_email'=>'email',
             'staff_address_deatil'=>'địa chỉ chi tiết',
+            'phanquyenDeatil_name'=>'tên quyền chi tiết',
+            'phanquyenDeatil_route'=>'đường dẫn',
+            'status_hoadon_name'=>'tên trạng thái hóa đơn',
+            'category_payment_name'=>'tên thể loại thanh toán'
         ];
     }
     private function validateVietnameseCharacters($attribute, $value, $fail)

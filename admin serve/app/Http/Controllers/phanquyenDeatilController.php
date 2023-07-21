@@ -16,11 +16,12 @@ class phanquyenDeatilController extends Controller
             ->join('tbl_phanquyen', 'tbl_phanquyen.phanquyen_id', '=', 'tbl_phanquyen_deatil.phanquyen_id')
             ->select('tbl_phanquyen_deatil.*', 'tbl_phanquyen.phanquyen_nameGroup')
             ->paginate(10);
-      
+        $listPhanquyen= DB::table('tbl_phanquyen')->get();
         $count=DB::table("tbl_phanquyen_deatil")->count();
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_phanquyenDeatil=view('admin_include.page.staff.phanquyenDeatil.list')
         ->with('list_phanquyenDeatil',$list_phanquyenDeatil)
+        ->with('listPhanquyen',$listPhanquyen)
         ->with('count',$count);
         return  view('admin')->with('admin_include.page.staff.phanquyenDeatil.list',$manager_phanquyenDeatil);
     }
@@ -87,8 +88,7 @@ class phanquyenDeatilController extends Controller
     
         // Kiểm tra xem dữ liệu đã tồn tại trong bảng tbl_phanquyen_deatil hay chưa
         $phanquyenDeatilExists = DB::table('tbl_phanquyen_deatil')
-                            ->where('phanquyenDeatil_name', $phanquyenDeatil_name)
-                            ->where('phanquyen_id', $phanquyen_id)
+                            ->where('phanquyenDeatil_route', $phanquyenDeatil_name)
                             ->where('phanquyenDeatil_Id','<>', $phanquyenDeatil_id)
                             ->exists();
     
@@ -107,12 +107,6 @@ class phanquyenDeatilController extends Controller
         $data['phanquyenDeatil_note']=$phanquyenDeatil_mota;
          $update= DB::table('tbl_phanquyen_deatil')->where('phanquyenDeatil_Id', $phanquyenDeatil_id)->update($data);
          return " <script> alert('Cập nhật thành công'); window.location = '".route('phanquyenDeatil_list')."';</script>";
-
-        //  if($update){
-        //     return " <script> alert('Cập nhật thành công'); window.location = '".route('phanquyenDeatil_list')."';</script>";
-        // }else{
-        //     return " <script> alert('Cập nhật thất bại'); window.location = '".route('phanquyenDeatil_update',['phanquyenDeatil_id' => $phanquyenDeatil_id])."';</script>";
-        // }
       }
      
     public function togggle_status_phanquyenDeatl($phanquyenDeatil_id, $phanquyenDeatil_status){

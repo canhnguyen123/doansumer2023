@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use App\Http\Requests\validateRequet;
 use Illuminate\Support\Facades\DB;
 
 class status_paymentController extends Controller
@@ -21,7 +21,7 @@ class status_paymentController extends Controller
     public function status_payment_add(){
         return  view('admin_include.page.payment.status_payment.add');
     }
-    public function post_status_payment_add(Request $request){
+    public function post_status_payment_add(validateRequet $request){
        $data=[];
        $status_hoadon_name = $request->input('status_hoadon_name');
         $status_hoadon_mota = html_entity_decode($request->input('status_hoadon_mota'));
@@ -53,7 +53,7 @@ class status_paymentController extends Controller
         $manager_status_payment=view('admin_include.page.payment.status_payment.update')->with('update_status_payment',$update_status_payment);
         return  view('admin')->with('admin_include.page.payment.status_payment.update',$manager_status_payment);
     }
-    public function post_status_payment_update(Request $request, $status_payment_id){
+    public function post_status_payment_update(validateRequet $request, $status_payment_id){
         $data=[];
         $status_hoadon_name = $request->input('status_hoadon_name');
          $status_hoadon_mota = html_entity_decode($request->input('status_hoadon_mota'));

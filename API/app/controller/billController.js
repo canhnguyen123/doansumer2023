@@ -58,3 +58,30 @@ connection.query(
   }
 );
 };
+exports.selectCategorypayment = (req, res) => {
+    // connection.query('SELECT * FROM tbl_vocher WHERE voucher_status =1',(error,results)=>{
+    //   if (error) {
+    //     console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+    //     return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    //   }
+    //   const arr=[];
+    //   results.forEach((item)=>{
+    //     const Id=item.voucher_id;
+    //     if(Id !==1){
+    //       const arrItem = {
+    //         voucher_code:item.voucher_code,
+    //         voucher_name:item.voucher_name,
+    //         voucher_down:item.voucher_down,
+    //         voucher_category:voucher_category,
+    //         voucher_unit:voucher_unit,
+    //         category_payment_id :category_payment_id ,
+    //         voucher_start:voucher_start,
+    //         voucher_end:voucher_end,
+    //         voucher_limit:voucher_limit,
+    //       };
+    //       arr.push(arrItem)
+    //     }
+    //   })
+    //     return res.json({status:'success',if4:arr});
+    // })
+}

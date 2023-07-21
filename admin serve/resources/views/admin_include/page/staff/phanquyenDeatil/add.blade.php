@@ -13,7 +13,12 @@
             {{ csrf_field() }}
             @if ($errors->any())
                 <div class="alert alert-danger text-center">
-                 <span>Có lỗi xảy ra vui lòng kiểm tra lại dữ liệu</span>
+                    <span>Có lỗi xảy ra vui lòng kiểm tra lại dữ liệu</span>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
             <div class="col-4">
@@ -55,7 +60,7 @@
                     <textarea name="phanquyenDeatil_mota" class="editor" cols="30" rows="10" required></textarea>
                 </div>
                 <div class="col-12 err"><span>
-                    @error('theloai_name')
+                    @error('phanquyenDeatil_mota')
                         {{ $message }}
                     @enderror    
                 @if(session('errorMessage'))
