@@ -7,10 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\Product_classRequest;
+use Illuminate\Support\Facades\Response;
 
 class Ajax_classController extends Controller
 {
@@ -304,17 +301,47 @@ class Ajax_classController extends Controller
             $permission_list->where('tbl_phanquyen_deatil.phanquyenDeatil_status', $status);
         }
     
-        $page = $request->input('page') ?? 1; // Trang mặc định là 1 nếu không được chỉ định
-    
-        $phanquyenDeatil_status = $permission_list->paginate(20, ['*'], 'page', $page);
-    
+        $phanquyenDeatil_status = $permission_list->get();
+        
         // Render view và trả về kết quả
         $view = view('ohther.ajax.admin.permission_list')
             ->with('list_phanquyenDeatil', $phanquyenDeatil_status)
             ->render();
-         
+    
         return response($view);
     }
     
     
+    public function loadmore_category(Request $request)
+    {
+        $last_id = $request->input('last_id');
+        $last_stt = $request->input('last_stt');
+        
+        // Truy vấn dữ liệu từ database thông qua Query Builder
+        $list_category = DB::table('tbl_category')
+            ->where('category_id', '>', $last_id)
+            ->paginate(1);
+        
+        // Lấy tổng số bản ghi phù hợp với điều kiện where mà không bị giới hạn
+        $total_records = $list_category->total();
+        
+        // Tính số thứ tự mới
+        $new_stt = $last_stt + $total_records;
+        
+        // Lấy phần tử cuối cùng của Collection sử dụng phương thức last()
+        $last_category_id = DB::table('tbl_category')
+            ->orderByDesc('category_id')
+            ->value('category_id');
+        
+        $hasMoreData = $list_category->hasMorePages();
+        
+        // Trả về tệp view Blade load_more_category.blade.php và dữ liệu JSON chứa biến bạn muốn sử dụng trong phạm vi JavaScript
+        return Response::json([
+            'view' => view('ohther.ajax.admin.search_category')->with('categories', $list_category)->with('i', $last_stt)->render(),
+            'last_id' => $last_category_id,
+            'hasMoreData' => $hasMoreData,
+            'new_stt' => $new_stt,
+        ]);
+        
+    }
 }

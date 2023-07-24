@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Staff;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,18 +27,33 @@ class admincontroller extends Controller
         return  view('admin_include.account.setting')->with('in4user',$in4user);
     }
     public function home(){
-     
+        
         $list_banner = DB::table("tbl_banner")
         ->where('banner_status', 1)
         ->latest() // Sắp xếp theo thứ tự mới nhất
         ->take(10) // Giới hạn số lượng kết quả là 10
         ->get();
+        $today = Carbon::today();
+        $countBill = DB::table('tbl_hoadon')
+            ->where('status_payment_id', 4)
+            ->where('created_at', '>=', $today)
+            ->count();
+
+        $countCommet = DB::table('tbl_commet')
+            ->where('created_at', '>=', $today)
+            ->count(); 
+          $countUser = DB::table('tbl_users')
+                ->where('created_at', '>=', $today)
+                ->count();
         $theloai=DB::table('tbl_theloai')->where('theloai_status',1)->get();
         $count_theloai = DB::table("tbl_theloai")->where('show_home',1)->count();
         $manager_banner = view('admin_include.page.home')
             ->with('list_banner', $list_banner)
             ->with('theloai',$theloai)
-            ->with('count_theloai',$count_theloai);
+            ->with('count_theloai',$count_theloai)
+            ->with('countBill',$countBill)
+            ->with('countCommet',$countCommet)
+            ->with('countUser',$countUser);
         return  view('admin')->with('admin_include.page.home', $manager_banner);
     }
     public function check_accountLogin(){

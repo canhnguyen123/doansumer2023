@@ -36,4 +36,8 @@ $i++;
   </div></td>
 </tr>
 @endforeach
-
+{{-- @if ($count>10)
+<tr class="load-more flex_center">
+  <td colspan="5"> <button id="load-more-permission">Xem thêm</button></td>
+ </tr>
+@endif --}}

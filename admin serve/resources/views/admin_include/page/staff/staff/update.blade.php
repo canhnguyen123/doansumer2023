@@ -6,7 +6,7 @@
 		<div class="table-agile-info">
  <div class="panel panel-default row">
     <div class="panel-heading heading">
-     Thêm mới nhân viên
+     Cập nhật nhân viên
     </div>
     <div class="content col-12 ">
 
@@ -188,12 +188,31 @@
                 @error('theloai_name')
                     {{ $message }}
                 @enderror    
-            @if(session('errorMessage'))
-           
-                {{ session('errorMessage') }}
-           
-            @endif
+          
         </span></div>
+        </div>
+        <div class="item-container">
+            <div class="col-12">
+                @foreach ($list_deatil as $itemdeatil)
+                <div class="block mg-10">
+                    <input type="checkbox" name="listQuyenDeatil[]" value="{{$itemdeatil->phanquyenDeatil_Id}}" @if ($list_deatil_user->contains('phanquyenDeatil_Id', $itemdeatil->phanquyenDeatil_Id)) checked @endif>
+                    {{$itemdeatil->phanquyenDeatil_name}}
+                </div>
+            @endforeach
+            
+            @foreach ($list_deatil_user as $itemdeatil_user)
+                @php
+                    $isChecked = $list_deatil->contains('phanquyenDeatil_Id', $itemdeatil_user->phanquyenDeatil_Id);
+                @endphp
+                @if (!$isChecked)
+                    <div class="block mg-10">
+                        <input type="checkbox" name="listQuyenDeatil[]" value="{{$itemdeatil_user->phanquyenDeatil_Id}}" checked>
+                        {{$itemdeatil_user->phanquyenDeatil_name}}
+                    </div>
+                @endif
+            @endforeach
+            </div>
+            
         </div>
         <div class="col-12 ip-form">
             <button type="submit"><i class="fa-sharp fa-solid fa-plus"></i> Cập nhật nhân viên</button>

@@ -139,7 +139,7 @@
                                 @endforeach
                             </tbody>
                             
-                            <tfoot>
+                            <tfoot id="tfoot-theloai">
                                 <tr>
                                     <td colspan="6">
                                         @if ($list_theloai->total() > $list_theloai->perPage())

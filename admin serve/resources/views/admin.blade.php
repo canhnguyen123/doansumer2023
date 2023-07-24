@@ -733,7 +733,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 },
                 success: function(response) {
                     $('#theloai_list_table').html(response);
-
+                    $('#tfoot-theloai').hide()
                 },
                 error: function(xhr, status, error) {
                     console.log('Lỗi: ' + error);
@@ -762,6 +762,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 url: "{{ route('resetLoadtheloai') }}",
                 success: function(response) {
                     $('#theloai_list_table').html(response);
+                    $('#tfoot-theloai').show();
                 },
                 error: function(xhr, status, error) {
                     console.log('Lỗi: ' + error);
@@ -1098,12 +1099,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(response) {
                         $('#phanquyenDeatil_list_table').html(response)
                         $('#tfoot-permission').hide();
+                        $('#load-more-permission').show();
                     },
                     error: function() {
                         console.log("gửi thất bại");
                     }
                 });
             })
+            $('#load-more-category').click(function() {
+            var last_id = $(this).data('id');
+             var last_stt = $(this).data('stt');
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadmore_category') }}",
+                    method: 'POST',
+                    data: { 
+                    last_id: last_id,
+                     last_stt: last_stt
+                    },
+                    success: function(response) {
+                        var newDataId = response.last_id;
+                     
+                    $('#load-more-category').attr('data-id', newDataId);
+                    var newStt = response.new_stt;
+                    $('#load-more-category').attr('data-stt', newStt);
+                   
+                    $('#category_list_table').append(response.view);
+
+                    if (!response.hasMoreData) {
+                        $('#load-more-category').hide();
+                    }
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
+                    }
+                });
+        });
 
             $('#reaload-permission').click(function() {
                 $.ajax({
@@ -1448,6 +1484,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     },
                     success: function(data) {
                         $('#theloai_list_table').html(data);
+                        $('#tfoot-theloai').hide()
                     },
 
                 });

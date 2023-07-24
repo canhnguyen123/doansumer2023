@@ -36,7 +36,16 @@ class staffController extends Controller
         ->select('tbl_staff.*', 'tbl_chucvu.chucvu_name')
         ->where('tbl_staff.id', $staff_id)
         ->get();
-        return  view('admin_include.page.staff.staff.deatils') ->with('staff_deatil',$staff_deatil);
+        $list_position_detail = DB::table('tbl_phanquyendeatil_user')
+        ->join('tbl_phanquyen_deatil', 'tbl_phanquyendeatil_user.phanquyenDeatil_Id', '=', 'tbl_phanquyen_deatil.phanquyenDeatil_Id')
+        ->where('tbl_phanquyendeatil_user.id', $staff_id)
+        ->where('tbl_phanquyendeatil_user.phanquyenDeatil_user_status', 1)
+        ->select('tbl_phanquyendeatil_user.*', 'tbl_phanquyen_deatil.phanquyenDeatil_name', 'tbl_phanquyen_deatil.phanquyenDeatil_route','tbl_phanquyen_deatil.phanquyen_id')
+        ->get();
+
+        return  view('admin_include.page.staff.staff.deatils')
+         ->with('staff_deatil',$staff_deatil)
+         ->with('list_position_detail',$list_position_detail);
     }
     public function post_staff_add(validateRequet $request){
        $data=[];
@@ -115,11 +124,20 @@ class staffController extends Controller
         ->select('tbl_staff.*', 'tbl_chucvu.chucvu_name')
         ->where('tbl_staff.id', $staff_id)
         ->get();
+        $list_deatil=DB::table('tbl_phanquyen_deatil')->where('phanquyenDeatil_status',1)->get();
+        $list_deatil_user = DB::table('tbl_phanquyendeatil_user')
+        ->leftJoin('tbl_phanquyen_deatil', 'tbl_phanquyendeatil_user.phanquyenDeatil_Id', '=', 'tbl_phanquyen_deatil.phanquyenDeatil_Id')
+        ->where('tbl_phanquyendeatil_user.id', $staff_id)
+        ->where('tbl_phanquyendeatil_user.phanquyenDeatil_user_status', 1)
+        ->get();
         $list_position=DB::table("tbl_chucvu")->get();
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_staff=view('admin_include.page.staff.staff.update')
         ->with('staff_update',$staff_update)
-        ->with('list_position',$list_position);
+        ->with('list_position',$list_position)
+        ->with('list_deatil',$list_deatil)
+        ->with('list_deatil_user',$list_deatil_user)
+        ;
         return  view('admin')->with('admin_include.page.staff.staff.update',$manager_staff);
     }
     public function post_staff_update(validateRequet $request, $staff_id){
@@ -141,7 +159,7 @@ class staffController extends Controller
         $staff_postition = $request->staff_postition;
         $staff_img = $request->file('staff_img');
         $status_mota = html_entity_decode($request->input('status_mota'));
-
+        $listQuyenDeatil = $request->listQuyenDeatil;
 
         if($request->input('staff_address')==""|| $request->input('staff_address_deatil')==""){
             $address= $staff_deatil[0]->staff_address;
@@ -170,7 +188,7 @@ class staffController extends Controller
         }
     
  
-    ///Thêm dl vào csdl
+    
         $data['staff_code']=$staff_code;
         $data['staff_username']=$staff_name;
         $data['staff_password']=bcrypt($staff_password);
@@ -185,6 +203,43 @@ class staffController extends Controller
         $data['created_at'] = Carbon::now();
         $update_staff= DB::table('tbl_staff')->where('id',$staff_id) ->update($data);
         if($update_staff){
+       
+            $existingPhanQuyenIds = DB::table('tbl_phanquyendeatil_user')
+            ->where('id', $staff_id)
+            ->pluck('phanquyenDeatil_Id')
+            ->toArray();
+        
+        // Cập nhật trạng thái và thêm mới các hàng trong bảng tbl_groupquyen_prosition
+        if (!empty($listQuyenDeatil)) {
+            foreach ($listQuyenDeatil as $phanquyenId) {
+                if (in_array($phanquyenId, $existingPhanQuyenIds)) {
+                    // Cập nhật trạng thái thành 1
+                    DB::table('tbl_phanquyendeatil_user')
+                        ->where('id', $staff_id)
+                        ->where('phanquyenDeatil_Id', $phanquyenId)
+                        ->update(['phanquyenDeatil_user_status' => 1]);
+                } else {
+                    // Thêm mới hàng nếu chưa tồn tại
+                    DB::table('tbl_phanquyendeatil_user')->insert([
+                        'id' => $staff_id,
+                        'phanquyenDeatil_Id' => $phanquyenId,
+                        'phanquyenDeatil_user_status' => 1
+                    ]);
+                }
+            }
+        
+            // Cập nhật trạng thái của các hàng còn lại thành 0
+            $notSelectedPhanQuyenIds = array_diff($existingPhanQuyenIds, $listQuyenDeatil);
+        
+            if (!empty($notSelectedPhanQuyenIds)) {
+                DB::table('tbl_phanquyendeatil_user')
+                    ->where('id', $staff_id)
+                    ->whereIn('phanquyenDeatil_Id', $notSelectedPhanQuyenIds)
+                    ->update(['phanquyenDeatil_user_status' => 0]);
+            }
+        }
+        
+
          $uploadPath = public_path('upload');
          if ($staff_img && $staff_img->isValid()) {
             if (!File::exists($uploadPath)) {

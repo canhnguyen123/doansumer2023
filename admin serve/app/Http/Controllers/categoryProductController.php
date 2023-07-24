@@ -12,7 +12,7 @@ session_start();
 class categoryProductController extends Controller
 {
     public function category_list(){
-        $list_category=DB::table("tbl_category")->get();
+        $list_category=DB::table("tbl_category")->paginate(5);
         $count=DB::table("tbl_category")->count();
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_category=view('admin_include.page.product.category.list')

@@ -22,7 +22,9 @@ exports.createUser = (req, res) => {
   const pass = req.body.password;
   const fullname = req.body.fullname;
   var check = true;
-
+  const data = {}; // Định nghĩa biến data
+  const createdAt = new Date(); // Define the createdAt variable with the current date
+  data.created_at = createdAt;
   const validation = Validator.validateUser(phone, pass, fullname);
   if (validation.status === 'fall') {
     return res.json(validation);
@@ -48,7 +50,7 @@ exports.createUser = (req, res) => {
           return res.status(500).json({ error: 'Lỗi mã hóa mật khẩu' });
         }
 
-        const user = { user_fullname: fullname, user_phone: phone, user_password: hashedPassword, user_gender: 2,user_accountCategory:1 };
+        const user = { user_fullname: fullname, user_phone: phone, user_password: hashedPassword, user_gender: 2, user_accountCategory: 1, created_at: new Date() };
         connection.query('INSERT INTO tbl_users SET ?', user, (error, results) => {
           if (error) {
             console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
@@ -61,6 +63,7 @@ exports.createUser = (req, res) => {
     }
   });
 };
+
 
 
 exports.login = (req, res) => {

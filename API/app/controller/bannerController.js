@@ -14,10 +14,9 @@ exports.getAllBanner = (req, res) => {
       return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
     }
     results.forEach((row) => {
-      const bannerId = row.banner_id;
-      const banner_link = row.banner_link;
+    const banner_link = row.banner_link;
       const formattedResult = {
-        banner_id: bannerId,
+       
         banner_link: banner_link
       };
       arr_Banner.push(formattedResult);

@@ -60,6 +60,11 @@ class productController extends Controller
             $product_deatil_img=DB::table("tbl_list_img__product")
             ->where('product_id',$product_id)
             ->get();
+            $list_cmt = DB::table('tbl_commet')
+            ->join('tbl_users', 'tbl_commet.user_id', '=', 'tbl_users.user_id')
+            ->where('tbl_commet.product_id', $product_id)
+            ->select('tbl_commet.*', 'tbl_users.user_fullname', 'tbl_users.user_img')
+            ->get();
             $product_deatil_quantity=DB::table("tbl_quantity_product")
             ->where('product_id',$product_id)
             ->get();
@@ -67,6 +72,7 @@ class productController extends Controller
         $manager_product = view('admin_include.page.product.product.deatil')
             ->with('product_detail', $product_detail)
             ->with('product_deatil_img', $product_deatil_img)
+            ->with('list_cmt', $list_cmt)
             ->with('product_deatil_quantity', $product_deatil_quantity);
            
         return  view('admin')->with('admin_include.page.product.product.deatil', $manager_product);

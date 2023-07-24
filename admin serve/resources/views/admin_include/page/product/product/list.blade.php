@@ -130,7 +130,7 @@
                                     <th data-breakpoints="xs">STT</th>
                                     <th>Tên thể loại</th>
                                     <th colspan="2">Tên sản phẩm</th>
-                                    <th>Giá</th>
+                                   
                                     <th class="flex_center "> Trạng thái </th>
                                     <th style="text-align: center;">Thao tác</th>
                                 </tr>
@@ -143,8 +143,8 @@
                                     <tr data-expanded="true">
                                         <td>{{ $i }}</td>
                                         <td>{{ $item_product->theloai_name }}</td>
-                                        <td colspan="2">{{ $item_product->product_name }}</td>
-                                        <td>{{ $item_product->product_price }}</td>
+                                        <td colspan="2">{{ $item_product->product_name }}   ({{number_format($item_product->product_price, 0, ',', ' ') }} VNĐ)</td>
+                                       
                                         <td style="text-align: center">
                                             <p class="reslut_categgory_icon" style="display: none">
                                                 {{ $item_product->product_status }}

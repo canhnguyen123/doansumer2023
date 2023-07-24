@@ -46,49 +46,56 @@
           </tr>
         </thead>
         <tbody id="category_list_table">
+              @php
+              $i = 0;
+            @endphp
+          @foreach ($list_category as $key =>$item_category )
           @php
-          $i = 0;
-         @endphp
-      @foreach ($list_category as $key =>$item_category )
-      @php
-      $i++;
-      @endphp
-          <tr data-expanded="true">
-            <td>{{ $i }}</td>
-            <td>{{ $item_category->category_name }}</td>
-            <td style="text-align: center" >{{ $item_category->category_code }}</td>
-            <td style="text-align: center">
-              <p class="reslut_categgory_icon" style="display: none">{{ $item_category->category_status }}</p>
-              @if($item_category->category_status==1)
+          $i++;
+          @endphp
+              <tr data-expanded="true">
+                <td>{{ $i }}</td>
+                <td>{{ $item_category->category_name }}</td>
+                <td style="text-align: center" >{{ $item_category->category_code }}</td>
+                <td style="text-align: center">
+                  <p class="reslut_categgory_icon" style="display: none">{{ $item_category->category_status }}</p>
+                  @if($item_category->category_status==1)
+                  
+                  <i class="fa-sharp fa-solid fa-check bg-cl-green"></i>
+                  @elseif($item_category->category_status==0)
+                  <i class="fa-solid fa-xmark bg-cl-red" alt="Ẩn"></i>
+                  @endif
               
-              <i class="fa-sharp fa-solid fa-check bg-cl-green"></i>
-              @elseif($item_category->category_status==0)
-              <i class="fa-solid fa-xmark bg-cl-red" alt="Ẩn"></i>
-              @endif
-           
-              
-              
-            </td>
-            
-            <td ><div class="flex_center icons">
-                <div class="icon bg-bule flex_center">
-                 <a href="{{ route('category_update', ['category_id' => $item_category->category_id]) }}"> <i class="fa-solid fa-pen"></i></a> 
-                </div>
-                <div class="icon bg-red flex_center">
-                  @if ($item_category->category_status==1)
-                  <a onclick="return confirm('Bạn có muốn chuyển danh mục này sang trạng thái tắt không?')" href="{{ route('togggle_status_category', ['category_id' => $item_category->category_id, 'category_status' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
-                  @else
-                  <a onclick="return confirm('Bạn có muốn chuyển danh mục này sang trạng thái bật không ?')" href="{{ route('togggle_status_category', ['category_id' => $item_category->category_id,'category_status'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
-                 @endif
-                </div>
-              
-            </div></td>
-          </tr>
-          @endforeach
-      
+                  
+                  
+                </td>
+                
+                <td ><div class="flex_center icons">
+                    <div class="icon bg-bule flex_center">
+                    <a href="{{ route('category_update', ['category_id' => $item_category->category_id]) }}"> <i class="fa-solid fa-pen"></i></a> 
+                    </div>
+                    <div class="icon bg-red flex_center">
+                      @if ($item_category->category_status==1)
+                      <a onclick="return confirm('Bạn có muốn chuyển danh mục này sang trạng thái tắt không?')" href="{{ route('togggle_status_category', ['category_id' => $item_category->category_id, 'category_status' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
+                      @else
+                      <a onclick="return confirm('Bạn có muốn chuyển danh mục này sang trạng thái bật không ?')" href="{{ route('togggle_status_category', ['category_id' => $item_category->category_id,'category_status'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
+                    @endif
+                    </div>
+                  
+                </div></td>
+              </tr>
+              @endforeach
           
-        </tbody>
+            
+            </tbody>
       </table>
+      @if ($count>5)
+      <div class="load-more flex_center">
+       
+           <button id="load-more-category" data-stt="{{$i}}" data-id="{{ $list_category->last()->category_id }}">Xem thêm</button>
+       
+      </div>
+      @endif
     </div>
   </div>
 </div>

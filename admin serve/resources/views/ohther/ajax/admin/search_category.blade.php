@@ -1,12 +1,9 @@
-@php
-$i = 0;
-@endphp
 @foreach ($categories as $item_category)
 @php
       $i++;
       @endphp
 <tr data-expanded="true">
-    <td>{{ $i }}</td>
+    <td>{{ $i + $categories->firstItem() - 1 }}</td>
     <td>{{ $item_category->category_name }}</td>
     <td style="text-align: center">{{ $item_category->category_code }}</td>
     <td style="text-align: center">

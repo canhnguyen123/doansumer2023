@@ -7,10 +7,8 @@
                     <div class="panel-heading heading flex_center" id="upload-status">
                     <h2 class="titel-ic"> Chi tiết sản phẩm</h2>   
                     </div>
-                    <div class="content col-12 ">
-
-                    </div>
-                    @foreach ($product_detail as $item_deatil)
+                    <div class="content col-12 row">
+@foreach ($product_detail as $item_deatil)
                         <div class="col-4 slider-product">
                             <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                                 
@@ -146,6 +144,41 @@
                          
                         </div>
                     @endforeach
+                    </div>
+                    <div class="col-12 selec-commet">
+                        <div class="content-list-commet">
+                            @foreach ($list_cmt as $item_cmt)
+                            <div class="item-commet">
+                                <a href="{{route('user_deatil',['user_id'=>$item_cmt->user_id])}}">
+                                    <div class="img-user flex_center">
+                                        <img src="
+                                        @if ($item_cmt->user_img=="")
+                                        https://firebasestorage.googleapis.com/v0/b/loco-7d8c6.appspot.com/o/c6e56503cfdd87da299f72dc416023d4.jpg?alt=media&token=0f06f1ca-d5a1-48e8-a8e7-704fdca9f927
+                                        @else
+                                            {{$item_cmt->user_img}}
+                                        @endif
+                                        " alt="">
+                                    </div>
+                                </a>
+                               
+                                <div class="infro-user">
+                                   <div class="content-cmt">
+                                        <a href="{{route('user_deatil',['user_id'=>$item_cmt->user_id])}}"><div class="infro-user-name">{{$item_cmt->user_fullname}}</div></a>
+                                        <div class="infro-user-text">{{$item_cmt->cmt_text}}</div>
+                                   </div>
+                                </div>
+                            </div>
+                            @endforeach
+                         
+                        </div>
+                        
+                        <div class="post-commet flex_center">
+                            <form action="" method="post" class="flex_center">
+                                <input type="text" placeholder="Nhập nội dung bình luận" required> 
+                                <button>Bình luận</button>
+                            </form>
+                        </div>
+                    </div>
 
                 </div>
             </div>

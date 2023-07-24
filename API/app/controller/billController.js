@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const { response } = require('express');
 const { error } = require('console');
 const { json } = require('body-parser');
-const moment = require('moment');
+const moment = require("moment");
 exports.postbill = (req, res) => {
   const user_id=req.params.user_id;
   const hoadon_allprice=req.body.hoadon_allprice;
@@ -59,29 +59,84 @@ connection.query(
 );
 };
 exports.selectCategorypayment = (req, res) => {
-    // connection.query('SELECT * FROM tbl_vocher WHERE voucher_status =1',(error,results)=>{
-    //   if (error) {
-    //     console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
-    //     return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
-    //   }
-    //   const arr=[];
-    //   results.forEach((item)=>{
-    //     const Id=item.voucher_id;
-    //     if(Id !==1){
-    //       const arrItem = {
-    //         voucher_code:item.voucher_code,
-    //         voucher_name:item.voucher_name,
-    //         voucher_down:item.voucher_down,
-    //         voucher_category:voucher_category,
-    //         voucher_unit:voucher_unit,
-    //         category_payment_id :category_payment_id ,
-    //         voucher_start:voucher_start,
-    //         voucher_end:voucher_end,
-    //         voucher_limit:voucher_limit,
-    //       };
-    //       arr.push(arrItem)
-    //     }
-    //   })
-    //     return res.json({status:'success',if4:arr});
-    // })
+  connection.query('SELECT * FROM tbl_category_payment WHERE category_payment_status=1', (error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    
+    const arr = [];
+    results.forEach((item) => {
+      const arrList = {
+        category_payment_id: item.category_payment_id,
+        category_payment_name: item.category_payment_name,
+      };
+      arr.push(arrList);
+    });
+
+    return res.json({
+      status: 'success',
+      arr: arr
+    });
+  });
+};
+exports.getlistvoucher = (req, res) => {
+  connection.query('SELECT * FROM tbl_vocher WHERE voucher_status = 1', (error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+
+    const arr = [];
+    results.forEach((item) => {
+      const Id = item.voucher_id;
+      const category_payment_id = item.category_payment_id;
+     
+      if (Id !== 1) {
+        connection.query('SELECT * FROM tbl_category_payment WHERE category_payment_status = 1 AND category_payment_id = ?', [category_payment_id], (error, results2) => {
+          if (error) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+            return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+          }
+          
+          const name = results2[0].category_payment_name;
+
+          const arrItem = {
+            voucher_id: item.voucher_id,
+            voucher_code: item.voucher_code,
+            voucher_name: item.voucher_name,
+            voucher_down: item.voucher_down,
+            voucher_category: item.voucher_category,
+            voucher_unit: item.voucher_unit,
+            category_payment_id: item.category_payment_id,
+            category_payment_name: name, // Thêm trường category_payment_name vào đối tượng arrItem
+            voucher_start: moment(item.voucher_start).format("YYYY-MM-DD HH:mm:ss"),
+            voucher_end: moment(item.voucher_end).format("YYYY-MM-DD HH:mm:ss"),
+            voucher_limit: item.voucher_limit,
+          };
+          arr.push(arrItem);
+          // Trả về kết quả dưới dạng JSON response
+          return res.json({ status: "success", if4: arr });
+        });
+      }
+    });
+  });
+};
+exports.getmybill = (req, res) => {
+  var user_id = req.params.user_id;
+  var status_payment = req.params.status_payment;
+  if(status_payment>6){
+    return res.json({ status: "fall", mess:"không tìm thấy có trạng thái nào" });
+  }
+  connection.query('SELECT * FROM tbl_hoadon WHERE user_id = ? AND status_payment_id = ?', [user_id, status_payment], (error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    
+    const count = results.length;
+    // Trả về kết quả dưới dạng JSON response
+    return res.json({ status: "success", count: count });
+  });
 }
+
