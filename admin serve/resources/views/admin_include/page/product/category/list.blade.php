@@ -89,7 +89,7 @@
             
             </tbody>
       </table>
-      @if ($count>5)
+      @if ($check==1)
       <div class="load-more flex_center">
        
            <button id="load-more-category" data-stt="{{$i}}" data-id="{{ $list_category->last()->category_id }}">Xem thêm</button>

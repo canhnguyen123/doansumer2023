@@ -12,12 +12,20 @@ session_start();
 class categoryProductController extends Controller
 {
     public function category_list(){
+        $check=0;
         $list_category=DB::table("tbl_category")->paginate(5);
         $count=DB::table("tbl_category")->count();
+        $hasMoreData = $list_category->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_category=view('admin_include.page.product.category.list')
         ->with('list_category',$list_category)
-        ->with('count',$count) ;
+        ->with('count',$count) 
+        ->with('check',$check) ;
         return  view('admin')->with('admin_include.page.product.category.list',$manager_category);
     }
     public function category_add(){

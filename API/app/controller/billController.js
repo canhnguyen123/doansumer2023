@@ -76,7 +76,7 @@ exports.selectCategorypayment = (req, res) => {
 
     return res.json({
       status: 'success',
-      arr: arr
+      results: arr
     });
   });
 };
@@ -116,7 +116,7 @@ exports.getlistvoucher = (req, res) => {
           };
           arr.push(arrItem);
           // Trả về kết quả dưới dạng JSON response
-          return res.json({ status: "success", if4: arr });
+          return res.json({ status: "success", results: arr });
         });
       }
     });
@@ -136,7 +136,70 @@ exports.getmybill = (req, res) => {
     
     const count = results.length;
     // Trả về kết quả dưới dạng JSON response
-    return res.json({ status: "success", count: count });
+    return res.json({ status: "success", results: count });
   });
 }
+exports.getdeatilPayment = (req, res) => {
+  const hoadon_id = req.params.hoadon_id;
+  let is_voucher = "";
+  let hoadon_code = "";
+
+  connection.query('SELECT * FROM tbl_hoadon WHERE hoadon_id = ?', [hoadon_id], (error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    if (results[0].is_voucher === 0) {
+      is_voucher = "không áp dụng voucher";
+    } else {
+      is_voucher = "có áp dụng voucher";
+    }
+
+    if (results[0].hoadon_code === "") {
+      hoadon_code = "Đơn hàng chưa được duyệt";
+    } else {
+      hoadon_code = results[0].hoadon_code;
+    }
+
+    connection.query('SELECT tbl_hoadon.*, tbl_category_payment.category_payment_name FROM tbl_hoadon JOIN tbl_category_payment ON tbl_hoadon.category_payment_id = tbl_category_payment.category_payment_id WHERE tbl_hoadon.hoadon_id = ?', [hoadon_id], (error, results) => {
+      if (error) {
+        console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+        return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+      }
+
+      const arrhoadon = {
+        hoadon_code: hoadon_code,
+        hoadon_allprice: results[0].hoadon_allprice,
+        status_payment_id: results[0].status_payment_id,
+        category_payment_name: results[0].category_payment_name,
+        vocher_id: results[0].vocher_id,
+        is_voucher: is_voucher,
+        hoadon_address: results[0].hoadon_address,
+        created_at: results[0].created_at,
+      };
+
+      connection.query('SELECT tbl_hoadon_deatil.*, tbl_product.*, tbl_theloai.theloai_name FROM tbl_hoadon_deatil JOIN tbl_product ON tbl_hoadon_deatil.product_id = tbl_product.product_id JOIN tbl_theloai ON tbl_product.theloai_id = tbl_theloai.theloai_id WHERE tbl_hoadon_deatil.hoadon_id = ?;', [hoadon_id], (error, results) => {
+        if (error) {
+          console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+          return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+        }
+
+        const listproduct = results.map((item) => ({
+          theloai_name: item.theloai_name,
+          product_brand: item.product_brand,
+          product_name: item.product_name,
+          product_price: item.product_price,
+          hoadondeatil_quantyti: item.hoadondeatil_quantyti,
+          hoadon_size: item.hoadon_size,
+          hoadon_color: item.hoadon_color,
+        }));
+
+        arrhoadon.listproduct = listproduct;
+
+        return res.json({ status: "success", results: arrhoadon });
+      });
+    });
+  });
+};
+
 

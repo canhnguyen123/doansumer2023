@@ -7,4 +7,5 @@ router.get('/update-status-payment/:hoadon_id', billController.updateSuccessBill
 router.get('/get-category-payment/', billController.selectCategorypayment);
 router.get('/get-voucher', billController.getlistvoucher);
 router.get('/get-my-bill/:user_id/:status_payment', billController.getmybill);
+router.get('/get-my-bill-deatil/:hoadon_id', billController.getdeatilPayment);
 module.exports = router;

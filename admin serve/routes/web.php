@@ -213,7 +213,7 @@ Route::prefix('/admin')->group(function () {
         Route::prefix('/account')->group(function () {
             Route::get('/setting/{id}', [admincontroller::class, 'setting'])->name('setting')->middleware('check_permission:check');
             Route::get('/update-password', [admincontroller::class, 'viewUpdatePassword'])->name('viewUpdatePassword')->middleware('check_permission:check');
-            Route::post('/update-password-post/{id}', [admincontroller::class, 'updatePassword'])->name('updatePassword')->middleware('check_permission:check');
+            Route::post('/update-password-post/{id}', [admincontroller::class, 'updatePassword'])->name('updatePassword');
         });
         
         Route::prefix('/ajax')->group(function () {

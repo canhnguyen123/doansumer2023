@@ -316,32 +316,28 @@ class Ajax_classController extends Controller
     {
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
-        
+
         // Truy vấn dữ liệu từ database thông qua Query Builder
-        $list_category = DB::table('tbl_category')
+        $query = DB::table('tbl_category')
             ->where('category_id', '>', $last_id)
-            ->paginate(1);
-        
-        // Lấy tổng số bản ghi phù hợp với điều kiện where mà không bị giới hạn
-        $total_records = $list_category->total();
-        
+            ->orderBy('category_id', 'asc');
+
+        // Lấy dữ liệu với giới hạn 1 bản ghi
+        $list_category = $query->paginate(5); // Adjust the pagination size as needed
+
+        $last_category_id = $list_category->lastItem();
+
         // Tính số thứ tự mới
-        $new_stt = $last_stt + $total_records;
-        
-        // Lấy phần tử cuối cùng của Collection sử dụng phương thức last()
-        $last_category_id = DB::table('tbl_category')
-            ->orderByDesc('category_id')
-            ->value('category_id');
-        
+        $new_stt = $last_stt + $list_category->total();
+
         $hasMoreData = $list_category->hasMorePages();
-        
+
         // Trả về tệp view Blade load_more_category.blade.php và dữ liệu JSON chứa biến bạn muốn sử dụng trong phạm vi JavaScript
-        return Response::json([
+        return response()->json([
             'view' => view('ohther.ajax.admin.search_category')->with('categories', $list_category)->with('i', $last_stt)->render(),
-            'last_id' => $last_category_id,
+            'last_id' =>$last_id+ $last_category_id, // Update last_id with the latest category_id
             'hasMoreData' => $hasMoreData,
-            'new_stt' => $new_stt,
+            'new_stt' =>$new_stt,
         ]);
-        
     }
 }
