@@ -155,8 +155,8 @@ class Ajax_classController extends Controller
     }
     public function get_allPrice(Request $request)
     {
-        $startDate = strtotime($request->input('startDate'));
-        $endDate = strtotime($request->input('endDate'));
+        $startDate = \DateTime::createFromFormat('Y-m-d', $request->input('startDate'));
+        $endDate = \DateTime::createFromFormat('Y-m-d', $request->input('endDate'));
         $hoadon_status = 4;
         $totalPrice = 0;
 
@@ -316,28 +316,63 @@ class Ajax_classController extends Controller
     {
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
-
-        // Truy vấn dữ liệu từ database thông qua Query Builder
-        $query = DB::table('tbl_category')
+         $query = DB::table('tbl_category')
             ->where('category_id', '>', $last_id)
             ->orderBy('category_id', 'asc');
-
-        // Lấy dữ liệu với giới hạn 1 bản ghi
-        $list_category = $query->paginate(5); // Adjust the pagination size as needed
-
+        $list_category = $query->paginate(5); 
         $last_category_id = $list_category->lastItem();
-
-        // Tính số thứ tự mới
         $new_stt = $last_stt + $list_category->total();
-
         $hasMoreData = $list_category->hasMorePages();
-
-        // Trả về tệp view Blade load_more_category.blade.php và dữ liệu JSON chứa biến bạn muốn sử dụng trong phạm vi JavaScript
         return response()->json([
             'view' => view('ohther.ajax.admin.search_category')->with('categories', $list_category)->with('i', $last_stt)->render(),
-            'last_id' =>$last_id+ $last_category_id, // Update last_id with the latest category_id
+            'last_id' =>$last_id+ $last_category_id,
             'hasMoreData' => $hasMoreData,
             'new_stt' =>$new_stt,
         ]);
     }
+
+
+    public function select_data_payment(Request $request)
+{
+    $data = $request->input('data');
+    $currentTime = now();
+
+    // Define start and end time based on the selected option
+    if ($data === 'today') {
+        $startTime = now()->startOfDay();
+        $endTime = $currentTime;
+    } elseif ($data === 'yesterday') {
+        $startTime = now()->subDay()->startOfDay();
+        $endTime = now()->subDay()->endOfDay();
+    } elseif ($data === 'this_week') {
+        $startTime = now()->startOfWeek();
+        $endTime = $currentTime;
+    } elseif ($data === 'last_week') {
+        $startTime = now()->subWeek()->startOfWeek();
+        $endTime = now()->subWeek()->endOfWeek();
+    } elseif ($data === 'this_month') {
+        $startTime = now()->startOfMonth();
+        $endTime = $currentTime;
+    } elseif ($data === 'this_year') {
+        $startTime = now()->startOfYear();
+        $endTime = $currentTime;
+    } elseif ($data === 'last_year') {
+        $startTime = now()->subYear()->startOfYear();
+        $endTime = now()->subYear()->endOfYear();
+    } else {
+        // If 'all' or invalid option is selected, get the total for all time
+        $total = DB::table('tbl_hoadon')->where('status_payment_id',4)->sum('hoadon_allprice');
+        $response_money = "Đã bán được: " . number_format($total, 0, '.', ',') . " VNĐ"; 
+        return response()->json(['total' => $response_money]);
+    }
+
+    // Use the Query Builder to calculate the sum of 'hoadon_allprice' for the selected date range
+        $total = DB::table('tbl_hoadon')
+        ->where('status_payment_id',4)
+        ->whereBetween('created_at', [$startTime, $endTime])
+        ->sum('hoadon_allprice');
+     $response_money = "Đã bán được: " . number_format($total, 0, '.', ',') . " VNĐ"; 
+    return response()->json(['total' => $response_money]);
+}
+
 }

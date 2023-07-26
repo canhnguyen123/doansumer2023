@@ -77,6 +77,29 @@
                                     <div class="col-4 ip-form"> <button type="submit"> Xác nhận </button> </div>
                                 </div>
                                </form>
+                               @elseif ($item_payment->status_payment_id == 3)
+                               <form class="row" action="{{ route('post_bill_add',['hoadon_id'=>$item_payment->hoadon_id]) }}" method="POST">
+                                   {{ csrf_field() }}
+                                   @if ($errors->any())
+                                       <div class="alert alert-danger text-center">
+                                           <ul>
+                                               @foreach ($errors->all() as $error)
+                                                   <li>{{ $error }}</li>
+                                               @endforeach
+                                           </ul>
+
+                                       </div>
+                                   @endif
+                                   <div class="col-12 row">
+                                   <div class="col-8 ip-form flex_center ip-status-2">
+                                       <label for="delivery">Xác nhận giao thành công </label>
+                                       <input type="checkbox" name="" id="delivery" class="switch-toogel">
+                                       <label for="cancel">Giao thất bại</label>
+                                       <input type="hidden" name="payment_status" id="paymentStatus" value="4">
+                                   </div>
+                                   <div class="col-4 ip-form"> <button type="submit">Cập nhật</button> </div>
+                               </div>
+                              </form>
                                 @endif
 
                         </div>

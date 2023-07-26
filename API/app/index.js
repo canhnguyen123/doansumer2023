@@ -13,12 +13,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
 app.use('/user', userRouter);
 app.use('/product',productRouter);
 app.use('/banner',bannerRouter);
 app.use('/custormer',custormerRouter);
 app.use('/bill',billRouter);
 app.use('/cmt',cmtRouter);
+
 app.listen(4000, () => {
   console.log('Server đang lắng nghe tại cổng 4000');
 });

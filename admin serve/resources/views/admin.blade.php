@@ -351,7 +351,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         }
-
+        
         function uploadImages() {
             const files = Array.from(document.getElementById("file-upload-product").files);
             const uploadPromises = [];
@@ -1139,8 +1139,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         console.log("Gửi yêu cầu thất bại");
                     }
                 });
-    });
-
+             });
+             $('#select-data-payment').click(function(){
+                     const data=$('#data-time-payment').val();
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('select_data_payment') }}",
+                    method: 'POST',
+                    data: {
+                        data: data,
+                    },
+                    success: function(response) {
+                      $('#set-data-bill').text(response.total)
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
+                    }
+                });
+                 })
 
             $('#reaload-permission').click(function() {
                 $.ajax({

@@ -33,20 +33,24 @@
         </div>
         <div class="col-12 row">
          
-            <div class="col-3 ip-form agin_center">
-             <select name="" id="">
-              <option value="">Hôm nay</option>
-              <option value="">Hôm qua</option>
-              <option value="">Tuần trước</option>
-              <option value="">Tháng trước</option>
-              <option value="">Năm trước</option>
+            <div class="col-3 ip-form agin_center" >
+             <select name=""id="data-time-payment">
+              <option value="today">Hôm nay</option>
+              <option value="yesterday">Hôm qua</option>
+              <option value="this_week">Tuần này</option>
+              <option value="last_week">Tuần trước</option>
+               <option value="this_month">Tháng này</option>
+               <option value="this_year">Năm nay</option>
+               <option value="last_year">Năm ngoái</option>
+               <option value="all">Tất cả</option>
              </select>
-             
-            </div>
-            <div class="col-3 ip-form agin_center">
-              <button>Tra </button>
-            </div>
-          
+           </div>
+           <div class="col-3 ip-form agin_center">
+            <button id="select-data-payment">Xem </button>
+          </div>
+          <div class="col-6 req-start flex-start">
+            <span id="set-data-bill"></span>
+          </div>
         </div>
       
         <div class="col-12 titel-header">

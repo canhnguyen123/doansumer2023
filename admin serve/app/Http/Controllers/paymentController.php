@@ -54,9 +54,14 @@ class paymentController extends Controller
         $data['status_payment_id']=$payment_status;
         $data['hoadon_code']=$payment_code;
         DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
-        return " <script> alert('Thêm thành công'); window.location = '".route('payment_list')."';</script>";
+        return " <script> alert('Đã tạo hóa đơn'); window.location = '".route('payment_list')."';</script>";
         }
         else if($payment_status==3){
+            $data['status_payment_id']=$payment_status;
+            DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
+            return " <script> alert('Cập nhật thành công'); window.location = '".route('payment_list')."';</script>";
+        }
+        else if($payment_status==4){
             $data['status_payment_id']=$payment_status;
             DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
             return " <script> alert('Cập nhật thành công'); window.location = '".route('payment_list')."';</script>";

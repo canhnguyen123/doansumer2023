@@ -4252,5 +4252,22 @@ h4.titel-f-25 i{
     border-radius: 10px;
     color: white;
     background-color: #d84a38;
-    
+}
+.flex-start{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.req-start #set-data-bill{
+    color: #727272;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: 350;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 22px;
+    text-align: right;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
 }
