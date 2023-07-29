@@ -189,37 +189,6 @@ class productController extends Controller
         }
     }
 
-    // public function post_quantity_update(Request $request,$quantity_id)
-    // {
-    //     $data =[];
-    //     $quantityProSize = $request->input('size');
-    //     $quantityProColor = $request->input('color');
-    //     $quantityPro = $request->input('quantity');
-   
-    //     // $checkquantity = DB::table('tbl_quantity_product')
-    //     //         ->where('quantity_size', $quantityProSize)
-    //     //         ->where('quantity_color', $quantityProColor)
-    //     //         ->where('quantity_id','<>', $quantity_id )
-    //     //         ->exists();
-
-    //     // if ($checkquantity) {
-    //     //     // Dữ liệu đã tồn tại trong bảng tbl_product
-    //     //     $errorMessage = "Số lượng tính theo size và màu sắc này đã tồn tại mời nhập lại";
-    //     //     session()->flash('errorMessage', $errorMessage);
-    //     //     return redirect()->back();
-    //     // }
-    //     $data['quantity_size'] = $quantityProSize;
-    //     $data['quantity_color'] = $quantityProColor;
-    //     $data['quantity_sl'] = $quantityPro;
-    //     $update = DB::table('tbl_quantity_product')->where('quantity_id',$quantity_id)->update($data);
-
-
-    //     if ($update) {
-    //         return response()->json(['status' =>'success', 'message' => "Sửa thành công"]);
-    //     } else {
-    //         return response()->json(['status' =>'fall', 'message' => "Sửa thất bại"]);
-    //     }
-    // }
     public function post_quantity_update(Request $request, $quantity_id)
     {
         $data = [];
@@ -289,9 +258,9 @@ class productController extends Controller
        $product_price=$request->input('product_price_up');
        $brand_name=$request->input('brand_name_up');
        $status_product=$request->input('status_product_up');
-       $mota_product=html_entity_decode($request->input('mota_product_up'));
-       $dacdiem_product=html_entity_decode($request->input('dacdiem_product_up')); 
-       $baoquan_product=html_entity_decode($request->input('baoquan_product_up'));
+       $mota_product=$request->input('mota_product_up');
+       $dacdiem_product=$request->input('dacdiem_product_up'); 
+       $baoquan_product=$request->input('baoquan_product_up');
         $data = [];
        
         $data['theloai_id'] = $theloai_id;

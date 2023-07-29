@@ -206,19 +206,20 @@ exports.getdeatilCase = (req, res) => {
 };
 exports.getDeatil = (req, res) => {
   const product_id = req.params.product_id;
-  connection.query('SELECT * FROM tbl_product WHERE product_id = ?', [product_id], (error, results) => {
+  connection.query('SELECT  tbl_product.*, tbl_theloai.theloai_name,tbl_category.category_name,  tbl_phanloai.phanloai_name FROM tbl_product JOIN tbl_theloai ON tbl_product.theloai_id = tbl_theloai.theloai_id JOIN tbl_phanloai ON tbl_theloai.phanloai_id = tbl_phanloai.phanloai_id JOIN tbl_category ON tbl_theloai.category_id = tbl_category.category_id WHERE tbl_product.product_id = ? AND  tbl_product.product_status =1', [product_id], (error, results) => {
     if (error) {
       console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
       return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
     }
     
     if (results.length === 0) {
-      return res.status(404).json({ error: 'Không tìm thấy sản phẩm' });
+      return res.json({status:'fail', mess: 'Không tìm thấy sản phẩm' });
     }
 
     const product_idPro = results[0].product_id;
     const arrProduct = {
       product_id: product_idPro,
+      theloai_name: results[0].theloai_name,
       product_name: results[0].product_name,
       product_brand: results[0].product_brand,
       product_status_Ha: results[0].product_status_Ha,
@@ -255,15 +256,158 @@ exports.getDeatil = (req, res) => {
       arrProduct.listImg = arr_list_img;
       
      
-      return res.json({ results: arrProduct });
+      return res.json({status:'success', results: arrProduct });
     });
   });
+};
+exports.getAll = (req, res) => {
+  connection.query(
+    'SELECT * FROM tbl_product ORDER BY product_id DESC', // Sắp xếp theo product_id giảm dần (từ mới đến cũ)
+    (error, results) => {
+      if (error) {
+        console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+        return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+      }
+      // Tạo một mảng chứa các sản phẩm
+      const products = results.map(item => {
+        const product = {
+          product_id: item.product_id,
+          product_name: item.product_name,
+          product_brand: item.product_brand,
+          product_status_Ha: item.product_status_Ha,
+          product_code: item.product_code,
+          product_price: item.product_price,
+          product_mota: item.product_mota,
+          product_dacdiem: item.product_dacdiem,
+          product_baoquan: item.product_baoquan,
+        };
+        return product;
+      });
+
+      // Lặp qua từng sản phẩm để thêm thông tin về số lượng và hình ảnh
+      Promise.all(
+        products.map(product => {
+          return new Promise((resolve, reject) => {
+            connection.query(
+              'SELECT * FROM tbl_quantity_product WHERE quantity_status = 1 AND product_id = ?',
+              [product.product_id],
+              (error, results) => {
+                if (error) {
+                  reject(error);
+                }
+
+                const arr_list_quantity = results.map(quantityPro => ({
+                  quantity_color: quantityPro.quantity_color,
+                  quantity_size: quantityPro.quantity_size,
+                  quantity_sl: quantityPro.quantity_sl,
+                }));
+
+                product.listquantity = arr_list_quantity;
+
+                connection.query(
+                  'SELECT * FROM tbl_list_img__product WHERE product_id = ?',
+                  [product.product_id],
+                  (error, results) => {
+                    if (error) {
+                      reject(error);
+                    }
+
+                    const arr_list_img = results.map(imgPro => ({
+                      imgProduct_link: imgPro.img_name,
+                    }));
+
+                    product.listImg = arr_list_img;
+                    resolve();
+                  }
+                );
+              }
+            );
+          });
+        })
+      )
+        .then(() => {
+          // Khi đã lấy thông tin về số lượng và hình ảnh cho tất cả sản phẩm, gửi kết quả về cho client
+          return res.json({status:'success',  results: products });
+        })
+        .catch(error => {
+          console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+          return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+        });
+    }
+  );
+};
+exports.getColor = (req, res) => {
+  connection.query('SELECT *FROM tbl_color WHERE color_status =1',(error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    const arr = results.map(item => ({
+      color_name: item.color_name,
+      color_code: item.color_code
+    }));
+    return res.json({status:'success',results:arr});
+  })
+};
+exports.getCateory = (req, res) => {
+  connection.query('SELECT *FROM tbl_category WHERE category_status =1',(error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    const arr = results.map(item => ({
+      category_id: item.category_id,
+      category_name: item.category_name,
+    }));
+    return res.json({status:'success',results:arr});
+  })
+};
+exports.getPhanloai = (req, res) => {
+  connection.query('SELECT *FROM tbl_phanloai WHERE phanloai_status =1',(error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    const arr = results.map(item => ({
+      phanloai_id: item.phanloai_id,
+      phanloai_name: item.phanloai_name,
+    }));
+    return res.json({status:'success',results:arr});
+  })
+};
+exports.getTheloai = (req, res) => {
+  const category_id=req.body.category_id;
+  const phanloai_id=req.body.phanloai_id;
+  const arrCheck={category_id:category_id,phanloai_id:phanloai_id}
+  connection.query('SELECT *FROM tbl_theloai WHERE theloai_status =1 AND ?',[arrCheck],(error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    const arr = results.map(item => ({
+      theloai_id: item.theloai_id,
+      theloai_name: item.theloai_name,
+    }));
+    return res.json({status:'success',results:arr});
+  })
+};
+exports.getSize = (req, res) => {
+  connection.query('SELECT *FROM tbl_size WHERE status_size =1',(error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    const arr = results.map(item => ({
+      name_size: item.name_size,
+    }));
+    return res.json({status:'success',results:arr});
+  })
 };
 exports.getrelate = (req, res) => {
   const theloai_id = req.params.theloai_id;
   const product_id = req.params.product_id;
   connection.query(
-    'SELECT tbl_product.*, GROUP_CONCAT(tbl_list_img__product.img_name) AS img_names ' +
+    'SELECT tbl_product.*, GROUP_CONCAT(tbl_list_img__product.img_name) AS img_name ' +
     'FROM tbl_product ' +
     'LEFT JOIN tbl_list_img__product ON tbl_product.product_id = tbl_list_img__product.product_id ' +
     'WHERE tbl_product.theloai_id = ? ' +
@@ -284,7 +428,7 @@ exports.getrelate = (req, res) => {
             product_id: item.product_id,
             product_name: item.product_name,
             product_price: item.product_price,
-            img_names: item.img_names
+            img_name: item.img_name
           };
           products.push(product);
         }

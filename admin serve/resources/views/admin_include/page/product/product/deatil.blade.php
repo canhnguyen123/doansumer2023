@@ -134,13 +134,14 @@
                             </div>
                             <div class="col-12 tab-content">
                                 <div class="tab-pane active">
-                                    <p class="tctx-p">{{$item_deatil->product_mota}}</p>
+                                    {!! htmlspecialchars_decode($item_deatil->product_mota) !!}
                                 </div>
                                 <div class="tab-pane">
-                                    <p>{{$item_deatil->product_dacdiem}}</p> </div>
+                                    {!! htmlspecialchars_decode($item_deatil->product_dacdiem) !!}
+                                </div>
                                 <div class="tab-pane">
-                                    <p>{{$item_deatil->product_baoquan}}</p>   </div>
-                            </div>
+                                    {!! htmlspecialchars_decode($item_deatil->product_baoquan) !!}
+                                </div>
                          
                         </div>
                     @endforeach

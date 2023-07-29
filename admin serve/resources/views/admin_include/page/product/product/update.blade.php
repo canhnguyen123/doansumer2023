@@ -23,31 +23,6 @@
 
                             </div>
                         @endif
-                        {{-- <div class="col-4 slider-product">
-                            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                                
-                                <div class="carousel-inner">
-                           @foreach ($product_deatil_img as $index => $item_img)
-                                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="10000">
-                                    <img src="{{ $item_img->img_name }}" class="d-block w-100" alt="...">
-                                    <div class="carousel-caption d-none d-md-block">
-                                    <h5 style="color: white">Ảnh thứ {{ $index + 1 }}</h5>
-                                  
-                                    </div>
-                                </div>
-                                @endforeach
-                                 
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Next</span>
-                                </button>
-                              </div>
-                        </div> --}}
                         <div class="col-12 row">
                             <div class="col-4">
                                 <div class="col-12 ip-form">
@@ -171,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="col-12 ip-form" style="display: flex">
-                                     <button type="submit"  id=""   name=""><i class="fa-sharp fa-solid fa-plus"></i> Cập nhật sản phẩm</button>
+                                     <button type="submit"><i class="fa-sharp fa-solid fa-plus"></i> Cập nhật sản phẩm</button>
                                      <a class="" href="{{route('quantityProduct_list',['product_id'=>$item_product->product_id])}}">  <div class="link-btn flex_center"><p>Cập nhật số lượng</p>  </div>  </a>
                             </div>
                         </div>
