@@ -14,12 +14,20 @@ session_start();
 class statusController extends Controller
 {
     public function status_list(){
-        $list_status=DB::table("tbl_status_product")->get();
+        $check=0;
+        $list_status=DB::table("tbl_status_product")->paginate(5);
         $count=DB::table("tbl_status_product")->count();
+        $hasMoreData = $list_status->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_status=view('admin_include.page.product.status.list')
         ->with('list_status',$list_status)
-        ->with('count',$count);
+        ->with('count',$count)
+        ->with('check',$check);
         return  view('admin')->with('admin_include.page.product.status.list',$manager_status);
     }
     public function status_add(){

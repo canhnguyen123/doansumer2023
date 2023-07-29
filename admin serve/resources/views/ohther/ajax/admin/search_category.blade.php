@@ -3,7 +3,13 @@
       $i++;
       @endphp
 <tr data-expanded="true">
-    <td>{{ $i + $categories->firstItem() - 1 }}</td>
+    <td>
+      @if ($check==0)
+      {{$i++}}
+    @else
+    {{ $i + $categories->firstItem() - 1 }}
+    @endif
+     </td>
     <td>{{ $item_category->category_name }}</td>
     <td style="text-align: center">{{ $item_category->category_code }}</td>
     <td style="text-align: center">

@@ -90,6 +90,13 @@
           
         </tbody>
       </table>
+      @if ($check==1)
+      <div class="load-more flex_center">
+       
+           <button id="load-more-color"class="btn-loadmore" data-stt="{{$i}}" data-id="{{ $list_color->last()->color_id }}">Xem thêm</button>
+       
+      </div>
+      @endif
     </div>
   </div>
 </div>

@@ -13,12 +13,20 @@ session_start();
 class sizeProductController extends Controller
 {
     public function size_list(){
-        $list_size=DB::table("tbl_size")->get();
+        $check=0;
+        $list_size=DB::table("tbl_size")->paginate(5);
         $count=DB::table("tbl_size")->count();
+        $hasMoreData = $list_size->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_size=view('admin_include.page.product.size.list')
         ->with('list_size',$list_size)
-        ->with('count',$count);
+        ->with('count',$count)
+        ->with('check',$check);
         return  view('admin')->with('admin_include.page.product.size.list',$manager_size);
     }
     public function size_add(){

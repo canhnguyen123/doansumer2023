@@ -13,12 +13,18 @@ session_start();
 class colorController extends Controller
 {
     public function color_list(){
-        $list_color=DB::table("tbl_color")->get();
+        $check=0;
+        $list_color=DB::table("tbl_color")->paginate(5);
         $count=DB::table("tbl_color")->count();
-        // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
+        $hasMoreData = $list_color->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         $manager_color=view('admin_include.page.product.color.list')
         ->with('list_color',$list_color)
-        ->with('count',$count);
+        ->with('count',$count) ->with('check',$check) ;
         return  view('admin')->with('admin_include.page.product.color.list',$manager_color);
     }
     public function color_add(){

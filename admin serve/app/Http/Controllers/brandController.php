@@ -13,12 +13,20 @@ session_start();
 class brandController extends Controller
 {
     public function brand_list(){
-        $list_brand=DB::table("tbl_brand")->get();
+        $check=0;
+        $list_brand=DB::table("tbl_brand")->paginate(5);
         $count=DB::table("tbl_brand")->count();
+        $hasMoreData = $list_brand->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_brand=view('admin_include.page.product.brand.list')
         ->with('list_brand',$list_brand)
-        ->with('count',$count);
+        ->with('count',$count)
+        ->with('check',$check) ;
         return  view('admin')->with('admin_include.page.product.brand.list',$manager_brand);
     }
     public function brand_add(){

@@ -15,7 +15,7 @@ class bannerController extends Controller
 {
     public function banner_list()
     {
-        $list_banner = DB::table("tbl_banner")->get();
+        $list_banner = DB::table("tbl_banner")->paginate(5);
         $count = DB::table("tbl_banner")->count();
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_banner = view('admin_include.page.banner.list')

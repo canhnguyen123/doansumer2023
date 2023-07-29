@@ -4,7 +4,7 @@
 	<section class="wrapper row">
         <div class="form-fiter row">
             <div class="col-6 left">
-                <h3>Tổng số chức vụ : {{ $count }} </h3>
+                <h3>Tổng số nhóm quyền : {{ $count }} </h3>
             </div>
             <div class="col-6 right">
                 <div class="search_icon icon flex_center bg-bule" id="search_icon">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-12 input-search mg-20" style="display: none;" id="search_input">
-            <input type="text" id="search_ajax_phanquyen" placeholder="Nhập thông tin cần tìm">
+            <input type="text" id="search_ajax_phanquyen" class="search-input" placeholder="Nhập thông tin cần tìm">
             <i class="fa-sharp fa-solid fa-magnifying-glass  icon-search-form"></i>
             <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none"  id="close_search"></i>
         </div>
@@ -79,7 +79,7 @@
       
           
         </tbody>
-        <tfoot>
+        <tfoot id="load-more-phanquyen">
           <tr>
               <td colspan="6">
                   @if ($list_phanquyen->total() > $list_phanquyen->perPage())

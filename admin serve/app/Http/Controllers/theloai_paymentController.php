@@ -12,11 +12,17 @@ session_start();
 class theloai_paymentController extends Controller
 {
     public function category_payment_list(){
-        $list_category_payment=DB::table("tbl_category_payment")->get();
+        $check=0;
+        $list_category_payment=DB::table("tbl_category_payment")->paginate(5);
         $count=DB::table("tbl_category_payment")->count();
-        // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
+        $hasMoreData = $list_category_payment->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         $manager_category_payment=view('admin_include.page.payment.theloai_payment.list')
-        ->with('list_category_payment',$list_category_payment)
+        ->with('list_category_payment',$list_category_payment) ->with('check',$check)
         ->with('count',$count);
         return  view('admin')->with('admin_include.page.payment.theloai_payment.list',$manager_category_payment);
     }

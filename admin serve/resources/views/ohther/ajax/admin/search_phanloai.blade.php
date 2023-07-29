@@ -1,12 +1,15 @@
-@php
-$i = 0;
-@endphp
 @foreach ($phanloai as $item_phanloai)
 @php
       $i++;
       @endphp
 <tr data-expanded="true">
-    <td>{{ $i }}</td>
+    <td>
+      @if ($check==0)
+      {{$i++}}
+    @else
+    {{ $i + $phanloai->firstItem() - 1 }}
+    @endif
+      </td>
     <td>{{ $item_phanloai->phanloai_name }}</td>
     <td style="text-align: center">{{ $item_phanloai->phanloai_code }}</td>
     <td style="text-align: center">
@@ -26,11 +29,11 @@ $i = 0;
         </div>
         <div class="icon bg-red flex_center">
           @if ($item_phanloai->phanloai_status==1)
-          <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái tắt không?')" href="{{ route('togggle_status_phanloai', ['phanloai_id' => $item_phanloai->phanloai_id, 'phanloai_status' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
+          <a onclick="return confirm('Bạn có muốn chuyển danh mục này sang trạng thái tắt không?')" href="{{ route('togggle_status_phanloai', ['phanloai_id' => $item_phanloai->phanloai_id, 'phanloai_status' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
           @else
-          <a onclick="return confirm('Bạn có muốn chuyển phân loại này sang trạng thái bật không ?')" href="{{ route('togggle_status_phanloai', ['phanloai_id' => $item_phanloai->phanloai_id,'phanloai_status'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
-         @endif   
-             </div>
+          <a onclick="return confirm('Bạn có muốn chuyển danh mục này sang trạng thái bật không ?')" href="{{ route('togggle_status_phanloai', ['phanloai_id' => $item_phanloai->phanloai_id,'phanloai_status'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
+         @endif
+        </div>
     </div></td>
   </tr>
 @endforeach

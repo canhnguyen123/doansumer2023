@@ -10,11 +10,18 @@ use Illuminate\Support\Facades\DB;
 class status_paymentController extends Controller
 {
     public function status_payment_list(){
-        $list_status_payment=DB::table("tbl_status_payment")->get();
+        $check=0;
+        $list_status_payment=DB::table("tbl_status_payment")->paginate(5);
         $count=DB::table("tbl_status_payment")->count();
-        // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
+        $hasMoreData = $list_status_payment->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         $manager_status_payment=view('admin_include.page.payment.status_payment.list')
         ->with('list_status_payment',$list_status_payment)
+        ->with('check',$check)
         ->with('count',$count);
         return  view('admin')->with('admin_include.page.payment.status_payment.list',$manager_status_payment);
     }

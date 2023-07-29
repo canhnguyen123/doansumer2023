@@ -351,7 +351,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         }
-        
+
         function uploadImages() {
             const files = Array.from(document.getElementById("file-upload-product").files);
             const uploadPromises = [];
@@ -770,7 +770,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         }
-    
+
         var itemCount = 1; // Biến đếm ban đầu
         var addedItems = []; // Mảng lưu trữ các mặt hàng đã được thêm vào
 
@@ -920,7 +920,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     console.log('Lỗi: ' + error);
                 }
             });
-          });
+        });
 
         $(".tab-item-table").click(function() {
             $(".tab-item-table").removeClass("active");
@@ -1107,9 +1107,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             })
             $('#load-more-category').click(function() {
-            var last_id = $(this).data('id');
-            var last_stt = $(this).data('stt');
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                var last_id = $(this).data('id');
+                var last_stt = $(this).data('stt');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': csrfToken
@@ -1124,10 +1124,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     },
                     success: function(response) {
                         var newDataId = response.last_id;
-                        $('#load-more-category').data('id', newDataId); // Update the data-id attribute
+                        $('#load-more-category').data('id',
+                        newDataId); // Update the data-id attribute
 
                         var newStt = response.new_stt;
-                        $('#load-more-category').data('stt', newStt); // Update the data-stt attribute
+                        $('#load-more-category').data('stt',
+                        newStt); // Update the data-stt attribute
 
                         $('#category_list_table').append(response.view);
 
@@ -1139,9 +1141,190 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         console.log("Gửi yêu cầu thất bại");
                     }
                 });
-             });
-             $('#select-data-payment').click(function(){
-                     const data=$('#data-time-payment').val();
+            });
+
+            $('#load-more-phanloai').click(function() {
+                var last_id = $(this).data('id');
+                var last_stt = $(this).data('stt');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadmore_phanloai') }}",
+                    method: 'POST',
+                    data: {
+                        last_id: last_id,
+                        last_stt: last_stt
+                    },
+                    success: function(response) {
+                        var newDataId = response.last_id;
+                        $('#load-more-phanloai').data('id',
+                        newDataId); // Update the data-id attribute
+
+                        var newStt = response.new_stt;
+                        $('#load-more-phanloai').data('stt',
+                        newStt); // Update the data-stt attribute
+
+                        $('#phanloai_list_table').append(response.view);
+
+                        if (!response.hasMoreData) {
+                            $('#load-more-phanloai').hide();
+                        }
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
+                    }
+                });
+            });
+            $('#load-more-status').click(function() {
+                var last_id = $(this).data('id');
+                var last_stt = $(this).data('stt');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadmore_status') }}",
+                    method: 'POST',
+                    data: {
+                        last_id: last_id,
+                        last_stt: last_stt
+                    },
+                    success: function(response) {
+                        var newDataId = response.last_id;
+                        $('#load-more-status').data('id',
+                        newDataId); // Update the data-id attribute
+
+                        var newStt = response.new_stt;
+                        $('#load-more-status').data('stt',
+                        newStt); // Update the data-stt attribute
+
+                        $('#status_list_table').append(response.view);
+
+                        if (!response.hasMoreData) {
+                            $('#load-more-status').hide();
+                        }
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
+                    }
+                });
+            });
+            $('#load-more-color').click(function() {
+                var last_id = $(this).data('id');
+                var last_stt = $(this).data('stt');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadmore_color') }}",
+                    method: 'POST',
+                    data: {
+                        last_id: last_id,
+                        last_stt: last_stt
+                    },
+                    success: function(response) {
+                        var newDataId = response.last_id;
+                        $('#load-more-color').data('id',
+                        newDataId); // Update the data-id attribute
+
+                        var newStt = response.new_stt;
+                        $('#load-more-color').data('stt',
+                        newStt); // Update the data-stt attribute
+
+                        $('#color_list_table').append(response.view);
+
+                        if (!response.hasMoreData) {
+                            $('#load-more-color').hide();
+                        }
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
+                    }
+                });
+            });
+            $('#load-more-brand').click(function() {
+                var last_id = $(this).data('id');
+                var last_stt = $(this).data('stt');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadmore_brand') }}",
+                    method: 'POST',
+                    data: {
+                        last_id: last_id,
+                        last_stt: last_stt
+                    },
+                    success: function(response) {
+                        var newDataId = response.last_id;
+                        $('#load-more-brand').data('id',
+                        newDataId); // Update the data-id attribute
+
+                        var newStt = response.new_stt;
+                        $('#load-more-brand').data('stt',
+                        newStt); // Update the data-stt attribute
+
+                        $('#brand_list_table').append(response.view);
+
+                        if (!response.hasMoreData) {
+                            $('#load-more-brand').hide();
+                        }
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
+                    }
+                });
+            });
+            $('#load-more-size').click(function() {
+                var last_id = $(this).data('id');
+                var last_stt = $(this).data('stt');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadmore_size') }}",
+                    method: 'POST',
+                    data: {
+                        last_id: last_id,
+                        last_stt: last_stt
+                    },
+                    success: function(response) {
+                        var newDataId = response.last_id;
+                        $('#load-more-size').data('id',
+                        newDataId); // Update the data-id attribute
+
+                        var newStt = response.new_stt;
+                        $('#load-more-size').data('stt',
+                        newStt); // Update the data-stt attribute
+
+                        $('#size_list_table').append(response.view);
+
+                        if (!response.hasMoreData) {
+                            $('#load-more-size').hide();
+                        }
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
+                    }
+                });
+            });
+            $('#select-data-payment').click(function() {
+                const data = $('#data-time-payment').val();
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 $.ajaxSetup({
                     headers: {
@@ -1155,14 +1338,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         data: data,
                     },
                     success: function(response) {
-                      $('#set-data-bill').text(response.total)
+                        $('#set-data-bill').text(response.total)
                     },
                     error: function() {
                         console.log("Gửi yêu cầu thất bại");
                     }
                 });
-                 })
+            })
+            $('#load-more-status-payment').click(function() {
+                var last_id = $(this).data('id');
+                var last_stt = $(this).data('stt');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadmore_status_payment') }}",
+                    method: 'POST',
+                    data: {
+                        last_id: last_id,
+                        last_stt: last_stt
+                    },
+                    success: function(response) {
+                        var newDataId = response.last_id;
+                        $('#load-more-status-payment').data('id',
+                        newDataId); // Update the data-id attribute
 
+                        var newStt = response.new_stt;
+                        $('#load-more-status-payment').data('stt',
+                        newStt); // Update the data-stt attribute
+
+                        $('#status_payment_list_table').append(response.view);
+
+                        if (!response.hasMoreData) {
+                            $('#load-more-status-payment').hide();
+                        }
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
+                    }
+                });
+            });
             $('#reaload-permission').click(function() {
                 $.ajax({
                     type: "GET",
@@ -1330,11 +1548,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $('#search_input').toggle();
             })
             $('#search_ajax_category').keyup(function() {
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_category').val();
                 $.ajax({
                     type: "GET",
@@ -1351,11 +1564,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
             $('#search_ajax_phanloai').keyup(function() {
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_phanloai').val();
                 $.ajax({
                     type: "GET",
@@ -1370,12 +1578,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             })
             $('#search_ajax_size').keyup(function() {
-
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_size').val();
                 $.ajax({
                     type: "GET",
@@ -1390,12 +1592,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             })
             $('#search_ajax_status').keyup(function() {
-
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_status').val();
                 $.ajax({
                     type: "GET",
@@ -1411,12 +1607,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             })
 
             $('#search_ajax_color').keyup(function() {
-
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_color').val();
                 $.ajax({
                     type: "GET",
@@ -1432,12 +1622,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             })
 
             $('#search_ajax_color').keyup(function() {
-
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_color').val();
                 $.ajax({
                     type: "GET",
@@ -1453,12 +1637,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             })
 
             $('#search_ajax_color').keyup(function() {
-
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_color').val();
                 $.ajax({
                     type: "GET",
@@ -1473,11 +1651,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             })
             $('#search_ajax_brand').keyup(function() {
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_brand').val();
                 $.ajax({
                     type: "GET",
@@ -1492,11 +1665,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             })
             $('#search_ajax_theloai').keyup(function() {
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_theloai').val();
                 $.ajax({
                     type: "GET",
@@ -1512,11 +1680,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             })
             $('#search_ajax_product').keyup(function() {
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_product').val();
                 $.ajax({
                     type: "GET",
@@ -1532,11 +1695,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             })
 
             $('#search_ajax_user').keyup(function() {
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_user').val();
                 $.ajax({
                     type: "GET",
@@ -1552,11 +1710,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             })
 
             $('#search_ajax_phanquyenDeatil').keyup(function() {
-                if ($(this).val().length > 0) {
-                    $('#close_search').show();
-                } else {
-                    $('#close_search').hide();
-                }
                 var content = $('#search_ajax_phanquyenDeatil').val();
                 $.ajax({
                     type: "GET",
@@ -1571,7 +1724,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 });
             })
+            $('#search_ajax_status_payment').keyup(function() {
+                var content = $('#search_ajax_status_payment').val();
+                $.ajax({    
+                    type: "GET",
+                    url: "{{ route('ajax_status_payment') }}",
+                    data: {
+                        content: content
+                    },
+                    success: function(data) {
+                        $('#status_payment_list_table').html(data);
+                        $('#load-more-status-payment').hide();
+                    },
 
+                });
+            })
+            $('#search_ajax_phanquyen').keyup(function() {
+                var content = $('#search_ajax_phanquyen').val();
+                $.ajax({    
+                    type: "GET",
+                    url: "{{ route('ajax_phanquyen') }}",
+                    data: {
+                        content: content
+                    },
+                    success: function(data) {
+                        $('#phanquyen_list_table').html(data);
+                        $('#load-more-phanquyen').hide();
+                    },
+
+                });
+            })
+            $('.search-input').keyup(function(){
+                if ($(this).val().length > 0) {
+                    $('.icon-close-form').show();
+                    $('.btn-loadmore').hide()
+                } else {
+                    $('.icon-close-form').hide();
+                }
+            })
 
             $('#close_search').click(function() {
                 $('#search_ajax_category').val('');

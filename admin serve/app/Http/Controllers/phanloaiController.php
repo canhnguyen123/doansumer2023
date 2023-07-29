@@ -13,12 +13,20 @@ session_start();
 class phanloaiController extends Controller
 {
     public function phanloai_list(){
-        $list_phanloai=DB::table("tbl_phanloai")->get();
+        $check=0;
+        $list_phanloai=DB::table("tbl_phanloai")->paginate(5);
         $count=DB::table("tbl_phanloai")->count();
+        $hasMoreData = $list_phanloai->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
         $manager_phanloai=view('admin_include.page.product.phanloai.list')
         ->with('list_phanloai',$list_phanloai)
-        ->with('count',$count);
+        ->with('count',$count)
+        ->with('check',$check);
         return  view('admin')->with('admin_include.page.product.phanloai.list',$manager_phanloai);
     }
     public function phanloai_add(){

@@ -259,5 +259,40 @@ exports.getDeatil = (req, res) => {
     });
   });
 };
+exports.getrelate = (req, res) => {
+  const theloai_id = req.params.theloai_id;
+  const product_id = req.params.product_id;
+  connection.query(
+    'SELECT tbl_product.*, GROUP_CONCAT(tbl_list_img__product.img_name) AS img_names ' +
+    'FROM tbl_product ' +
+    'LEFT JOIN tbl_list_img__product ON tbl_product.product_id = tbl_list_img__product.product_id ' +
+    'WHERE tbl_product.theloai_id = ? ' +
+    'GROUP BY tbl_product.product_id ' +
+    'ORDER BY tbl_product.product_id DESC ' +
+    'LIMIT 10',
+    [theloai_id],
+    (error, results) => {
+      if (error) {
+        console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+        return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+      }
+
+      const products = [];
+      results.forEach(item => {
+        if (item.product_id != product_id) {
+          const product = {
+            product_id: item.product_id,
+            product_name: item.product_name,
+            product_price: item.product_price,
+            img_names: item.img_names
+          };
+          products.push(product);
+        }
+      });
+
+      return res.json({status:'success',results:products});
+    }
+  );
+};
 
 

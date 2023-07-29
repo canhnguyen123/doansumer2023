@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="col-12 input-search mg-20" style="display: none;" id="search_input">
-            <input type="text" id="search_ajax_status_payment" placeholder="Nhập thông tin cần tìm">
+            <input type="text" id="search_ajax_status_payment" class="search-input" placeholder="Nhập thông tin cần tìm">
             <i class="fa-sharp fa-solid fa-magnifying-glass  icon-search-form"></i>
             <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none"  id="close_search"></i>
         </div>

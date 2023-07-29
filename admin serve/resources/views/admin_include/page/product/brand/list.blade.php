@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-12 input-search mg-20" style="display: none;" id="search_input">
-            <input type="text" id="search_ajax_brand" placeholder="Nhập thông tin cần tìm">
+            <input type="text" id="search_ajax_brand" class="search-input" placeholder="Nhập thông tin cần tìm">
             <i class="fa-sharp fa-solid fa-magnifying-glass  icon-search-form"></i>
             <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none"  id="close_search"></i>
         </div>
@@ -81,7 +81,8 @@
                   <a onclick="return confirm('Bạn có muốn chuyển màu này sang trạng thái tắt không?')" href="{{ route('togggle_status_brand', ['brand_id' => $item_brand->brand_id, 'brand_status' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
                   @else
                   <a onclick="return confirm('Bạn có muốn chuyển màu này sang trạng thái bật không ?')" href="{{ route('togggle_status_brand', ['brand_id' => $item_brand->brand_id,'brand_status'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
-                 @endif                   </div>
+                 @endif                  
+                 </div>
             </div></td>
           </tr>
           @endforeach
@@ -89,6 +90,13 @@
           
         </tbody>
       </table>
+      @if ($check==1)
+      <div class="load-more flex_center">
+       
+           <button id="load-more-brand" data-stt="{{$i}}" data-id="{{ $list_brand->last()->brand_id }}">Xem thêm</button>
+       
+      </div>
+      @endif
     </div>
   </div>
 </div>

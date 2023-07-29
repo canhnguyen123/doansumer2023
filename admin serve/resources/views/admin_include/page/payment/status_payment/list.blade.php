@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-12 input-search mg-20" style="display: none;" id="search_input">
-            <input type="text" id="search_ajax_status_payment" placeholder="Nhập thông tin cần tìm">
+            <input type="text" id="search_ajax_status_payment" class="search-input" placeholder="Nhập thông tin cần tìm">
             <i class="fa-sharp fa-solid fa-magnifying-glass  icon-search-form"></i>
             <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none"  id="close_search"></i>
         </div>
@@ -72,6 +72,11 @@
           
         </tbody>
       </table>
+      @if ($check==1)
+      <div class="load-more flex_center">
+         <button id="load-more-status-payment"class="btn-loadmore" data-stt="{{$i}}" data-id="{{ $list_status_payment->last()->status_payment_id }}">Xem thêm</button>
+      </div>
+      @endif
       <div id="image-dialog" class="dialog">
         <img id="dialog-image" src="" alt="">
         <span id="close-btn" onclick="closeDialog()">&times;</span>

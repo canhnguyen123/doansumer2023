@@ -85,14 +85,21 @@
                   <a onclick="return confirm('Bạn có muốn chuyển màu này sang trạng thái tắt không?')" href="{{ route('togggle_status_size', ['id_size' => $item_size->id_size, 'status_size' => 1]) }}"><i class="fa-solid fa-toggle-on"></i></a>
                   @else
                   <a onclick="return confirm('Bạn có muốn chuyển màu này sang trạng thái bật không ?')" href="{{ route('togggle_status_size', ['id_size' => $item_size->id_size,'status_size'=>0]) }}"><i class="fa-solid fa-toggle-off"></i></a> 
-                 @endif                  </div>
-            </div></td>
+                 @endif
+                </div>
+            </div>
+          </td>
           </tr>
           @endforeach
       
           
         </tbody>
       </table>
+      @if ($check==1)
+      <div class="load-more flex_center">
+              <button id="load-more-size" class="btn-loadmore" data-stt="{{$i}}" data-id="{{ $list_size->last()->id_size}}">Xem thêm</button>
+         </div>
+      @endif
     </div>
   </div>
 </div>

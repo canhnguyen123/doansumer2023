@@ -3491,7 +3491,9 @@ tr {
   }
   .item-list-size{
     display: flex;
+    flex-wrap: wrap;
   }
+  
   .full-w-h{
     width: 100%;
   }

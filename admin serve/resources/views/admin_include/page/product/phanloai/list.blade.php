@@ -88,6 +88,13 @@
           
         </tbody>
       </table>
+      @if ($check==1)
+      <div class="load-more flex_center">
+       
+           <button id="load-more-phanloai" class="btn-loadmore" data-stt="{{$i}}" data-id="{{ $list_phanloai->last()->phanloai_id }}">Xem thêm</button>
+       
+      </div>
+      @endif
     </div>
   </div>
 </div>

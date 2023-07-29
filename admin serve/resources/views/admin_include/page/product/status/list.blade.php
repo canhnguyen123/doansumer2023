@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="col-12 input-search mg-20" style="display: none;" id="search_input">
-            <input type="text" id="search_ajax_status" placeholder="Nhập thông tin cần tìm">
+            <input type="text" id="search_ajax_status" class="search-input" placeholder="Nhập thông tin cần tìm">
             <i class="fa-sharp fa-solid fa-magnifying-glass  icon-search-form"></i>
             <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none"  id="close_search"></i>
         </div>
@@ -68,6 +68,13 @@
           
         </tbody>
       </table>
+      @if ($check==1)
+      <div class="load-more flex_center">
+       
+           <button id="load-more-status" data-stt="{{$i}}" data-id="{{ $list_status->last()->status_id }}">Xem thêm</button>
+       
+      </div>
+      @endif
     </div>
   </div>
 </div>

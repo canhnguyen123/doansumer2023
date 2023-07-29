@@ -94,7 +94,7 @@
                             <div class="col-6 err-product"></div>
                             <div class="col-3 err-product"></div>
                             <div class="col-3 err-product"><span  id="err-product-price"></span></div>
-                            <div class="col-12 row mg-10">
+                            <div class="mg-10">
                                 <label for="">Size</label>
                                 <div class="item-list-size">
                                     @foreach ($list_size as $index=> $item_size)
@@ -107,7 +107,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-12 row mg-10">
+                            <div class="mg-10">
                                 <label for="">Màu sắc</label>
                                 <div class="item-list-size">
                                   @foreach ($list_color as $index => $item_color)

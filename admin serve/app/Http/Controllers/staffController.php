@@ -17,12 +17,18 @@ session_start();
 class staffController extends Controller
 {
     public function staff_list(){
-        $list_staff=DB::table("tbl_staff")->get();
-
+        $list_staff=DB::table("tbl_staff")->paginate(5);
+        $check=0;
         $count=DB::table("tbl_staff")->count();
+        $hasMoreData = $list_staff->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }
         $manager_staff=view('admin_include.page.staff.staff.list')
         ->with('list_staff',$list_staff)
-       
+        ->with('check',$check)
         ->with('count',$count);
         return  view('admin')->with('admin_include.page.staff.staff.list',$manager_staff);
     }
