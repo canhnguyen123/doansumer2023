@@ -41,23 +41,76 @@ exports.postbill = (req, res) => {
 };
 exports.updateSuccessBill = (req, res) => {
   const hoadon_id = req.params.hoadon_id;
-const arr = { status_payment_id: 4 };
-const dk = { hoadon_id: hoadon_id };
-connection.query(
-  "UPDATE tbl_hoadon SET ? WHERE ?",
-  [arr, dk],
-  (error, results) => {
+  connection.query('SELECT *FROM tbl_hoadon  WHERE hoadon_id=?',[hoadon_id], (error, results) => {
     if (error) {
       console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
       return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
     }
-    return res.json({
-      status: 'success',
-      mess: 'Cảm ơn bạn đã mua hàng của chúng tôi đơn hàng của bạn sẽ được duyệt trong giời gian sớm nhất',
-    });
-  }
-);
+    const status_payment_id=results[0].status_payment_id;
+    if(status_payment_id===3){
+      const arr = { status_payment_id: 4 };
+      const dk = { hoadon_id: hoadon_id };
+    
+      connection.query('UPDATE tbl_hoadon SET ? WHERE ?', [arr, dk], (error, results) => {
+        if (error) {
+          console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+          return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+        }
+    
+        connection.query('SELECT * FROM tbl_hoadon_deatil WHERE hoadon_id = ?', [hoadon_id], (error, results1) => {
+          if (error) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+            return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+          }
+    
+          results1.forEach((item) => {
+            const product_id_detail = item.product_id;
+            const quantyti = item.hoadondeatil_quantyti;
+            const color = item.hoadon_color;
+            const size = item.hoadon_size;
+    
+            connection.query('SELECT * FROM tbl_quantity_product WHERE product_id = ?', [product_id_detail], (error, results2) => {
+              if (error) {
+                console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+                return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+              }
+    
+              results2.forEach((item1) => {
+                const product_id_quantity = item1.product_id;
+                const quantity_old = item1.quantity_sl;
+                const quantityNew = quantity_old - quantyti;
+    
+                connection.query(
+                  'UPDATE tbl_quantity_product SET quantity_sl = ? WHERE product_id = ? AND quantity_color = ? AND quantity_size = ?',
+                  [quantityNew, product_id_quantity, color, size],
+                  (error, results3) => {
+                    if (error) {
+                      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+                      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+                    }
+                  }
+                );
+              });
+            });
+          });
+        });
+    
+        return res.json({
+          status: 'success',
+          mess: 'Cảm ơn bạn đã mua hàng của chúng tôi, đơn hàng của bạn sẽ được duyệt trong thời gian sớm nhất',
+        });
+      });
+    }else{
+      return res.json({
+        status: 'fall',
+        mess: 'Bạn không thể cập nhật',
+      });
+    }
+  })
+ 
+
 };
+
 exports.selectCategorypayment = (req, res) => {
   connection.query('SELECT * FROM tbl_category_payment WHERE category_payment_status=1', (error, results) => {
     if (error) {

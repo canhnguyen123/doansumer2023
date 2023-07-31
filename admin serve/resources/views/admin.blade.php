@@ -8,7 +8,6 @@
     <meta name="keywords"
         content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css') }}" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('BE/css/bootstrap.min.css') }}">
@@ -111,13 +110,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('BE/js/ckediter.js') }}"></script>
     <script src="{{ asset('https://cdn.jsdelivr.net/npm/chart.js') }}"></script>
     <script src="{{ asset('BE/js/sliderbar.js') }}"></script>
+    <script src="{{ asset('BE/js/main.js') }}"></script>
     <script>
         const ctx = document.getElementById('myChart');
         const currentDate = new Date();
         const labels = [];
 
         for (let i = 5; i >= 0; i--) {
-            const month = currentDate.getMonth() - i; //Lấy 6 tháng gần nhất k tính tháng hiện tại
+            const month = currentDate.getMonth() - i; 
             labels.push(`Tháng ${month}`);
         }
 
@@ -168,15 +168,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
         const bill = document.getElementById('myChartbill');
-
-
-        new Chart(bill, {
+             new Chart(bill, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
                         label: 'Doanh thu gần đây',
-                        data: [180, 520, 1000, 900, 1000, 1201],
+                        data: [18210, 32520, 100030, 190320, 200000, 120000],
                         type: 'line', // Loại biểu đồ dạng đường
                         borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
                         borderWidth: 2,
@@ -201,7 +199,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             data: {
                 labels: ['Tài khoản bình thường', 'Tài khoản facebook', 'Tài khoản googel', ],
                 datasets: [{
-                    data: [65, 25, 10, ],
+                    data: [650312, 253213, 103212,],
                     backgroundColor: ['#B5C99A', '#3B5998', 'yellow']
                 }]
             },
@@ -344,6 +342,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 success: function(response) {
                     if (response.status == "success") {
                         $('#response-money-data').text(response.totalPrice);
+                        $('#response-money-goc').text(response.totalPriceGoc);
+                        $('#response-money-lai').text(response.totalPriceLai);
+                        $('#response-money-percent').text(response.totalPricepercent);
                     }
                 },
                 error: function(xhr, status, error) {
@@ -381,6 +382,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 .catch(console.error);
         }
 
+        
+
+        function updateQuantity(e, product_id) {
+            e.preventDefault();
+            var id = $('#data-id-text').text();
+            var color = $('input[class="product-color-item"]:checked').val();
+            var size = $('input[class="product-size-item"]:checked').val();
+            var quantity = $('#quantityItem').val();
+            var url = "{{ route('post_quantity_update', ['quantity_id' => 0]) }}";
+            url = url.slice(0, -1) + id;
+            var rendeUrl = "{{ route('quantityProduct_list', ['product_id' => 0]) }}";
+            rendeUrl = rendeUrl.slice(0, -1) + product_id;
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    size: size,
+                    color: color,
+                    quantity: quantity
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        alert(response.message);
+
+                    } else if (response.status === 'fall') {
+                        alert(response.message);
+                    }
+
+                    window.location.href = rendeUrl;
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                }
+            });
+        }
         function uploadImage_theloai(event) {
             event.preventDefault();
             var fileInput = document.getElementById('file-upload-up');
@@ -485,7 +527,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
         }
-
         function getDataQuantity(dataQuantity) {
             const parentDiv = $(dataQuantity).closest('.item-req.p-l-20');
             const colorText = parentDiv.find('.color-quantity-d').text();
@@ -515,45 +556,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         }
 
-        function updateQuantity(e, product_id) {
-            e.preventDefault();
-            var id = $('#data-id-text').text();
-            var color = $('input[class="product-color-item"]:checked').val();
-            var size = $('input[class="product-size-item"]:checked').val();
-            var quantity = $('#quantityItem').val();
-            var url = "{{ route('post_quantity_update', ['quantity_id' => 0]) }}";
-            url = url.slice(0, -1) + id;
-            var rendeUrl = "{{ route('quantityProduct_list', ['product_id' => 0]) }}";
-            rendeUrl = rendeUrl.slice(0, -1) + product_id;
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {
-                    size: size,
-                    color: color,
-                    quantity: quantity
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        alert(response.message);
-
-                    } else if (response.status === 'fall') {
-                        alert(response.message);
-                    }
-
-                    window.location.href = rendeUrl;
-                },
-                error: function(xhr, status, error) {
-                    console.log('Lỗi: ' + error);
-                }
-            });
-        }
 
         function close_update(dataQuantity) {
             const parentDiv = $(dataQuantity).closest('.item-req.p-l-20');
@@ -862,20 +864,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $('.res-them').append(html);
             });
         }
-        $('.res-them').on('click', '.close-item-product', function() {
-            var itemColor = $(this).siblings('.item-res-pro').find('.color-item-Pro').text();
-            var itemSize = $(this).siblings('.item-res-pro').find('.size-item-Pro').text();
-
-            // Xóa mục hàng khỏi mảng addedItems
-            for (var i = 0; i < addedItems.length; i++) {
-                if (addedItems[i].color === itemColor && addedItems[i].size === itemSize) {
-                    addedItems.splice(i, 1);
-                    break;
-                }
-            }
-
-            $(this).parent().remove();
-        });
+   
         $('#quantityItem, #product_price').keyup(function(e) {
             var product_price = $('#product_price').val();
             var quantity_Item = $('#quantityItem').val();
@@ -955,7 +944,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             event.preventDefault();
             var theloai_id = $("#theloai_id").val();
             var product_name = $('#product_name').val();
-            var product_price = $('#product_price').val()
+            var product_price = $('#product_price').val();
+            var product_priceIn = $('#product_priceIn').val()
             var brand_Product = $('#brand_Product').val();
             var trangthai_Product = $('#trangthai_Product').val();
             var product_code = $("#product_code").val();
@@ -1016,6 +1006,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 theloai_id: theloai_id,
                                 product_name: product_name,
                                 product_price: product_price,
+                                product_priceIn:product_priceIn,
                                 brand_Product: brand_Product,
                                 trangthai_Product: trangthai_Product,
                                 product_code: product_code,
@@ -1438,11 +1429,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $parentDiv.find('.input-chked').hide();
                 $parentDiv.find('.size-item-product-list').hide();
             }
-        });
-
-
-
-        $("#category_id_Pro, #phanloai_id_Pro").change(function() {
+         });
+     $("#category_id_Pro, #phanloai_id_Pro").change(function() {
             var category_id_Pro = $('#category_id_Pro').val();
             var phanloai_id_Pro = $('#phanloai_id_Pro').val();
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -1475,6 +1463,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
 
         $('#file-upload-product').on('change', function(e) {
+            
             $('.product-img-class').hide()
             var files = e.target.files;
             console.log(files)

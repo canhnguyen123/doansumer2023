@@ -194,6 +194,7 @@ Route::prefix('/admin')->group(function () {
             });
             Route::prefix('/user')->group(function () {
                 Route::get('/list', [userController::class, 'user_list'])->name('user_list')->middleware('check_permission:check');
+                Route::post('/update-money/{user_id}', [userController::class, 'update_money'])->name('update_money');
                 Route::get('/deatil/{user_id}', [userController::class, 'user_deatil'])->name('user_deatil')->middleware('check_permission:check');
                 Route::get('/togggle-status/{user_id}/{user_status}', [userController::class, 'togggle_status'])->name('togggle_status_user')->middleware('check_permission:check');
             });
@@ -249,6 +250,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/load-more-color', [Ajax_classController::class, 'loadmore_color'])->name('loadmore_color');
                 Route::post('/load-more-status-payment', [Ajax_classController::class, 'loadmore_status_payment'])->name('loadmore_status_payment');
                 Route::post('/select-data-payment', [Ajax_classController::class, 'select_data_payment'])->name('select_data_payment');
+                Route::get('/select-data-payment-6', [Ajax_classController::class, 'select_6mouthPayment'])->name('select_6mouthPayment');
             });
         });
      });

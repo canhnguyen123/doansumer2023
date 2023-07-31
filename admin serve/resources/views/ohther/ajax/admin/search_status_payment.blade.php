@@ -5,7 +5,7 @@ $i++;
     <tr data-expanded="true" class="status_payment-item">
       <td>
         @if ($check==0)
-          {{$i++}}
+          {{$i}}
         @else
            {{ $i + $status_payment->firstItem() - 1 }}
         @endif

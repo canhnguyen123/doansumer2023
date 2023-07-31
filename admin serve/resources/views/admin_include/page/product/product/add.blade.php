@@ -10,19 +10,7 @@
                     <div class="content col-12 ">
 
                     </div>
-                    <form action="{{ route('post_product_add')}}" method="post" class="row ">
-                        {{ csrf_field() }}
-                        @if ($errors->any())
-                            <div class="alert alert-danger text-center">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-
-                            </div>
-                        @endif
-                        <div class="col-4 slider-product">
+                    <form  class="row "> <div class="col-4 slider-product">
                             <div class="slider">
                                 <img class="product-img-class"
                                     src="https://down-vn.img.susercontent.com/file/sg-11134201-23010-2s1fbeyjcxmv9f"
@@ -59,41 +47,54 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <div class="col-12 ip-form">
-                                    <label for="">Thể loại</label>
-                                    <select name="phanloai_code" id="theloai_id">
-                                    <option value="">Chọn thể loại</option>
-                                    </select>
-                                </div>
-                            </div>
+                                    <div class="col-4">
+                                        <div class="col-12 ip-form">
+                                            <label for="">Thể loại</label>
+                                            <select name="phanloai_code" id="theloai_id">
+                                            <option value="">Chọn thể loại</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                           
                             <div class="col-6">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                    
-                                    <input type="text" name="product_name" id="product_name" required>
+                                    <input type="text" name="product_name" id="product_name" >
                                     <label for="">Tên sản phẩm</label>
                                 </div>
                                
                             </div>
-                            <div class="col-3">
+                            <div class="col-6">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                     
-                                    <input type="text" class="viethoa" id="product_code" required >
+                                    <input type="text" class="viethoa" id="product_code"  >
                                     <label for="">Mã sản phẩm</label>
                                 </div>
                                
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 err-product"></div>
+                            <div class="col-6 err-product"></div>
+                            <div class="col-6">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                   
-                                    <input type="text" name="" id="product_price" required>
+                                    <input type="text" name="" id="product_priceIn" >
+                                    <label for="" id="product_price_lable">Giá nhập</label>
+                                </div>
+
+                            </div>
+                            <div class="col-6">
+                                <div class="col-12 ip-form ip-form-lb-i">
+                                  
+                                    <input type="text" name="" id="product_price" >
                                     <label for="" id="product_price_lable">Giá sản phẩm</label>
                                 </div>
 
                             </div>
-                            <div class="col-6 err-product"></div>
-                            <div class="col-3 err-product"></div>
-                            <div class="col-3 err-product"><span  id="err-product-price"></span></div>
+                            <div class="col-6 err-product"><span  id="err-product-priceIn"></span></div>
+                            <div class="col-6 err-product"><span  id="err-product-price"></span></div>
+                           
+                            
+                            
                             <div class="mg-10">
                                 <label for="">Size</label>
                                 <div class="item-list-size">
@@ -126,7 +127,7 @@
                                 
                             </div>
                             <div class="col-8 input-lable-form">
-                                <button onclick="them_slPRo(event)">Thêm</button>
+                                <button  id="add-product" >Thêm</button>
                             </div>
                             <div class="col-12 res-them"></div>
                             <div class="col-4">
@@ -157,9 +158,10 @@
                                 <div class="col-12 ip-form">
                                     <label for="">Ảnh đại diện</label>
                                     <input type="file" id="file-upload-product" class="bder-none file-upload"
-                                        value="" multiple required>
+                                        value="" multiple >
                                 </div>
                             </div>
+                           
                             <div class="col-12 tabs">
                                 <div class="tab-item active">Mô tả</div>
                                 <div class="tab-item">Đặc điểm</div>

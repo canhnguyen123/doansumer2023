@@ -5,9 +5,9 @@
 <tr data-expanded="true">
     <td>
       @if ($check==0)
-      {{$i++}}
-    @else
-    {{ $i + $categories->firstItem() - 1 }}
+      {{$i}}
+     @else
+     {{ $i + $categories->firstItem() - 1 }}
     @endif
      </td>
     <td>{{ $item_category->category_name }}</td>

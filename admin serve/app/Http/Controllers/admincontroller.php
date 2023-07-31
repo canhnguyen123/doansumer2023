@@ -92,6 +92,7 @@ class admincontroller extends Controller
         $user = DB::table('tbl_staff')->where('staff_username', $username)->first();
 
         if ($user && Hash::check($password, $user->staff_password)) {
+          
             Auth::loginUsingId($user->id);
          
         // Truyền toàn bộ hàng trong bảng vào phiên làm việc (session)

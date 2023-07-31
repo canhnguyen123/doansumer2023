@@ -8,7 +8,7 @@
                     <h2 class="titel-ic"> Chi tiết sản phẩm</h2>   
                     </div>
                     <div class="content col-12 row">
-@foreach ($product_detail as $item_deatil)
+            @foreach ($product_detail as $item_deatil)
                         <div class="col-4 slider-product">
                             <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                                 
@@ -35,20 +35,20 @@
                               </div>
                         </div>
                         <div class="col-8 row">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="col-12 ip-form flex_ mg-20">
                                     <p class="context-deatil"> <label for="">Danh mục :</label>
                                         {{ $item_deatil->category_name }}</p>
 
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="col-12 ip-form flex_ mg-20">
                                     <p class="context-deatil"> <label for="">Phân loại :</label>
                                         {{ $item_deatil->phanloai_name }}</p>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="col-12 ip-form flex_ mg-20">
                                     <p class="context-deatil"> <label for="">Thể loại :</label>
                                         {{ $item_deatil->theloai_name }}</p>
@@ -76,6 +76,25 @@
                                         {{ $item_deatil->product_brand }}</p>
                                 </div>
                             </div>
+                           
+
+
+                            <div class="col-6 ">
+                                <div class="col-12 ip-form flex_ mg-20">
+                                    <p class="context-deatil">
+                                        <label for="">Giá bán :</label>
+                                         {{number_format( $item_deatil->product_price, 0, ',', ' ') }} VNĐ
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-6 ">
+                                <div class="col-12 ip-form flex_ mg-20">
+                                    <p class="context-deatil">
+                                        <label for="">Giá nhập :</label>
+                                        {{number_format( $item_deatil->product_priceIn, 0, ',', ' ') }} VNĐ
+                                    </p>
+                                </div>
+                            </div>
                             <div class="col-6 ">
                                 <div class="col-12 ip-form flex_ mg-20">
                                     <p class="context-deatil">
@@ -83,15 +102,6 @@
                                         {{ $item_deatil->product_status_Ha }}
                                     </p>
                                 </div>
-                            </div>
-
-
-                            <div class="col-6">
-                                <div class="col-12 ip-form flex_ mg-20">
-                                    <label for="">Giá sản phẩm :</label>
-                                    <p class="context-deatil">{{ $item_deatil->product_price }}</p>
-                                </div>
-
                             </div>
                             <div class="col-6">
                                 <div class="col-12 ip-form flex_ mg-20">
@@ -110,10 +120,13 @@
                                 <h3>Số lượng theo size và màu sắc</h3>
                             </div>
                             <div class="col-12 res-them">
+                                @php
+                                    $total=0;
+                                @endphp
                                 @foreach ($product_deatil_quantity as $item_quantity)
                                     <div class="item-req">
                                         <div class="item-res-pro">
-                                            <p>Color</p>: <p>{{$item_quantity->quantity_color}} </p>
+                                            <p>Color</p>: <p class="size-color-Pro">{{$item_quantity->quantity_color}} </p>
                                         </div>
                                         <div class="item-res-pro">
                                             <p>size</p>: <p class="size-item-Pro">{{$item_quantity->quantity_size}}</p>
@@ -122,9 +135,34 @@
                                             <p>SL</p>: <p class="quantyti-item-Pro">{{$item_quantity->quantity_sl}}</p>
                                         </div>
                                     </div>
+                                 
                                 @endforeach
                                 {{-- <div class="btn-asd flex_center asd-pre"><i class="fa-solid fa-left-long"></i></div>
                                 <div class="btn-asd flex_center asd-next"><i class="fa-solid fa-right-long"></i></div> --}}
+                            </div>
+                            <div class="col-6">
+                                <div class="col-12 ip-form flex_ mg-20">
+                                    <p class="context-deatil">
+                                        <label for="">Tổng số lượng hàng :</label>
+                                       <p class="text-quantity"></p>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="col-12 ip-form flex_ mg-20">
+                                    <p class="context-deatil">
+                                        <label for="">Tổng size :</label>
+                                       <p class="text-size"></p>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="col-12 ip-form flex_ mg-20">
+                                    <p class="context-deatil">
+                                        <label for="">Tổng màu :</label>
+                                       <p class="text-color"></p>
+                                    </p>
+                                </div>
                             </div>
                             <div class="col-12 tabs">
                                 <div class="tab-item active">Mô tả</div>

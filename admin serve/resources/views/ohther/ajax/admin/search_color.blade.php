@@ -6,7 +6,7 @@ $i++;
 <tr data-expanded="true">
   <td>
     @if ($check==0)
-    {{$i++}}
+    {{$i}}
   @else
   {{ $i + $color->firstItem() - 1 }}
   @endif

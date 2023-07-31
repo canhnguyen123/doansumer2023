@@ -188,22 +188,47 @@ class Ajax_classController extends Controller
         $startDate = \DateTime::createFromFormat('Y-m-d', $request->input('startDate'));
         $endDate = \DateTime::createFromFormat('Y-m-d', $request->input('endDate'));
         $hoadon_status = 4;
-        $totalPrice = 0;
-
         $payment_list = DB::table('tbl_hoadon')
-            ->where('status_payment_id', $hoadon_status)
-            ->whereBetween('created_at', [$startDate, $endDate])
+        ->where('status_payment_id', $hoadon_status)
+        ->whereBetween('created_at', [$startDate, $endDate])
+        ->get();
+    
+    $totalPrice = 0;
+    $totalPriceGoc = 0;
+    
+    foreach ($payment_list as $payment) {
+        $hoadon_id = $payment->hoadon_id;
+        $details = DB::table('tbl_hoadon_deatil')
+            ->join('tbl_product', 'tbl_hoadon_deatil.product_id', '=', 'tbl_product.product_id')
+            ->where('tbl_hoadon_deatil.hoadon_id', $hoadon_id)
+            ->select('tbl_hoadon_deatil.hoadondeatil_quantyti', 'tbl_product.product_priceIn')
             ->get();
-
-        foreach ($payment_list as $payment) {
-            $totalPrice += $payment->hoadon_allprice;
+        
+        $subtotal = 0;
+    
+        foreach ($details as $itemDeatil) {
+            $subtotal += $itemDeatil->hoadondeatil_quantyti * $itemDeatil->product_priceIn;
         }
-
+    
+        $totalPriceGoc += $payment->hoadon_allprice;
+        $totalPrice += $payment->hoadon_allprice + $subtotal;
+    }
+    
+    // In ra tổng giá trị của tất cả hóa đơn kèm giá trị từ bảng tbl_hoadon_deatil
+  
+        
         $response_money = "Đã bán được: " . number_format($totalPrice, 0, '.', ',') . " VNĐ";
-
+        $response_moneyGoc = "Số tiền vốn là: " . number_format($totalPriceGoc, 0, '.', ',') . " VNĐ";
+        $totalPriceLai= $totalPrice-$totalPriceGoc;
+        $response_moneylai="Số tiền lãi là: " . number_format($totalPriceLai, 0, '.', ',') . " VNĐ";
+        $totalPricepercent=round($totalPriceLai/$totalPriceGoc*100,2);
+        $response_moneypercent="Lãi : ".$totalPricepercent."%";
         $data = [
             'status' => "success",
             'totalPrice' => $response_money,
+            'totalPriceGoc' => $response_moneyGoc,
+            'totalPriceLai' => $response_moneylai,
+            'totalPricepercent' => $response_moneypercent,
         ];
 
         return response()->json($data);
@@ -264,8 +289,25 @@ class Ajax_classController extends Controller
             ->join('tbl_category', 'tbl_theloai.category_id', '=', 'tbl_category.category_id')
             ->join('tbl_phanloai', 'tbl_theloai.phanloai_id', '=', 'tbl_phanloai.phanloai_id')
             ->select('tbl_theloai.*', 'tbl_category.category_name', 'tbl_phanloai.phanloai_name')
-            ->get();
+            ->paginate(10);
         return view('ohther.ajax.admin.search_theloai')->with('list_theloai', $list_theloai);
+    }
+    public function select_6mouthPayment()
+    {
+
+        $startDate = date('Y-m-01'); // Lấy ngày đầu tiên của tháng hiện tại
+
+        $endDate = date('Y-m-t', strtotime('-6 months', strtotime($startDate))); // Lấy ngày cuối cùng của 6 tháng gần nhất
+
+        // Truy vấn lấy doanh thu từ bảng tbl_hoadon theo tháng
+        $revenues = DB::table('tbl_hoadon')
+            ->where('status_payment_id',4)
+            ->whereBetween('created_at', [$endDate, $startDate])
+            ->pluck('hoadon_allprice')
+            ->toArray();
+
+        // Trả về dữ liệu doanh thu dưới dạng JSON
+        return response()->json($revenues);
     }
 
     public function select_data_theloai(Request $request)
@@ -514,5 +556,15 @@ class Ajax_classController extends Controller
      $response_money = "Đã bán được: " . number_format($total, 0, '.', ',') . " VNĐ"; 
     return response()->json(['total' => $response_money]);
 }
+public function select_perce_unser(Request $request)
+    {
+        $data = [
+            DB::table('tbl_users')->where('user_accountCategory', 1)->count(),
+            DB::table('tbl_users')->where('user_accountCategory', 2)->count(),
+            DB::table('tbl_users')->where('user_accountCategory', 3)->count(),
+        ];
 
+        return response()->json($data);
+
+    }
 }

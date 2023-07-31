@@ -5,6 +5,23 @@
         <td>{{ $item_user->user_fullname }}</td>
         <td>{{ $item_user->user_phone }}</td>
         <td>
+          @if ( $item_user->user_accountCategory==1)
+              Tài khoản bình thường
+          @elseif ( $item_user->user_accountCategory==2)
+              Tài khoản facebook
+          @elseif ( $item_user->user_accountCategory==3)
+              Tài khoản google    
+          @endif
+      </td>
+      <td style="text-align: center">
+          @if($item_user->user_status==1)
+          
+          <i class="fa-sharp fa-solid fa-check bg-cl-green"></i>
+          @elseif($item_user->user_status==0)
+          <i class="fa-solid fa-xmark bg-cl-red" alt="Ẩn"></i>
+          @endif
+      </td>
+        <td>
           <div class="flex_center icons">
             <div class="icon bg-yellow flex_center">
               <a href="{{ route('user_deatil',['user_id'=>$item_user->user_id]) }}"><i class="fa-solid fa-eye"></i></a>
@@ -26,4 +43,4 @@
       @endforeach
 
 
-<button class="loadmore" id="load_more">Xem thêm</button>
+

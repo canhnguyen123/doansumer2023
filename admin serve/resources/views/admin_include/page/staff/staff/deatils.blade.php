@@ -89,7 +89,7 @@
                     </div>
                     <div class="col-12 row">
                         @foreach ($list_position_detail as $item)
-                        <div class="block mg-10 col-6" style="display: inline-block">
+                        <div class="block mg-10 col-6">
                           Tên quyền:  {{$item->phanquyenDeatil_name}} (Route: {{$item->phanquyenDeatil_route}})
                         </div>
                         @endforeach

@@ -83,12 +83,12 @@ class staffController extends Controller
    ///Thêm dl vào csdl
        $data['staff_code']=$staff_code;
        $data['staff_username']=$staff_name;
-       $data['staff_password']=bcrypt($staff_password);
+       $data['staff_password']=md5($staff_password);
        $data['staff_fullname']=$staff_fullname;
        $data['staff_phone']=$staff_phone;
        $data['staff_email']=$staff_email;
        $data['staff_linkimg']=$staff_img->getClientOriginalName();
-       $data['staff_address']=$staff_address." , ".$staff_address_deatil;
+       $data['staff_address']=$staff_address_deatil." , ".$staff_address;
        $data['staff_note']=$status_mota;
        $data['staff_status']=1;
        $data['chucvu_id']=$staff_postition;

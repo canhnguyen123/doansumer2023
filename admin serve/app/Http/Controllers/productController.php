@@ -100,6 +100,7 @@ class productController extends Controller
         $theloai_id = $request->input('theloai_id');
         $product_name = $request->input('product_name');
         $product_price = $request->input('product_price');
+        $product_priceIn = $request->input('product_priceIn');
         $brand_Product = $request->input('brand_Product');
         $trangthai_Product = $request->input('trangthai_Product');
         $product_code = $request->input('product_code');
@@ -107,7 +108,7 @@ class productController extends Controller
         $dacdiem_product =html_entity_decode($request->input('dacdiem_product'));
         $baoquan_product =html_entity_decode($request->input('baoquan_product'));
         $quantity_list = $request->input('quantity_list');
-        $imgs_item_product = $request->input('imgs_item_product');
+       $imgs_item_product = $request->input('imgs_item_product');
 
         $quantity_list = json_decode($request->input('quantity_list'), true);
         $productExists = DB::table('tbl_product')
@@ -124,6 +125,7 @@ class productController extends Controller
         $data['product_name'] = $product_name;
         $data['product_code'] = $product_code;
         $data['product_price'] = $product_price;
+        $data['product_priceIn'] = $product_priceIn;
         $data['product_brand'] = $brand_Product;
         $data['product_status_Ha'] = $trangthai_Product;
         $data['product_mota'] = $mota_product;
@@ -201,14 +203,12 @@ class productController extends Controller
                 ->where('quantity_color', $quantityProColor)
                 ->where('quantity_id','<>', $quantity_id )
                 ->exists();
-
-        if ($checkquantity) {
-            // Dữ liệu đã tồn tại trong bảng tbl_product
-            $errorMessage = "Số lượng tính theo size và màu sắc này đã tồn tại mời nhập lại";
-            return response()->json(['status' => 'fall', 'message' => $errorMessage]);
-
-        }
-    
+                if ($checkquantity) {
+                    // Dữ liệu đã tồn tại trong bảng tbl_product
+                    $errorMessage = "Số lượng tính theo size và màu sắc này đã tồn tại mời nhập lại";
+                    session()->flash('errorMessage', $errorMessage);
+                    return redirect()->back();
+                }
         $data['quantity_size'] = $quantityProSize;
         $data['quantity_color'] = $quantityProColor;
         $data['quantity_sl'] = $quantityPro;
@@ -256,6 +256,7 @@ class productController extends Controller
        $product_name=$request->input('product_name_up');
        $product_code=$request->input('product_code_up');
        $product_price=$request->input('product_price_up');
+       $product_priceIn=$request->input('product_priceIn_up');
        $brand_name=$request->input('brand_name_up');
        $status_product=$request->input('status_product_up');
        $mota_product=$request->input('mota_product_up');
@@ -267,6 +268,7 @@ class productController extends Controller
         $data['product_name'] = $product_name;
         $data['product_code'] = $product_code;
         $data['product_price'] = $product_price;
+        $data['product_priceIn'] = $product_priceIn;
         $data['product_brand'] = $brand_name;
         $data['product_status_Ha'] = $status_product;
         $data['product_mota'] = $mota_product;

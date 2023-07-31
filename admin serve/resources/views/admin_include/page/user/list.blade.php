@@ -67,20 +67,22 @@
                     <div class="col-12">
                         <table id="userTable" class="table" ui-jq="footable"
                             ui-options='{
-        "paging": {
-          "enabled": true
-        },
-        "filtering": {
-          "enabled": true
-        },
-        "sorting": {
-          "enabled": true
-        }}'>
+                            "paging": {
+                            "enabled": true
+                            },
+                            "filtering": {
+                            "enabled": true
+                            },
+                            "sorting": {
+                            "enabled": true
+                            }}'>
                             <thead>
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên người dùng</th>
                                     <th>Số điện thoại</th>
+                                    <th>Thể loại tài khoản</th>
+                                    <th style="text-align: center;">Tình trạng</th>
                                     <th style="text-align: center;">Thao tác</th>
                                 </tr>
                             </thead>
@@ -96,6 +98,23 @@
                                         <td>{{ $i }}</td>
                                         <td>{{ $item_user->user_fullname }}</td>
                                         <td>{{ $item_user->user_phone }}</td>
+                                        <td>
+                                            @if ( $item_user->user_accountCategory==1)
+                                                Tài khoản bình thường
+                                            @elseif ( $item_user->user_accountCategory==2)
+                                                Tài khoản facebook
+                                            @elseif ( $item_user->user_accountCategory==3)
+                                                Tài khoản google    
+                                            @endif
+                                        </td>
+                                        <td style="text-align: center">
+                                            @if($item_user->user_status==1)
+                                            
+                                            <i class="fa-sharp fa-solid fa-check bg-cl-green"></i>
+                                            @elseif($item_user->user_status==0)
+                                            <i class="fa-solid fa-xmark bg-cl-red" alt="Ẩn"></i>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="flex_center icons">
                                                 <div class="icon bg-yellow flex_center">
@@ -158,6 +177,13 @@
 
                             </tbody>
                         </table>
+
+                        <div class="load-more flex_center">
+                         
+                             <button id="load-more-user"class="btn-loadmore" style="display: none">Xem thêm</button>
+                         
+                        </div>
+
                         <div id="image-dialog" class="dialog">
                             <img id="dialog-image" src="" alt="">
                             <span id="close-btn" onclick="closeDialog()">&times;</span>

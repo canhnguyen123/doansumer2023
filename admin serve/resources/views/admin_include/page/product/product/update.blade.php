@@ -77,7 +77,7 @@
                                 </div>
                                
                             </div>
-                            <div class="col-3">
+                            <div class="col-6">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                     
                                     <input type="text" id="product_code" name="product_code_up" value=" {{$item_product->product_code}}"  required >
@@ -85,7 +85,17 @@
                                 </div>
                                
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 err-product"></div>
+                            <div class="col-3 err-product"></div>
+                            <div class="col-6">
+                                <div class="col-12 ip-form ip-form-lb-i">
+                                  
+                                    <input type="text" name="product_priceIn_up" id="product_price" value=" {{$item_product->product_priceIn}}"  required>
+                                    <label for="" id="product_price_lable">Giá nhập sản phẩm</label>
+                                </div>
+
+                            </div>
+                            <div class="col-6">
                                 <div class="col-12 ip-form ip-form-lb-i">
                                   
                                     <input type="text" name="product_price_up" id="product_price" value=" {{$item_product->product_price}}"  required>
@@ -93,10 +103,9 @@
                                 </div>
 
                             </div>
-                            <div class="col-6 err-product"></div>
-                            <div class="col-3 err-product"></div>
-                            <div class="col-3 err-product"><span  id="err-product-price"></span></div>
-                           
+                          
+                            <div class="col-6 err-product"><span  id="err-product-price"></span></div>
+                            <div class="col-6 err-product"><span  id="err-product-price"></span></div>
                             <div class="col-6">
                                 <div class="col-12 ip-form">
                                     <label for="">Thương hiệu</label>

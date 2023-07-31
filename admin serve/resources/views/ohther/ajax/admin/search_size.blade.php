@@ -5,7 +5,7 @@ $i++;
 <tr data-expanded="true">
   <td>
     @if ($check==0)
-      {{$i++}}
+      {{$i}}
     @else
        {{ $i + $size->firstItem() - 1 }}
     @endif

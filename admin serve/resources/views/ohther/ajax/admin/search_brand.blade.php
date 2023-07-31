@@ -5,7 +5,7 @@
 <tr data-expanded="true">
     <td>
       @if ($check==0)
-      {{$i++}}
+      {{$i}}
     @else
     {{ $i + $brand->firstItem() - 1 }}
     @endif
