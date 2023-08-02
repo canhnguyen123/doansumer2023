@@ -192,6 +192,29 @@ exports.getmybill = (req, res) => {
     return res.json({ status: "success", results: count });
   });
 }
+
+exports.getmybillHistory = (req, res) => {
+  var user_id = req.params.user_id;
+  connection.query('SELECT * FROM tbl_hoadon WHERE user_id = ? AND status_payment_id = 4', [user_id], (error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+    
+    const arr = [];
+    results.forEach((item) => {
+      const hoadon = {
+        hoadon_code: item.hoadon_code,
+        hoadon_allprice: item.hoadon_allprice,
+        created_at: item.created_at
+      };
+      arr.push(hoadon);
+    });
+    // Trả về kết quả dưới dạng JSON response
+    return res.json({ status: "success", results: arr });
+  });
+}
+
 exports.getdeatilPayment = (req, res) => {
   const hoadon_id = req.params.hoadon_id;
   let is_voucher = "";

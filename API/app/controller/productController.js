@@ -219,10 +219,12 @@ exports.getDeatil = (req, res) => {
     const product_idPro = results[0].product_id;
     const arrProduct = {
       product_id: product_idPro,
+      category_name: results[0].category_name,
+      phanloai_name: results[0].phanloai_name,
       theloai_name: results[0].theloai_name,
       product_name: results[0].product_name,
       product_brand: results[0].product_brand,
-      product_status_Ha: results[0].product_status_Ha,
+      product_status_Product: results[0].product_status_Ha,
       product_code: results[0].product_code,
       product_price: results[0].product_price,
       product_mota: results[0].product_mota,
@@ -240,8 +242,20 @@ exports.getDeatil = (req, res) => {
         quantity_size: quantityPro.quantity_size,
         quantity_sl: quantityPro.quantity_sl,
       }));
-      
+      const unique_sizes = new Set(results.map((size) => size.quantity_size));
+      const arr_list_size = Array.from(unique_sizes).map((quantity_size) => ({
+        quantity_size,
+      }));
+  
+      // Using Set to remove duplicates from the list_color array
+      const unique_colors = new Set(results.map((color) => color.quantity_color));
+      const arr_list_color = Array.from(unique_colors).map((quantity_color) => ({
+        quantity_color,
+      }));
+  
       arrProduct.listquantity = arr_list_quantity;
+      arrProduct.listsize = arr_list_size;
+      arrProduct.listcolor = arr_list_color;
     })
     connection.query('SELECT * FROM tbl_list_img__product WHERE product_id = ?', [product_idPro], (error, results) => {
       if (error) {

@@ -37,9 +37,12 @@ class paymentController extends Controller
         return $manager_payment;
     }
     public function post_bill_add(Request $request,$hoadon_id){
-        $data=[];
+        $selectUser=DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->first();
+        $user_id= $selectUser->user_id;
         $payment_status = $request->payment_status;
         $payment_code = $request->payment_code;
+        $arlet="";
+        $mess="";
         if($payment_status==2){
         $paymentExists = DB::table('tbl_hoadon')
                             ->where('hoadon_code', $payment_code)
@@ -54,24 +57,36 @@ class paymentController extends Controller
         $data['status_payment_id']=$payment_status;
         $data['hoadon_code']=$payment_code;
         DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
-        return " <script> alert('Đã tạo hóa đơn'); window.location = '".route('payment_list')."';</script>";
+        $arlet="Đã tạo hóa đơn";
+        $mess="xác nhận tạo đơn hàng cho bạn";
         }
         else if($payment_status==3){
             $data['status_payment_id']=$payment_status;
             DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
-            return " <script> alert('Cập nhật thành công'); window.location = '".route('payment_list')."';</script>";
-        }
+            $arlet="Xác nhận đã chuyển cho đơn vị giao hàng";   
+            $mess=" giao đơn hàng của bạn cho đơn vị vận chuyển";    
+         }
         else if($payment_status==4){
             $data['status_payment_id']=$payment_status;
             DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
-            return " <script> alert('Cập nhật thành công'); window.location = '".route('payment_list')."';</script>";
+            $arlet="Xác nhận đã giao hàng thành công"; 
+            $mess=" xác nhận đơn hàng của bạn đã hoàn thành";     
         }
         else if($payment_status==5){
             $data['status_payment_id']=$payment_status;
             DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
-            return " <script> alert('Đã hủy đơn thành công'); window.location = '".route('payment_list')."';</script>";
-        }
-       
+            $arlet="Xác nhận đã hủy đơn";    
+            $mess=" xác nhận không tạo đơn hàng cho bạn";      
+         }
+
+        $data1['user_id']=$user_id;
+        $data1['mess_category']="payment";
+        $data1['mess_content']="Quản trị viên đã ". $mess;
+        $data1['mess_status']=1;
+        $data1['created_at']= Carbon::now();
+        $insert=DB::table('tbl_mess')->insert($data1);
+        return " <script> alert('".$arlet."'); window.location = '".route('payment_list')."';</script>";
+
  
       }
       public function payment_update($payment_id){
