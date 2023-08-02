@@ -202,3 +202,49 @@ exports.checkPhone = (req, res) => {
     }
   });
 }
+
+exports.forgetPass = (req, res) => {
+  const user_id = req.params.user_id;
+  const user_password = req.body.user_password;
+
+
+  // Retrieve the user from the database
+  connection.query('SELECT * FROM tbl_users WHERE ?', { user_id: user_id }, (error, results) => {
+    if (error) {
+      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+    }
+
+    if (results.length === 0) {
+      // User not found
+      return res.json({ status: 'fall', mess: 'Không tìm thấy tài khoản này' });
+    }
+
+    const user = results[0];
+
+    // Compare the provided password with the stored hashed password
+    bcrypt.compare(user_password, user.user_password, (error, isMatch) => {
+      if (error) {
+        console.error('Lỗi so sánh mật khẩu: ' + error.stack);
+        return res.status(500).json({ error: 'Lỗi so sánh mật khẩu' });
+      }
+      
+      bcrypt.hash(user_passwordNew, 10, (error, hashedPassword) => {
+        if (error) {
+          console.error('Lỗi mã hóa mật khẩu mới: ' + error.stack);
+          return res.status(500).json({ error: 'Lỗi mã hóa mật khẩu mới' });
+        }
+
+        // Update the user's password with the new hashed password
+          connection.query('UPDATE tbl_users SET user_password = ? WHERE ?', [hashedPassword, { user_id: user_id }], (error, results) => {
+          if (error) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+            return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+          }
+
+          return res.json({ status: "success",mess: 'Mật khẩu đã được cập nhật thành công' });
+        });
+      });
+    });
+  });
+}

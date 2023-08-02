@@ -556,6 +556,65 @@ class Ajax_classController extends Controller
      $response_money = "Đã bán được: " . number_format($total, 0, '.', ',') . " VNĐ"; 
     return response()->json(['total' => $response_money]);
 }
+
+    public function select_data_newUser(Request $request)
+    {
+        $data = $request->input('time');//lấy thời gian
+        $status = $request->input('status');//lấy thời gian
+        $category = $request->input('category');//lấy thời gian
+        $currentTime = now();
+
+        // Define start and end time based on the selected option
+        if ($data === 'today') {
+            $startTime = now()->startOfDay();
+            $endTime = $currentTime;
+        } elseif ($data === 'yesterday') {
+            $startTime = now()->subDay()->startOfDay();
+            $endTime = now()->subDay()->endOfDay();
+        } elseif ($data === 'this_week') {
+            $startTime = now()->startOfWeek();
+            $endTime = $currentTime;
+        } elseif ($data === 'last_week') {
+            $startTime = now()->subWeek()->startOfWeek();
+            $endTime = now()->subWeek()->endOfWeek();
+        } elseif ($data === 'this_month') {
+            $startTime = now()->startOfMonth();
+            $endTime = $currentTime;
+        } elseif ($data === 'this_year') {
+            $startTime = now()->startOfYear();
+            $endTime = $currentTime;
+        } elseif ($data === 'last_year') {
+            $startTime = now()->subYear()->startOfYear();
+            $endTime = now()->subYear()->endOfYear();
+        } else {
+            $query = DB::table('tbl_users');
+                if ($status !== 'all') {
+                    $query->where('user_status', $status);
+                }
+
+                if ($category !== 'all') {
+                    $query->where('user_accountCategory', $category);
+                }
+                $total = $query->count();
+
+                $response_money = "Số người đăng kí là: " . $total;
+                return response()->json(['total' => $response_money]);
+        }
+        $query = DB::table('tbl_users')->whereBetween('created_at', [$startTime, $endTime]);
+
+        if ($status !== 'all') {
+            $query->where('user_status', $status);
+        }
+
+        if ($category !== 'all') {
+            $query->where('user_accountCategory', $category);
+        }
+
+        $total = $query->count();
+
+        $response_money = "Số người đăng kí là: " . $total;
+        return response()->json(['total' => $response_money]);
+    }
 public function select_perce_unser(Request $request)
     {
         $data = [

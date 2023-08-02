@@ -4283,3 +4283,14 @@ h4.titel-f-25 i{
 .pd-20{
     padding: 20px 0;
 }
+.w-95{
+    width: 95%;
+}
+.flex_end_a{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+.mg-b{
+    margin-bottom: 10px;
+}

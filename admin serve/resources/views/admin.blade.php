@@ -1766,6 +1766,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
 
         })
+        $('#view-data-user-count').click(function(){
+          var time=  $('#data-time-user-check').val();
+          var status=  $('#data-time-user-status').val();
+          var category=  $('#data-time-user-category').val();
+        //  alert(time+"-"+status+"-"+category)
+          var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        }
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('select_data_user_statistical') }}",
+                        data: {
+                            time: time,
+                            status: status,
+                            category:category
+                        },
+                        success: function(response) {
+                            $('#set-data-user-check').text(response.total);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Lỗi: ' + error);
+                            alert('Lỗi: ' + error + "link:  " + imageURL + " mô tả  " + banner_mota)
+                        }
+                    });
+        })
     </script>
     <script>
         $(document).ready(function() {
