@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 const { response } = require('express');
 const { use } = require('../router/user');
+const secretKey = 'yourSecretKey';
 exports.getAllUsers = (req, res) => {
   connection.query('SELECT * FROM tbl_users', (error, results) => {
     if (error) {
@@ -97,7 +98,8 @@ exports.login = (req, res) => {
               user_gender: results[0].user_gender,
               user_address: results[0].user_address
             };
-            return res.json({ status: 'success', mess: 'Đăng nhập thành công', information_user: information_user });
+            const token = jwt.sign(information_user, secretKey, { expiresIn: '1h' });
+            return res.json({ status: 'success', mess: 'Đăng nhập thành công',token: token ,information_user: information_user });
           } else {
             return res.json({ status: 'fall', errorPosition: "password", mess: 'Sai mật khẩu, mời nhập lại' });
           }
