@@ -61,10 +61,17 @@ class productController extends Controller
             ->where('product_id',$product_id)
             ->get();
             $list_cmt = DB::table('tbl_commet')
-            ->join('tbl_users', 'tbl_commet.user_id', '=', 'tbl_users.user_id')
+            ->leftJoin('tbl_users', 'tbl_commet.user_id', '=', 'tbl_users.user_id')
             ->where('tbl_commet.product_id', $product_id)
+            ->whereNull('tbl_commet.mess_parent_comment_id') // Lọc các bản ghi có mess_parent_comment_id là null
             ->select('tbl_commet.*', 'tbl_users.user_fullname', 'tbl_users.user_img')
             ->get();
+            // $list_cmt_reply = DB::table('tbl_commet')
+            // ->leftJoin('tbl_users', 'tbl_commet.user_id', '=', 'tbl_users.user_id')
+            // ->where('tbl_commet.product_id', $product_id)
+            // ->where('tbl_commet.mess_parent_comment_id') // Lọc các bản ghi có mess_parent_comment_id là null
+            // ->select('tbl_commet.*', 'tbl_users.user_fullname', 'tbl_users.user_img')
+            // ->get();
             $product_deatil_quantity=DB::table("tbl_quantity_product")
             ->where('product_id',$product_id)
             ->get();
@@ -73,6 +80,7 @@ class productController extends Controller
             ->with('product_detail', $product_detail)
             ->with('product_deatil_img', $product_deatil_img)
             ->with('list_cmt', $list_cmt)
+            ->with('product_id', $product_id)
             ->with('product_deatil_quantity', $product_deatil_quantity);
            
         return  view('admin')->with('admin_include.page.product.product.deatil', $manager_product);

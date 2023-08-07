@@ -180,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="col-12 ip-form" style="display: flex">
-                                    <button onclick="uploadImage_Product(event)"><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button>
+                                    <button onclick="uploadImage_Product(event)"><i class="fa-sharp fa-solid fa-plus"></i> Thêm sản phẩm</button>
                                     <a href="{{route('product_list')}}" class="link-btn-add-form "><div class="btn-add-form flex_center"><i class="fa-solid fa-arrow-rotate-left"></i> Quay lại</div></a>
 
                             </div>

@@ -1766,12 +1766,72 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
 
         })
+        $('.reply-cmt-post-text').click(function(){
+           const reply_text=$(this).data('id');
+           $('#input-post-commet-reply').val(reply_text)
+        })
+        $('#btn-post-chat').click(function(e){
+            e.preventDefault();
+            const data=$('#chat-text-content').val()
+            const staff_id=$('#logi-admin').data("id"); 
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken
+                            }
+                        });
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('post_cmt') }}",
+                            data: {
+                                data: data,
+                                staff_id: staff_id,
+                             },
+                            success: function(response) {
+                                $('#list-cmt-ajax').append(response)
+                                $('#chat-text-content').val('')
+                            },
+                            error: function(xhr, status, error) {
+                                console.log('Lỗi: ' + error);
+                            }
+                        });
+        })
+        $('#btn-post-commet').click(function(e){
+            e.preventDefault()
+            const input=$('#input-post-commet').val();
+            const product_id=$(this).data("id");
+            const reply_id=$('#input-post-commet-reply').val();
+            const staff_id=$('#logi-admin').data("id"); 
+                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken
+                            }
+                        });
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('post_cmt') }}",
+                            data: {
+                                input: input,
+                                product_id: product_id,
+                                staff_id: staff_id,
+                                reply_id: reply_id,
+                            },
+                            success: function(response) {
+                                $('#list-cmt-ajax').append(response)
+                                $('#input-post-commet').val('')
+                            },
+                            error: function(xhr, status, error) {
+                                console.log('Lỗi: ' + error);
+                            }
+                        });
+        })
         $('#view-data-user-count').click(function(){
           var time=  $('#data-time-user-check').val();
           var status=  $('#data-time-user-status').val();
           var category=  $('#data-time-user-category').val();
         //  alert(time+"-"+status+"-"+category)
-          var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': csrfToken

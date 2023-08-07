@@ -1,8 +1,8 @@
 <header class="header fixed-top clearfix">
     <!--logo start-->
     <div class="brand">
-        <a href="index.html" class="logo">
-            ADMIN   
+        <a  id="logi-admin" data-id="{{Session::get('id')}}" class="logo">
+            GENZ   
         </a>
         <div class="sidebar-toggle-box">
             <div class="fa fa-bars"></div>
@@ -15,12 +15,12 @@
             <!-- settings start -->
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                    <i class="fa fa-tasks"></i>
+                    <i class="fa-brands fa-facebook-messenger"></i>
                     <span class="badge bg-success">8</span>
                 </a>
                 <ul class="dropdown-menu extended tasks-bar">
                     <li>
-                        <p class="">You have 8 pending tasks</p>
+                        <a href="{{route('chat_list')}}" class="">Đang có 5 tin nhắn mới</a>
                     </li>
                     <li>
                         <a href="#">

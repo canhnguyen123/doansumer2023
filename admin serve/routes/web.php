@@ -22,6 +22,7 @@ use App\Http\Controllers\paymentController;
 use App\Http\Controllers\statisticalController;
 use App\Http\Controllers\phanquyenController;
 use App\Http\Controllers\phanquyenDeatilController;
+use App\Http\Controllers\chatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,6 +52,10 @@ Route::prefix('/admin')->group(function () {
         Route::post('/', [AdminController::class, 'updateShowHome'])->name('updateShowHome');
         Route::get('/logout-admin', [AdminController::class, 'logout'])->name('logout')->middleware('check_permission:check');
         Route::prefix('/page')->group(function () {
+            Route::prefix('/chat')->group(function(){
+                Route::get('/list', [chatController::class, 'chat_list'])->name('chat_list');
+                
+            });
             Route::prefix('/payment')->group(function(){
                 Route::prefix('/payment')->group(function(){
                     Route::get('/list', [paymentController::class, 'payment_list'])->name('payment_list')->middleware('check_permission:check');
@@ -58,6 +63,7 @@ Route::prefix('/admin')->group(function () {
                     Route::get('/togggle-status/{category_id}/{category_status}', [paymentController::class, 'togggle_status'])->name('togggle_status_category')->middleware('check_permission:check');
                     Route::post('/poss-add-bill/{hoadon_id}', [paymentController::class, 'post_bill_add'])->name('post_bill_add');
                 });
+               
                 Route::prefix('/status_payment')->group(function(){
                     Route::get('/list', [status_paymentController::class, 'status_payment_list'])->name('status_payment_list')->middleware('check_permission:check');
                     Route::get('/add', [status_paymentController::class, 'status_payment_add'])->name('status_payment_add')->middleware('check_permission:check');
@@ -252,6 +258,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/select-data-payment', [Ajax_classController::class, 'select_data_payment'])->name('select_data_payment');
                 Route::get('/select-data-payment-6', [Ajax_classController::class, 'select_6mouthPayment'])->name('select_6mouthPayment');
                 Route::post('/select-data-user-statistical', [Ajax_classController::class, 'select_data_newUser'])->name('select_data_user_statistical');
+                Route::post('/post-cmt', [Ajax_classController::class, 'post_cmt'])->name('post_cmt');
             });
         });
      });

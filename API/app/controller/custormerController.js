@@ -20,9 +20,9 @@ exports.getCardCustormer = (req, res, user_id) => {
   const cardCustormer = {
      user_id: user_id_, 
      product_id: product_id,
-     card_quantity:card_quantity ,
-     card_size:card_size ,
-     card_color:card_color ,
+     card_quantity:card_quantity,
+     card_size:card_size,
+     card_color:card_color,
      created_at: new Date() };
   connection.query('INSERT INTO customer_cart SET ?', cardCustormer, (error, results) => {
     if (error) {

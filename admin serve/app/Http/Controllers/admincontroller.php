@@ -97,7 +97,7 @@ class admincontroller extends Controller
          
         // Truyền toàn bộ hàng trong bảng vào phiên làm việc (session)
               Session::put('user', $user);
-               Session::put('id', $user->id);
+            Session::put('id', $user->id);
               Session::put('staff_fullname', $user->staff_fullname);
               Session::put('staff_linkimg', $user->staff_linkimg);
               return redirect()->route('home')->with('mess', 'Đăng nhập thành công');
