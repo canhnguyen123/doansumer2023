@@ -112,102 +112,137 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="{{ asset('BE/js/sliderbar.js') }}"></script>
     <script src="{{ asset('BE/js/main.js') }}"></script>
     <script>
-        const ctx = document.getElementById('myChart');
-        const currentDate = new Date();
-        const labels = [];
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('myChart');
+            const currentDate = new Date();
+            const labels = [];
 
-        for (let i = 5; i >= 0; i--) {
-            const month = currentDate.getMonth() - i; 
-            labels.push(`Tháng ${month}`);
-        }
+            for (let i = 5; i >= 0; i--) {
+                const month = currentDate.getMonth() - i;
+                labels.push(`Tháng ${month}`);
+            }
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: 'Số đơn giao thành công',
-                        data: [12, 19, 3, 5, 2, 3],
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)', // Màu nền của cột 1
-                        borderColor: 'rgba(54, 162, 235, 1)', // Màu viền của cột 1
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Số đơn bị hủy',
-                        data: [8, 5, 10, 6, 3, 7],
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)', // Màu nền của cột 2
-                        borderColor: 'rgba(255, 99, 132, 1)', // Màu viền của cột 2
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Số đơn giao thành công',
-                        data: [8, 5, 10, 6, 3, 7],
-                        type: 'line', // Loại biểu đồ dạng đường
-                        borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
-                        borderWidth: 2,
-                        fill: false // Không tô màu dưới đường
-                    },
-                    {
-                        label: 'Số đơn bị hủy',
-                        data: [12, 19, 3, 5, 2, 3],
-                        type: 'line', // Loại biểu đồ dạng đường
-                        borderColor: 'rgba(54, 162, 235, 1)', // Màu đường biểu đồ
-                        borderWidth: 2,
-                        fill: false // Không tô màu dưới đường
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                            label: 'Số đơn giao thành công',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)', // Màu nền của cột 1
+                            borderColor: 'rgba(54, 162, 235, 1)', // Màu viền của cột 1
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Số đơn bị hủy',
+                            data: [8, 5, 10, 6, 3, 7],
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)', // Màu nền của cột 2
+                            borderColor: 'rgba(255, 99, 132, 1)', // Màu viền của cột 2
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Số đơn giao thành công',
+                            data: [8, 5, 10, 6, 3, 7],
+                            type: 'line', // Loại biểu đồ dạng đường
+                            borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
+                            borderWidth: 2,
+                            fill: false // Không tô màu dưới đường
+                        },
+                        {
+                            label: 'Số đơn bị hủy',
+                            data: [12, 19, 3, 5, 2, 3],
+                            type: 'line', // Loại biểu đồ dạng đường
+                            borderColor: 'rgba(54, 162, 235, 1)', // Màu đường biểu đồ
+                            borderWidth: 2,
+                            fill: false // Không tô màu dưới đường
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
-
-
+            });
+           
+            $.ajax({
+    url: "{{ route('get_bill_payment') }}",
+    method: 'GET',
+    dataType: 'json',
+    success: function(newData) {
+        // Tạo biểu đồ bằng dữ liệu newData
         const bill = document.getElementById('myChartbill');
-             new Chart(bill, {
+        new Chart(bill, {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: labels, // Đảm bảo có dữ liệu nhãn labels
                 datasets: [{
-                        label: 'Doanh thu gần đây',
-                        data: [18210, 32520, 100030, 190320, 200000, 120000],
-                        type: 'line', // Loại biểu đồ dạng đường
-                        borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
-                        borderWidth: 2,
-                        fill: false // Không tô màu dưới đường
-                    },
-
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        const myChartCircle = document.getElementById('myChartCircle');
-
-        new Chart(myChartCircle, {
-            type: 'pie',
-            data: {
-                labels: ['Tài khoản bình thường', 'Tài khoản facebook', 'Tài khoản googel', ],
-                datasets: [{
-                    data: [650312, 253213, 103212,],
-                    backgroundColor: ['#B5C99A', '#3B5998', 'yellow']
+                    label: 'Doanh thu gần đây',
+                    data: newData, // Thay thế dữ liệu mới từ AJAX response
+                    type: 'line', // Loại biểu đồ dạng đường
+                    borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
+                    borderWidth: 2,
+                    fill: false // Không tô màu dưới đường
                 }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
         });
+    },
+    error: function(error) {
+        console.error('Error fetching data:', error);
+    }
+});
+
+
+            const myChartCircle = document.getElementById('myChartCircle');
+            const chartColors = ['#B5C99A', '#3B5998', 'yellow'];
+
+            let myChart;
+
+            function updateChartWithData(newData) {
+                myChart.data.datasets[0].data = newData;
+                myChart.update();
+            }
+
+            function fetchNewDataAndUpdateChart() {
+                $.ajax({
+                    url: "{{ route('get_user_account') }}", // Sử dụng Blade directive để sinh URL đầy đủ
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(newData) {
+                        updateChartWithData(newData);
+                    },
+                    error: function(error) {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+            }
+
+            myChart = new Chart(myChartCircle, {
+                type: 'pie',
+                data: {
+                    labels: ['Tài khoản bình thường', 'Tài khoản facebook', 'Tài khoản google'],
+                    datasets: [{
+                        data: [], // Khởi tạo mảng dữ liệu rỗng
+                        backgroundColor: chartColors
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            fetchNewDataAndUpdateChart();
+        })
     </script>
     <script src="{{ asset('BE/js/callAPI.js') }}"></script>
     <script>
@@ -260,6 +295,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <script type="text/javascript"></script>
     <script>
+       $('#add-img-product').click(function(){
+            const product_id = $(this).data('id');
+            const ref = firebase.storage().ref();
+            const file = document.querySelector("#upload-img-product").files[0];
+            const name = +new Date() + "-" + file.name;
+            const metadata = {
+                contentType: file.type
+            };
+            
+            const task = ref.child(name).put(file, metadata);
+            task.then(snapshot => snapshot.ref.getDownloadURL())
+                .then(url => {
+                    console.log(url);
+                    const imageURL = url;
+
+                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        }
+                    });
+
+                    var link = "{{ route('post_add_img', ['product_id' => ':product_id']) }}";
+                    link = link.replace(':product_id', product_id);
+
+                    var renderLink = "{{ route('ImgProduct_list', ['product_id' => ':product_id']) }}";
+                    renderLink = renderLink.replace(':product_id', product_id);
+                    $.ajax({
+                        type: "POST",
+                        url: link, // Sử dụng URL đã thay thế
+                        data: {
+                            content: imageURL,
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                console.log("Thêm thành công");
+                                alert(response.message);
+                                window.location.href = renderLink;
+                            } else {
+                                console.log("Thêm thất bại");
+                                alert('Thêm thất bại');
+                                window.location.href = renderLink;
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Lỗi: ' + error);
+                        }
+                    });
+                })
+        .catch(console.error);
+});
+
         function uploadImage(event) {
             event.preventDefault();
             const category_code = $('#category_code').val();
@@ -272,10 +359,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             const metadata = {
                 contentType: file.type
             };
-
-
-
-            const task = ref.child(name).put(file, metadata);
+          const task = ref.child(name).put(file, metadata);
             task
                 .then(snapshot => snapshot.ref.getDownloadURL())
                 .then(url => {
@@ -382,7 +466,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 .catch(console.error);
         }
 
-        
+
 
         function updateQuantity(e, product_id) {
             e.preventDefault();
@@ -423,6 +507,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         }
+
         function uploadImage_theloai(event) {
             event.preventDefault();
             var fileInput = document.getElementById('file-upload-up');
@@ -527,6 +612,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
         }
+
         function getDataQuantity(dataQuantity) {
             const parentDiv = $(dataQuantity).closest('.item-req.p-l-20');
             const colorText = parentDiv.find('.color-quantity-d').text();
@@ -864,7 +950,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $('.res-them').append(html);
             });
         }
-   
+
         $('#quantityItem, #product_price').keyup(function(e) {
             var product_price = $('#product_price').val();
             var quantity_Item = $('#quantityItem').val();
@@ -1006,7 +1092,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 theloai_id: theloai_id,
                                 product_name: product_name,
                                 product_price: product_price,
-                                product_priceIn:product_priceIn,
+                                product_priceIn: product_priceIn,
                                 brand_Product: brand_Product,
                                 trangthai_Product: trangthai_Product,
                                 product_code: product_code,
@@ -1116,11 +1202,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(response) {
                         var newDataId = response.last_id;
                         $('#load-more-category').data('id',
-                        newDataId); // Update the data-id attribute
+                            newDataId); // Update the data-id attribute
 
                         var newStt = response.new_stt;
                         $('#load-more-category').data('stt',
-                        newStt); // Update the data-stt attribute
+                            newStt); // Update the data-stt attribute
 
                         $('#category_list_table').append(response.view);
 
@@ -1153,11 +1239,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(response) {
                         var newDataId = response.last_id;
                         $('#load-more-phanloai').data('id',
-                        newDataId); // Update the data-id attribute
+                            newDataId); // Update the data-id attribute
 
                         var newStt = response.new_stt;
                         $('#load-more-phanloai').data('stt',
-                        newStt); // Update the data-stt attribute
+                            newStt); // Update the data-stt attribute
 
                         $('#phanloai_list_table').append(response.view);
 
@@ -1189,11 +1275,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(response) {
                         var newDataId = response.last_id;
                         $('#load-more-status').data('id',
-                        newDataId); // Update the data-id attribute
+                            newDataId); // Update the data-id attribute
 
                         var newStt = response.new_stt;
                         $('#load-more-status').data('stt',
-                        newStt); // Update the data-stt attribute
+                            newStt); // Update the data-stt attribute
 
                         $('#status_list_table').append(response.view);
 
@@ -1225,11 +1311,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(response) {
                         var newDataId = response.last_id;
                         $('#load-more-color').data('id',
-                        newDataId); // Update the data-id attribute
+                            newDataId); // Update the data-id attribute
 
                         var newStt = response.new_stt;
                         $('#load-more-color').data('stt',
-                        newStt); // Update the data-stt attribute
+                            newStt); // Update the data-stt attribute
 
                         $('#color_list_table').append(response.view);
 
@@ -1261,11 +1347,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(response) {
                         var newDataId = response.last_id;
                         $('#load-more-brand').data('id',
-                        newDataId); // Update the data-id attribute
+                            newDataId); // Update the data-id attribute
 
                         var newStt = response.new_stt;
                         $('#load-more-brand').data('stt',
-                        newStt); // Update the data-stt attribute
+                            newStt); // Update the data-stt attribute
 
                         $('#brand_list_table').append(response.view);
 
@@ -1297,11 +1383,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(response) {
                         var newDataId = response.last_id;
                         $('#load-more-size').data('id',
-                        newDataId); // Update the data-id attribute
+                            newDataId); // Update the data-id attribute
 
                         var newStt = response.new_stt;
                         $('#load-more-size').data('stt',
-                        newStt); // Update the data-stt attribute
+                            newStt); // Update the data-stt attribute
 
                         $('#size_list_table').append(response.view);
 
@@ -1355,11 +1441,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(response) {
                         var newDataId = response.last_id;
                         $('#load-more-status-payment').data('id',
-                        newDataId); // Update the data-id attribute
+                            newDataId); // Update the data-id attribute
 
                         var newStt = response.new_stt;
                         $('#load-more-status-payment').data('stt',
-                        newStt); // Update the data-stt attribute
+                            newStt); // Update the data-stt attribute
 
                         $('#status_payment_list_table').append(response.view);
 
@@ -1429,8 +1515,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $parentDiv.find('.input-chked').hide();
                 $parentDiv.find('.size-item-product-list').hide();
             }
-         });
-     $("#category_id_Pro, #phanloai_id_Pro").change(function() {
+        });
+        $("#category_id_Pro, #phanloai_id_Pro").change(function() {
             var category_id_Pro = $('#category_id_Pro').val();
             var phanloai_id_Pro = $('#phanloai_id_Pro').val();
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -1463,7 +1549,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         });
 
         $('#file-upload-product').on('change', function(e) {
-            
+
             $('.product-img-class').hide()
             var files = e.target.files;
             console.log(files)
@@ -1715,7 +1801,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             })
             $('#search_ajax_status_payment').keyup(function() {
                 var content = $('#search_ajax_status_payment').val();
-                $.ajax({    
+                $.ajax({
                     type: "GET",
                     url: "{{ route('ajax_status_payment') }}",
                     data: {
@@ -1730,7 +1816,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             })
             $('#search_ajax_phanquyen').keyup(function() {
                 var content = $('#search_ajax_phanquyen').val();
-                $.ajax({    
+                $.ajax({
                     type: "GET",
                     url: "{{ route('ajax_phanquyen') }}",
                     data: {
@@ -1743,7 +1829,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 });
             })
-            $('.search-input').keyup(function(){
+            $('.search-input').keyup(function() {
                 if ($(this).val().length > 0) {
                     $('.icon-close-form').show();
                     $('.btn-loadmore').hide()
@@ -1766,93 +1852,116 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
 
         })
-        $('.reply-cmt-post-text').click(function(){
-           const reply_text=$(this).data('id');
-           $('#input-post-commet-reply').val(reply_text)
+        // $('.item-user').click(function(){
+        //    var name=$(this).find('.item-user-intro p').text()
+        //    var user_id=$(this).data('id');
+        //    var img = $(this).find('.item-user-img img').attr('src');
+        //    $('.chat-content-header').attr('data-id', user_id);
+        //     $('.chat-content-header .item-user-img-chat img').attr('src', img);
+        //     $('.chat-content-header .item-user-intro-chat h3').text(name);
+        //     var link = "{{ route('get_chat_custormer', ['user_id' => ':user_id']) }}";
+        //     link = link.replace(':user_id', user_id);
+        //     $.ajax({
+        //         type: "GET",
+        //         url: link,
+        //         success: function(response) {
+        //             $('.list-chat-mess').html(response)
+                 
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.log('Lỗi: ' + error);
+        //         }
+        //     });
+        // })
+        $('.reply-cmt-post-text').click(function() {
+            const reply_text = $(this).data('id');
+            $('#input-post-commet-reply').val(reply_text)
         })
-        $('#btn-post-chat').click(function(e){
+        $('#btn-post-chat').click(function(e) {
             e.preventDefault();
-            const data=$('#chat-text-content').val()
-            const staff_id=$('#logi-admin').data("id"); 
+            const data = $('#chat-text').val()
+            const staff_id = $('#logi-admin').data("id");
+            const user_id=$('.chat-content-header').data('id');
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken
-                            }
-                        });
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ route('post_cmt') }}",
-                            data: {
-                                data: data,
-                                staff_id: staff_id,
-                             },
-                            success: function(response) {
-                                $('#list-cmt-ajax').append(response)
-                                $('#chat-text-content').val('')
-                            },
-                            error: function(xhr, status, error) {
-                                console.log('Lỗi: ' + error);
-                            }
-                        });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('post_cmt') }}",
+                data: {
+                    data: data,
+                    staff_id: staff_id,
+                    user_id:user_id,
+                },
+                success: function(response) {
+                    $('.list-chat-mess').append(response)
+                    $('#chat-text').val('')
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                }
+            });
         })
-        $('#btn-post-commet').click(function(e){
+        $('#btn-post-commet').click(function(e) {
             e.preventDefault()
-            const input=$('#input-post-commet').val();
-            const product_id=$(this).data("id");
-            const reply_id=$('#input-post-commet-reply').val();
-            const staff_id=$('#logi-admin').data("id"); 
-                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': csrfToken
-                            }
-                        });
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ route('post_cmt') }}",
-                            data: {
-                                input: input,
-                                product_id: product_id,
-                                staff_id: staff_id,
-                                reply_id: reply_id,
-                            },
-                            success: function(response) {
-                                $('#list-cmt-ajax').append(response)
-                                $('#input-post-commet').val('')
-                            },
-                            error: function(xhr, status, error) {
-                                console.log('Lỗi: ' + error);
-                            }
-                        });
+            const input = $('#input-post-commet').val();
+            const product_id = $(this).data("id");
+            const reply_id = $('#input-post-commet-reply').val();
+            const staff_id = $('#logi-admin').data("id");
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('post_cmt') }}",
+                data: {
+                    input: input,
+                    product_id: product_id,
+                    staff_id: staff_id,
+                    reply_id: reply_id,
+                },
+                success: function(response) {
+                    $('#list-cmt-ajax').append(response)
+                    $('#input-post-commet').val('')
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                }
+            });
         })
-        $('#view-data-user-count').click(function(){
-          var time=  $('#data-time-user-check').val();
-          var status=  $('#data-time-user-status').val();
-          var category=  $('#data-time-user-category').val();
-        //  alert(time+"-"+status+"-"+category)
-                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken
-                        }
-                    });
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('select_data_user_statistical') }}",
-                        data: {
-                            time: time,
-                            status: status,
-                            category:category
-                        },
-                        success: function(response) {
-                            $('#set-data-user-check').text(response.total);
-                        },
-                        error: function(xhr, status, error) {
-                            console.log('Lỗi: ' + error);
-                            alert('Lỗi: ' + error + "link:  " + imageURL + " mô tả  " + banner_mota)
-                        }
-                    });
+        $('#view-data-user-count').click(function() {
+            var time = $('#data-time-user-check').val();
+            var status = $('#data-time-user-status').val();
+            var category = $('#data-time-user-category').val();
+            //  alert(time+"-"+status+"-"+category)
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{ route('select_data_user_statistical') }}",
+                data: {
+                    time: time,
+                    status: status,
+                    category: category
+                },
+                success: function(response) {
+                    $('#set-data-user-check').text(response.total);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi: ' + error);
+                    alert('Lỗi: ' + error + "link:  " + imageURL + " mô tả  " + banner_mota)
+                }
+            });
         })
     </script>
     <script>
@@ -1881,6 +1990,51 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $panes.eq($(this).index()).addClass("active");
             });
         });
+        $(document).ready(function() {
+            // Lấy thông tin của người dùng đầu tiên trong danh sách
+            var firstUser = $('.item-user:first-child');
+            var name = firstUser.find('.item-user-intro p').text();
+            var user_id = firstUser.data('id');
+            var img = firstUser.find('.item-user-img img').attr('src');
+
+                // Cập nhật thông tin người dùng và gửi yêu cầu AJAX để lấy đoạn chat
+                updateChatHeader(name, user_id, img);
+                fetchChat(user_id);
+                
+                // Xử lý sự kiện khi người dùng được chọn
+                $('.item-user').click(function(){
+                    var name = $(this).find('.item-user-intro p').text();
+                    var user_id = $(this).data('id');
+                    var img = $(this).find('.item-user-img img').attr('src');
+                    
+                    // Cập nhật thông tin người dùng và gửi yêu cầu AJAX để lấy đoạn chat
+                    updateChatHeader(name, user_id, img);
+                    fetchChat(user_id);
+                });
+            });
+
+                function updateChatHeader(name, user_id, img) {
+                    $('.chat-content-header').attr('data-id', user_id);
+                    $('.chat-content-header .item-user-img-chat img').attr('src', img);
+                    $('.chat-content-header .item-user-intro-chat h3').text(name);
+                }
+
+                function fetchChat(user_id) {
+                    var link = "{{ route('get_chat_custormer', ['user_id' => ':user_id']) }}";
+                    link = link.replace(':user_id', user_id);
+
+                    $.ajax({
+                        type: "GET",
+                        url: link,
+                        success: function(response) {
+                            $('.list-chat-mess').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Lỗi: ' + error);
+                        }
+                    });
+                }
+
     </script>
 
 </body>

@@ -80,7 +80,11 @@ exports.login = (req, res) => {
 
     if (results.length <= 0 || results[0].user_phone !== phone) {
       return res.json({ status: 'fall', errorPosition: "phone", mess: 'Số điện thoại này không tồn tại, mời nhập lại' });
-    } else {
+    } 
+    else if (results[0].user_accountCategory ===0) {
+      return res.json({ status: 'fall',  mess: 'Tài khoản của bạn đang bị khóa' });
+    } 
+    else {
       if (results.length === 1) {
         const pass_user = results[0].user_password;
         bcrypt.compare(pass, pass_user, (err, result) => {

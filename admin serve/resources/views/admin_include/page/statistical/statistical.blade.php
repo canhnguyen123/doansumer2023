@@ -132,6 +132,7 @@
        <div class="col-12 titel-header">
         <h4>Tỉ lệ người đăng kí các loại tài khoản</h4>
       </div>
+      
       <div class="col-12">
         <canvas id="myChartCircle"></canvas>
       </div>      

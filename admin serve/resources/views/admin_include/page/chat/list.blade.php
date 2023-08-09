@@ -14,14 +14,14 @@
             <div class="leftside-navigation ">
                 <ul class="sidebar-menu pd-top-0" >
                     @foreach ($list_user as $item_user)
-                    <div class="item-user" style="display: flex">
+                    <div class="item-user" style="display: flex" data-id="{{$item_user->user_id}}">
 
                         <div class="item-user-img">
                         <img src="{{ $item_user->user_img ? $item_cmt->user_img : 'https://firebasestorage.googleapis.com/v0/b/loco-7d8c6.appspot.com/o/c6e56503cfdd87da299f72dc416023d4.jpg?alt=media&token=0f06f1ca-d5a1-48e8-a8e7-704fdca9f927' }}" alt="">
 
                         </div>
                         <div class="item-user-intro flex_start">
-                             <a href="">{{$item_user->user_fullname}}</a> 
+                             <p >{{$item_user->user_fullname}}</p> 
 
                         </div>
                     </div>
@@ -39,16 +39,21 @@
 
                 </div>
                 <div class="item-user-intro-chat flex_start">
-                   <h3>Bùi Duy Chiến</h3>
+                   <h3 id="select-useId-chat"></h3>
                 </div>
             </div>
             <div class="chat-content-main">
                 <div class="list-chat-mess">
-
+                    {{-- <div class="item-chat-mess-left">
+                        <p>hé lô bà già giữa màu đông cô đơn</p>
+                    </div>
+                    <div class="item-chat-mess-right">
+                        <p>hé lô bà già giữa màu đông cô đơn</p>
+                    </div> --}}
                 </div>
                 <div class="form-post-add-mess flex_center">
                     <form action="">
-                        <input type="text" id="chat-t" placeholder="Nhập tin nhắn">
+                        <input type="text" id="chat-text" placeholder="Nhập tin nhắn">
                         <button id="btn-post-chat"><i class="fa-solid fa-angle-right"></i></button>
                     </form>
                 </div>

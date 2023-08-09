@@ -59,6 +59,8 @@ exports.getListCard = (req, res, user_id) => {
       const product_id = results[i].product_id;
       const customerCart_id = results[i].customerCart_id;
       const card_quantity = results[i].card_quantity;
+      const card_size = results[i].card_size;
+      const card_color = results[i].card_color;
       productIds.push(product_id);
     }
 

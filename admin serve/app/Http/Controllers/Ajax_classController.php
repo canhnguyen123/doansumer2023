@@ -597,7 +597,7 @@ class Ajax_classController extends Controller
                 }
                 $total = $query->count();
 
-                $response_money = "Số người đăng kí là: " . $total;
+                $response_money = "Số người : " . $total;
                 return response()->json(['total' => $response_money]);
         }
         $query = DB::table('tbl_users')->whereBetween('created_at', [$startTime, $endTime]);
@@ -612,7 +612,7 @@ class Ajax_classController extends Controller
 
         $total = $query->count();
 
-        $response_money = "Số người đăng kí là: " . $total;
+        $response_money = "Số người : " . $total;
         return response()->json(['total' => $response_money]);
     }
 public function select_perce_unser(Request $request)
@@ -629,26 +629,69 @@ public function select_perce_unser(Request $request)
     public function post_cmt(Request $request)
     {
       
-        $input=$request->input('input');
-        $product_id=$request->input('product_id');
+        $input=$request->input('data');
+        $user_id=$request->input('user_id');
         $staff_id=$request->input('staff_id');
-        $reply_id=$request->input('reply_id');
+      
 
         $data['staff_id']=$staff_id;
-        $data['product_id']=$product_id;
-        $data['cmt_text']=$input;
-        $data['mess_parent_comment_id']=$reply_id;
+        $data['user_id']=$user_id;
+        $data['chat_text']=$input;
+        $data['chat_checkAccount']=1;
         $data['created_at']=Carbon::now();
-        $insertedId = DB::table('tbl_commet')->insertGetId($data);
+        $insertedId = DB::table('tbl_chat')->insertGetId($data);
 
-        $list_cmt = DB::table('tbl_commet')// Lọc theo product_id
-            ->where('cmt_id', $insertedId)    // Lọc theo cmt_id vừa mới thêm
+        $list_chat = DB::table('tbl_chat')// Lọc theo product_id
+            ->where('chat_id', $insertedId)    // Lọc theo cmt_id vừa mới thêm
             ->get();
         if($insertedId){
-            return view('ohther.ajax.admin.post_Cmt')->with('list_cmt', $list_cmt);
+            return view('ohther.ajax.admin.itemchat')->with('list_chat', $list_chat);
         }else{
-            return view('ohther.ajax.admin.post_Cmt')->with('list_cmt', $list_cmt);
+            return view('ohther.ajax.admin.itemchat')->with('list_chat', $list_chat);
         }
        
+    }
+    public function get_user_account(Request $request)
+    {   $dataBaru = [];
+
+        for ($i = 1; $i <= 3; $i++) {
+            $count = DB::table('tbl_users')->where('user_accountCategory', $i)->count();
+            $dataBaru[] = $count;
+        }
+        
+        return response()->json($dataBaru);
+        
+    }
+    public function get_bill_payment(Request $request)
+    {  
+
+        $endTime = Carbon::now()->subMonth()->startOfMonth();
+
+        // Tính thời điểm bắt đầu của tháng 2 (6 tháng trước tháng hiện tại)
+        $startTime = $endTime->copy()->subMonths(5)->startOfMonth();
+        
+        $billPayment = [];
+        
+        $currentMonth = $startTime->copy();
+        while ($currentMonth <= $endTime) {
+            $total = DB::table('tbl_hoadon')
+                ->where('status_payment_id', 4)
+                ->whereMonth('created_at', $currentMonth->month)
+                ->whereYear('created_at', $currentMonth->year)
+                ->sum('hoadon_allprice');
+        
+            $billPayment[] = $total;
+        
+            $currentMonth->addMonth();
+        }
+        
+        return response()->json($billPayment);
+    }
+    public function get_chat_custormer($user_id)
+    {  
+
+       $list_chat=DB::table('tbl_chat')->where('user_id',$user_id)->paginate(10);
+        
+       return view('ohther.ajax.admin.listchat')->with('list_chat', $list_chat);
     }
 }

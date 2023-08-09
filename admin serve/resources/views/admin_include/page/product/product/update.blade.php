@@ -155,8 +155,9 @@
                                 </div>
                             </div>
                             <div class="col-12 ip-form" style="display: flex">
-                                     <button type="submit"><i class="fa-sharp fa-solid fa-plus"></i> Cập nhật sản phẩm</button>
-                                     <a class="" href="{{route('quantityProduct_list',['product_id'=>$item_product->product_id])}}">  <div class="link-btn flex_center"><p>Cập nhật số lượng</p>  </div>  </a>
+                                     <button type="submit"><i class="fa-solid fa-pen-to-square"></i> Cập nhật sản phẩm</button>
+                                     <a class="" href="{{route('quantityProduct_list',['product_id'=>$item_product->product_id])}}">  <div class="link-btn flex_center" style="background-color: #d84a38"><p>Cập nhật số lượng</p>  </div>  </a>
+                                     <a class="" href="{{route('ImgProduct_list',['product_id'=>$item_product->product_id])}}">  <div class="link-btn flex_center" style="background-color: #FCB322"><p>Cập nhật hình ảnh</p>  </div>  </a>
                             </div>
                         </div>
 

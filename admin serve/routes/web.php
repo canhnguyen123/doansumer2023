@@ -144,8 +144,10 @@ Route::prefix('/admin')->group(function () {
                     Route::get('/togggle-status/{product_id}/{product_status}', [productController::class, 'togggle_status'])->name('togggle_status_product')->middleware('check_permission:check');
                     Route::get('/deatil/{product_id}', [productController::class, 'product_deatil'])->name('product_deatil')->middleware('check_permission:check');
                     Route::get('/quantity/{product_id}', [productController::class, 'quantityProduct_list'])->name('quantityProduct_list');
+                    Route::get('/img/{product_id}', [productController::class, 'ImgProduct_list'])->name('ImgProduct_list');
                     Route::post('/post-add', [productController::class, 'post_product_add'])->name('post_product_add');
                     Route::post('/post-update/{product_id}', [productController::class, 'post_product_update'])->name('post_product_update');
+                    Route::post('/post-add-img/{product_id}', [productController::class, 'post_add_img'])->name('post_add_img');
                     Route::post('/post-add-quantity/{product_id}', [productController::class, 'post_quantity_add'])->name('post_quantity_add');
                     Route::post('/post-update-quantity/{quantity_id}', [productController::class, 'post_quantity_update'])->name('post_quantity_update');
                     Route::get('/togggle-status-quantity/{quantity_id}/{quantity_status}/{product_id}', [productController::class, 'togggle_status_quantity'])->name('togggle_status_quantity');
@@ -259,6 +261,9 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/select-data-payment-6', [Ajax_classController::class, 'select_6mouthPayment'])->name('select_6mouthPayment');
                 Route::post('/select-data-user-statistical', [Ajax_classController::class, 'select_data_newUser'])->name('select_data_user_statistical');
                 Route::post('/post-cmt', [Ajax_classController::class, 'post_cmt'])->name('post_cmt');
+                Route::get('/get-user-select-account', [Ajax_classController::class, 'get_user_account'])->name('get_user_account');
+                Route::get('/get-bill-select-payment', [Ajax_classController::class, 'get_bill_payment'])->name('get_bill_payment');
+                Route::get('/get-chat-custormer/{user_id}', [Ajax_classController::class, 'get_chat_custormer'])->name('get_chat_custormer');
             });
         });
      });

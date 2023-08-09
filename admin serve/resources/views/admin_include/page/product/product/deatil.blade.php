@@ -230,7 +230,7 @@
                                 </div>
                             </div>
                             @endif
-                        @endforeach
+                             @endforeach
                         </div>
 
                         <div class="post-commet flex_center">

@@ -203,6 +203,7 @@ exports.getmybillHistory = (req, res) => {
     
     const arr = [];
     results.forEach((item) => {
+      
       const hoadon = {
         hoadon_code: item.hoadon_code,
         hoadon_allprice: item.hoadon_allprice,

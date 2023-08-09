@@ -48,6 +48,17 @@ class productController extends Controller
             ->with('deatilProduct',$deatilProduct);
         return  view('admin')->with('admin_include.page.product.product.quantity.quantity', $manager_product);
     }
+
+    public function ImgProduct_list($product_id)
+    {
+        $list_img = DB::table("tbl_list_img__product")
+        ->where('product_id',$product_id)
+        ->get();
+        $manager_product = view('admin_include.page.product.product.img.list')
+            ->with('list_img', $list_img)
+            ->with('product_id', $product_id);
+        return  view('admin')->with('admin_include.page.product.product.img.list', $manager_product);
+    }
     public function product_deatil($product_id)
     {
             $product_detail = DB::table("tbl_product")
@@ -148,6 +159,7 @@ class productController extends Controller
             foreach($imgs_item_product as $item=>$item_mg){
                 $data1['product_id'] =  $product_id;
                 $data1['img_name'] = $item_mg;
+                $data1['img_status']=1;
                  DB::table('tbl_list_img__product')->insert($data1);
             }
             foreach ($quantity_list as $item_quantity) {
@@ -156,7 +168,7 @@ class productController extends Controller
                     $data2['quantity_color'] = $item_quantity[0];
                     $data2['quantity_size'] = $item_quantity[1];
                     $data2['quantity_sl'] = $item_quantity[2];
-                    $data2['quantity_status']=0;
+                    $data2['quantity_status']=1;
                     // Thực hiện câu truy vấn INSERT vào bảng tbl_quantity_product ở đây
                     DB::table('tbl_quantity_product')->insert($data2);
                     
@@ -194,11 +206,23 @@ class productController extends Controller
         $inserted_quan = DB::table('tbl_quantity_product')->insert($data);
         if ($inserted_quan) {
             return " <script> alert('Cập nhật thành công'); window.location = '" . route('quantityProduct_list', ['product_id' => $product_id]) . "';</script>";
+
         } else {
-            return " <script> alert('Cập nhật thất bại'); window.location = '" . route('quantityProduct_list', ['product_id' => $product_id]) . "';</script>";
+            return " <script> alert('Cập nhật thành công'); window.location = '" . route('quantityProduct_list', ['product_id' => $product_id]) . "';</script>";
         }
     }
-
+    public function post_add_img(Request $request,$product_id){
+        $linkimg = $request->input('content');
+        $data['product_id']=$product_id;
+        $data['img_name']=$linkimg;
+        $data['img_status']=1;
+        $insert=DB::table('tbl_list_img__product')->insert($data);
+        if($insert){
+            return response()->json(['success' => true, 'message' => "Thêm thành công"]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Thêm không thành công']);
+        }
+    }
     public function post_quantity_update(Request $request, $quantity_id)
     {
         $data = [];
