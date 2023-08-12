@@ -7,9 +7,7 @@
                 <h3>Tổng số voucher :{{ $count }}</h3>
             </div>
             <div class="col-6 right">
-              <div class="search_icon icon flex_center bg-bule" id="fiter_icon">
-                <i class="fa-solid fa-filter"></i>
-              </div>
+          
                 <div class="search_icon icon flex_center bg-bule" id="search_icon">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>

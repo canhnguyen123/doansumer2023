@@ -4176,6 +4176,12 @@ h4.titel-f-25 i{
     outline: none;
     background-color: #147efb;border-radius: 12px;
 }
+.img-link-staff{
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    object-position: center;
+}
 .dropdown-toggle::after{
     display: none;
 }

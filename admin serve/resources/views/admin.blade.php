@@ -996,7 +996,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             });
         });
-
+        
         $(".tab-item-table").click(function() {
             $(".tab-item-table").removeClass("active");
             $(this).addClass("active");
@@ -1180,6 +1180,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     },
                     error: function() {
                         console.log("gửi thất bại");
+                    }
+                });
+            })
+            $('#load-more-category-payment').click(function(){
+                var last_id = $(this).data('id');
+                var last_stt = $(this).data('stt');
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('loadmore_category_payment') }}",
+                    method: 'POST',
+                    data: {
+                        last_id: last_id,
+                        last_stt: last_stt
+                    },
+                    success: function(response) {
+                        var newDataId = response.last_id;
+                        $('#load-more-category-payment').data('id',
+                            newDataId); // Update the data-id attribute
+
+                        var newStt = response.new_stt;
+                        $('#load-more-category-payment').data('stt',
+                            newStt); // Update the data-stt attribute
+
+                        $('#category_payment_list_table').append(response.view);
+
+                        if (!response.hasMoreData) {
+                            $('#load-more-category-payment').hide();
+                        }
+                    },
+                    error: function() {
+                        console.log("Gửi yêu cầu thất bại");
                     }
                 });
             })
@@ -1768,7 +1804,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                 });
             })
+            $('#search_ajax_payment').keyup(function(){
+                var content = $(this).val();
+                var status=$('.tab-item-table').data('id')
 
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('ajax_payment') }}",
+                    data: {
+                        content: content,
+                        status:status
+                    },
+                    success: function(data) {
+                        $('#payment_list_tableBody').html(data);
+                    },
+
+                });
+            })
+            $('#search_ajax_staff').keyup(function(){
+                var content = $('#search_ajax_staff').val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('ajax_staff') }}",
+                    data: {
+                        content: content
+                    },
+                    success: function(data) {
+                        $('#staff_list_table').html(data);
+                        $('#tfoot-staff').hide();
+                    },
+
+                });
+            })
             $('#search_ajax_user').keyup(function() {
                 var content = $('#search_ajax_user').val();
                 $.ajax({
@@ -1810,6 +1877,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     success: function(data) {
                         $('#status_payment_list_table').html(data);
                         $('#load-more-status-payment').hide();
+                    },
+
+                });
+            })
+            $('#search_ajax_category_payment_list').keyup(function(){
+                var content = $(this).val();
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('ajax_category_payment') }}",
+                    data: {
+                        content: content
+                    },
+                    success: function(data) {
+                        $('#category_payment_list_table').html(data);
+                        $('#load-more-category-payment').hide();
                     },
 
                 });

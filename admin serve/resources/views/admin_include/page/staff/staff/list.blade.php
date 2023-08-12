@@ -46,6 +46,7 @@
             <th data-breakpoints="xs">STT</th>
            <th >Mã nhân viên</th>
            <th>Tên nhân viên</th>
+           <th style="text-align: center;">Tình trạng</th>
            <th style="text-align: center;">Thao tác</th>
           </tr>
         </thead>
@@ -60,7 +61,15 @@
           <tr data-expanded="true" class="staff-item">
             <td>{{ $i }}</td>
             <td>  {{$item_staff->staff_code}}</td>
-            <td>  {{$item_staff->staff_username}}</td>
+            <td>  {{$item_staff->staff_fullname}}</td>
+            <td style="text-align: center">
+                            @if($item_staff->staff_status==1)
+              
+              <i class="fa-sharp fa-solid fa-check bg-cl-green"></i>
+              @elseif($item_staff->phanloai_status==0)
+              <i class="fa-solid fa-xmark bg-cl-red" alt="Ẩn"></i>
+              @endif   
+            </td>
              <td ><div class="flex_center icons">
               <div class="icon bg-yellow flex_center">
                 <a href="{{ route('staff_deteal', ['staff_id' => $item_staff->id]) }}"><i class="fa-solid fa-eye"></i></a> 
@@ -85,6 +94,42 @@
       
           
         </tbody>
+        <tfoot id="tfoot-staff">
+          <tr>
+              <td colspan="6">
+                  @if ($list_staff->total() > $list_staff->perPage())
+                      <div class="pagination">
+                          <ul class="pagination">
+                              <!-- Nút Previous -->
+                              @if ($list_staff->currentPage() > 1)
+                                  <li class="page-item">
+                                      <a class="page-link" href="{{ $list_staff->previousPageUrl() }}" aria-label="Previous">
+                                          <span aria-hidden="true">&laquo;</span>
+                                      </a>
+                                  </li>
+                              @endif
+      
+                              <!-- Các trang -->
+                              @for ($i = 1; $i <= $list_staff->lastPage(); $i++)
+                                  <li class="page-item{{ ($list_staff->currentPage() == $i) ? ' active' : '' }}">
+                                      <a class="page-link" href="{{ $list_staff->url($i) }}">{{ $i }}</a>
+                                  </li>
+                              @endfor
+      
+                              <!-- Nút Next -->
+                              @if ($list_staff->currentPage() < $list_staff->lastPage())
+                                  <li class="page-item">
+                                      <a class="page-link" href="{{ $list_staff->nextPageUrl() }}" aria-label="Next">
+                                          <span aria-hidden="true">&raquo;</span>
+                                      </a>
+                                  </li>
+                              @endif
+                          </ul>
+                      </div>
+                  @endif
+              </td>
+          </tr>
+      </tfoot>
       </table>
       <div id="image-dialog" class="dialog">
         <img id="dialog-image" src="" alt="">

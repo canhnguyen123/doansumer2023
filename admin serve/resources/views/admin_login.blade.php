@@ -20,11 +20,6 @@
         <div class="row">
           <form action="{{ route('post_login') }}" method="POST" class="row">
 		      	{{ csrf_field() }}
-            <div class="input-form">
-              <div class="icons flex_center"><i class="fa-solid fa-user"></i></div>
-              <input type="text" name="username_nv" required>
-              <label for="">Tên đăng nhập</label>
-            </div>
             <div class="err"><span>
               <?php
               $mess=Session::get('mess');
@@ -33,7 +28,14 @@
                Session::put("mess",null);
               }
               ?>
-            </span> </div>
+              </span> </div>
+            <div class="input-form">
+              <div class="icons flex_center"><i class="fa-solid fa-user"></i></div>
+              <input type="text" name="username_nv" required>
+              <label for="">Tên đăng nhập</label>
+            </div>
+            
+            
             <div class="input-form">
               <div class="icons flex_center"><i class="fa-solid fa-lock"></i></div>
               <input type="password" name="password_nv" id="password" required>
@@ -41,14 +43,7 @@
               <i class="fa-solid fa-eye eye-open" id="open-eys"></i>
               <i class="fa-sharp fa-solid fa-eye-slash eye-close" id="close-eyes" style="display: none;"></i>
             </div>
-            <div class="err"><span>
-              <?php
-              $mess=Session::get('mess');
-              if($mess){
-               echo $mess;
-               Session::put("mess",null);
-              }
-              ?></span> </div>
+           
             <div class="button-form">
               <button type="submit"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</button>
             </div>

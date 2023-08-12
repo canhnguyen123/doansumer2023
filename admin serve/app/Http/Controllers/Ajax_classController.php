@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 class Ajax_classController extends Controller
 {
     public function ajax_category(Request $request)
-    { $check_category=0;
+    { $check=0;
         $keyword = $request->input('content');
         $i=0;
         $categories = DB::table('tbl_category')
@@ -17,12 +17,12 @@ class Ajax_classController extends Controller
             ->get();
         return view('ohther.ajax.admin.search_category')->with('categories', $categories)
         ->with('i', $i)
-        ->with('check', $check_category);
+        ->with('check', $check);
     }
     public function ajax_phanloai(Request $request)
     {
         $keyword = $request->input('content');
-        $check_category=0;
+        $check=0;
         $i=0;
         $phanloai = DB::table('tbl_phanloai')
             ->where('phanloai_name', 'LIKE', '%' . $keyword . '%')
@@ -31,7 +31,7 @@ class Ajax_classController extends Controller
         return view('ohther.ajax.admin.search_phanloai')
         ->with('phanloai', $phanloai)
         ->with('i', $i)
-        ->with('check', $check_category);
+        ->with('check', $check);
     }
     public function ajax_theloai(Request $request)
     {
@@ -59,7 +59,7 @@ class Ajax_classController extends Controller
         return view('ohther.ajax.admin.product_list')->with('list_product', $list_product);
     }
     public function ajax_size(Request $request)
-    {   $check_category=0;
+    {   $check=0;
         $keyword = $request->input('content');
 
         $size = DB::table('tbl_size')
@@ -69,10 +69,24 @@ class Ajax_classController extends Controller
          $i=0;       
         return view('ohther.ajax.admin.search_size')
         ->with('size', $size)->with('i', $i)
-        ->with('check', $check_category);
+        ->with('check', $check);
+    }
+    public function ajax_payment(Request $request)
+    {   $check=0;
+        $keyword = $request->input('content');
+        $status = $request->input('status');
+        $payment_list = DB::table('tbl_hoadon')
+                ->where('hoadon_code', 'LIKE', '%' . $keyword . '%')
+                ->orwhere('hoadon_allprice', 'LIKE', '%' . $keyword . '%')
+                ->where('category_payment_id', $status)
+                ->get();
+         $i=0;       
+        return view('ohther.ajax.admin.payment_list')
+        ->with('payment_list', $payment_list)->with('i', $i)
+        ->with('check', $check);
     }
 
-
+    
     public function ajax_permission(Request $request)
     {
         $keyword = $request->input('content');
@@ -90,57 +104,80 @@ class Ajax_classController extends Controller
     {
         $keyword = $request->input('content');
         $i=0;
-        $check_category=0;
+        $check=0;
         $status = DB::table('tbl_status_product')
             ->where('status_name', 'LIKE', '%' . $keyword . '%')
             ->orwhere('status_code', 'LIKE', '%' . $keyword . '%')
             ->get();
         return view('ohther.ajax.admin.search_status')->with('status', $status)->with('i', $i)
-        ->with('check', $check_category);
+        ->with('check', $check);
     }
 
     public function ajax_color(Request $request)
     {
         $keyword = $request->input('content');
         $i=0;
-        $check_category=0;
+        $check=0;
         $color = DB::table('tbl_color')
             ->where('color_name', 'LIKE', '%' . $keyword . '%')
             ->orwhere('color_code', 'LIKE', '%' . $keyword . '%')
             ->get();
         return view('ohther.ajax.admin.search_color')->with('color', $color)->with('i', $i)
-        ->with('check', $check_category);
+        ->with('check', $check);
     }
     public function ajax_brand(Request $request)
     {   $i=0;
         $keyword = $request->input('content');
-        $check_category=0;
+        $check=0;
         $brand = DB::table('tbl_brand')
             ->where('brand_name', 'LIKE', '%' . $keyword . '%')
             ->orwhere('brand_code', 'LIKE', '%' . $keyword . '%')
             ->get();
-        return view('ohther.ajax.admin.search_brand')->with('brand', $brand)->with('i', $i)->with('check', $check_category);
+        return view('ohther.ajax.admin.search_brand')->with('brand', $brand)->with('i', $i)->with('check', $check);
     }
+    public function ajax_staff(Request $request)
+    {   $i=0;
+        $keyword = $request->input('content');
+        $check=0;
+        $staff = DB::table('tbl_staff')
+            ->where('staff_username', 'LIKE', '%' . $keyword . '%')
+            ->orwhere('staff_fullname', 'LIKE', '%' . $keyword . '%')
+            ->get();
+        return view('ohther.ajax.admin.search_staff')->with('staff', $staff)->with('i', $i)->with('check', $check);
+    }
+   
+    
     public function ajax_status_payment(Request $request)
     {   $i=0;
         $keyword = $request->input('content');
-        $check_category=0;
+        $check=0;
         $status_payment = DB::table('tbl_status_payment')
             ->where('status_payment_name', 'LIKE', '%' . $keyword . '%')
             ->orwhere('status_payment_note', 'LIKE', '%' . $keyword . '%')
             ->get();
            
-     return view('ohther.ajax.admin.search_status_payment')->with('status_payment', $status_payment)->with('i', $i)->with('check', $check_category);
+     return view('ohther.ajax.admin.search_status_payment')->with('status_payment', $status_payment)->with('i', $i)->with('check', $check);
+    }
+    public function ajax_category_payment(Request $request)
+    {   $i=0;
+        $keyword = $request->input('content');
+        $check=0;
+        $status_payment = DB::table('tbl_category_payment')
+            ->where('category_payment_name', 'LIKE', '%' . $keyword . '%')
+            ->orwhere('category_payment_note', 'LIKE', '%' . $keyword . '%')
+            ->get();
+           
+     return view('ohther.ajax.admin.search_category_payment')->with('list_category_payment', $status_payment)->with('i', $i)->with('check', $check);
     }
     public function ajax_phanquyen(Request $request)
     {   $i=0;
         $keyword = $request->input('content');
-        $check_category=0;
+        $check=0;
         $phanquyen = DB::table('tbl_phanquyen')
             ->where('phanquyen_nameGroup', 'LIKE', '%' . $keyword . '%')
             ->get();
            
-     return view('ohther.ajax.admin.search_phanquyen')->with('phanquyen', $phanquyen)->with('i', $i)->with('check', $check_category);
+     return view('ohther.ajax.admin.search_phanquyen')->with('phanquyen', $phanquyen)->with('i', $i)->with('check', $check);
     }
     public function ajax_user(Request $request)
     {
@@ -385,7 +422,7 @@ class Ajax_classController extends Controller
     
     
     public function loadmore_category(Request $request)
-    {$check_category=1;
+    {$check=1;
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
          $query = DB::table('tbl_category')
@@ -396,7 +433,7 @@ class Ajax_classController extends Controller
         $new_stt = $last_stt + $list_category->total();
         $hasMoreData = $list_category->hasMorePages();
         return response()->json([
-            'view' => view('ohther.ajax.admin.search_category')->with('categories', $list_category)->with('i', $last_stt)->with('check', $check_category)->render(),
+            'view' => view('ohther.ajax.admin.search_category')->with('categories', $list_category)->with('i', $last_stt)->with('check', $check)->render(),
             'last_id' =>$last_id+ $last_category_id,
             'hasMoreData' => $hasMoreData,
             'new_stt' =>$new_stt,
@@ -404,7 +441,7 @@ class Ajax_classController extends Controller
     }
 
     public function loadmore_phanloai(Request $request)
-    {$check_category=1;
+    {$check=1;
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
          $query = DB::table('tbl_phanloai')
@@ -415,14 +452,14 @@ class Ajax_classController extends Controller
         $new_stt = $last_stt + $list_phanloai->total();
         $hasMoreData = $list_phanloai->hasMorePages();
         return response()->json([
-            'view' => view('ohther.ajax.admin.search_phanloai')->with('phanloai', $list_phanloai)->with('i', $last_stt)->with('check', $check_category)->render(),
+            'view' => view('ohther.ajax.admin.search_phanloai')->with('phanloai', $list_phanloai)->with('i', $last_stt)->with('check', $check)->render(),
             'last_id' =>$last_id+ $last_phanloai_id,
             'hasMoreData' => $hasMoreData,
             'new_stt' =>$new_stt,
         ]);
     }
     public function loadmore_brand(Request $request)
-    {$check_category=1;
+    {$check=1;
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
          $query = DB::table('tbl_brand')
@@ -433,14 +470,14 @@ class Ajax_classController extends Controller
         $new_stt = $last_stt + $list_brand->total();
         $hasMoreData = $list_brand->hasMorePages();
         return response()->json([
-            'view' => view('ohther.ajax.admin.search_brand')->with('brand', $list_brand)->with('i', $last_stt)->with('check', $check_category)->render(),
+            'view' => view('ohther.ajax.admin.search_brand')->with('brand', $list_brand)->with('i', $last_stt)->with('check', $check)->render(),
             'last_id' =>$last_id+ $last_brand_id,
             'hasMoreData' => $hasMoreData,
             'new_stt' =>$new_stt,
         ]);
     }
     public function loadmore_size(Request $request)
-    {  $check_category=1;
+    {  $check=1;
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
          $query = DB::table('tbl_size')
@@ -451,7 +488,7 @@ class Ajax_classController extends Controller
         $new_stt = $last_stt + $list_size->total();
         $hasMoreData = $list_size->hasMorePages();
         return response()->json([
-            'view' => view('ohther.ajax.admin.search_size')->with('size', $list_size)->with('i', $last_stt)->with('check', $check_category)->render(),
+            'view' => view('ohther.ajax.admin.search_size')->with('size', $list_size)->with('i', $last_stt)->with('check', $check)->render(),
             'last_id' =>$last_id+ $last_size_id,
             'hasMoreData' => $hasMoreData,
             'new_stt' =>$new_stt,
@@ -459,7 +496,7 @@ class Ajax_classController extends Controller
     }
 
     public function loadmore_status(Request $request)
-    {  $check_category=1;
+    {  $check=1;
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
          $query = DB::table('tbl_status_product')
@@ -470,7 +507,7 @@ class Ajax_classController extends Controller
         $new_stt = $last_stt + $list_status->total();
         $hasMoreData = $list_status->hasMorePages();
         return response()->json([
-            'view' => view('ohther.ajax.admin.search_status')->with('status', $list_status)->with('i', $last_stt)->with('check', $check_category)->render(),
+            'view' => view('ohther.ajax.admin.search_status')->with('status', $list_status)->with('i', $last_stt)->with('check', $check)->render(),
             'last_id' =>$last_id+ $last_status_id,
             'hasMoreData' => $hasMoreData,
             'new_stt' =>$new_stt,
@@ -478,7 +515,7 @@ class Ajax_classController extends Controller
     }
     
     public function loadmore_color(Request $request)
-    {  $check_category=1;
+    {  $check=1;
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
          $query = DB::table('tbl_color')
@@ -489,14 +526,33 @@ class Ajax_classController extends Controller
         $new_stt = $last_stt + $list_color->total();
         $hasMoreData = $list_color->hasMorePages();
         return response()->json([
-            'view' => view('ohther.ajax.admin.search_color')->with('color', $list_color)->with('i', $last_stt)->with('check', $check_category)->render(),
+            'view' => view('ohther.ajax.admin.search_color')->with('color', $list_color)->with('i', $last_stt)->with('check', $check)->render(),
             'last_id' =>$last_id+ $last_status_id,
             'hasMoreData' => $hasMoreData,
             'new_stt' =>$new_stt,
         ]);
     }
+    public function loadmore_category_payment(Request $request)
+    {  $check=1;
+        $last_id = $request->input('last_id');
+        $last_stt = $request->input('last_stt');
+         $query = DB::table('tbl_category_payment')
+            ->where('category_payment_id', '>', $last_id)
+            ->orderBy('category_payment_id', 'asc');
+        $list_category_payment= $query->paginate(5); 
+        $last_status_id = $list_category_payment->lastItem();
+        $new_stt = $last_stt + $list_category_payment->total();
+        $hasMoreData = $list_category_payment->hasMorePages();
+        return response()->json([
+            'view' => view('ohther.ajax.admin.search_category_payment')->with('list_category_payment', $list_category_payment)->with('i', $last_stt)->with('check', $check)->render(),
+            'last_id' =>$last_id+ $last_status_id,
+            'hasMoreData' => $hasMoreData,
+            'new_stt' =>$new_stt,
+        ]);
+    }
+    
     public function loadmore_status_payment(Request $request)
-    {  $check_category=1;
+    {  $check=1;
         $last_id = $request->input('last_id');
         $last_stt = $request->input('last_stt');
          $query = DB::table('tbl_status_payment')
@@ -507,7 +563,7 @@ class Ajax_classController extends Controller
         $new_stt = $last_stt + $list_status_payment->total();
         $hasMoreData = $list_status_payment->hasMorePages();
         return response()->json([
-            'view' => view('ohther.ajax.admin.search_status_payment')->with('status_payment', $list_status_payment)->with('i', $last_stt)->with('check', $check_category)->render(),
+            'view' => view('ohther.ajax.admin.search_status_payment')->with('status_payment', $list_status_payment)->with('i', $last_stt)->with('check', $check)->render(),
             'last_id' =>$last_id+ $last_status_id,
             'hasMoreData' => $hasMoreData,
             'new_stt' =>$new_stt,

@@ -11,9 +11,9 @@
                 <div class="search_icon icon flex_center  bg-bule" onclick="realoadProduct()" id="loadProduct">
                   <i class="fa-solid fa-arrow-rotate-left"></i>
               </div>
-                <div class="search_icon icon flex_center fiter-toggle bg-bule" id="fiter_icon">
+                {{-- <div class="search_icon icon flex_center fiter-toggle bg-bule" id="fiter_icon">
                   <i class="fa-solid fa-filter"></i>
-              </div>
+              </div> --}}
                 <div class="search_icon icon flex_center bg-bule" id="search_icon">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
@@ -23,54 +23,27 @@
             </div>
         </div>
         <div class="col-12 input-search mg-20" style="display: none;" id="search_input">
-            <input type="text" id="search_ajax_status_payment" class="search-input" placeholder="Nhập thông tin cần tìm">
+            <input type="text" id="search_ajax_payment" class="search-input" placeholder="Nhập thông tin cần tìm">
             <i class="fa-sharp fa-solid fa-magnifying-glass  icon-search-form"></i>
             <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none"  id="close_search"></i>
         </div>
-        <div class="col-12 mg-20 data-fiter row" style="display: none">
+        {{-- <div class="col-12 mg-20 data-fiter row" style="display: none">
           <div class="col-12 row">
            
             
           </div>
           <div class="col-12 row">
-            <div class="col-8">
-                <div class="container">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div id="slider-range"></div>
-                      </div>
-                    </div>
-                    <div class="row slider-labels">
-                      <div class="col-6 caption pd-left">
-                        <strong>Min:</strong>
-                            {{-- <span id="slider-range-value1">  --}}
-                            <input type="text" class="span-text"  id="slider-range-value1">
-                        </span>
-                      </div>
-                      <div class="col-6 text-right caption">
-                        <strong>Max:</strong> 
-                             {{-- <span id="slider-range-value2"> --}}
-                        <input type="text" class="span-text"   id="slider-range-value2">
-                        </span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <form>
-                          <input type="hidden" name="min-value" value="">
-                          <input type="hidden" name="max-value" value="">
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-            </div>
+            <div class="col-8 row">
+              <div class="ip-form col-6"><input type="text" placeholder="Giá thấp nhất"></div>
+              <div class="ip-form col-6"><input type="text"></div>
+               </div>
             <div class="col-4 ip-form flex_center">
                 
                 <button class="koew" onclick="fiter_data_product()">Lọc</button>
             </div>
           </div>
         </div>
-        
+         --}}
           
          
        
@@ -123,9 +96,15 @@
           </tr>
         </thead>
         <tbody id="payment_list_tableBody">
-     
         </tbody>
       </table>
+      {{-- @if ($check==1)
+      <div class="load-more flex_center">
+       
+           <button id="load-more-category"class="btn-loadmore" data-stt="{{$i}}" data-id="{{ $list_category->last()->category_id }}">Xem thêm</button>
+       
+      </div>
+      @endif --}}
       <div id="image-dialog" class="dialog">
         <img id="dialog-image" src="" alt="">
         <span id="close-btn" onclick="closeDialog()">&times;</span>

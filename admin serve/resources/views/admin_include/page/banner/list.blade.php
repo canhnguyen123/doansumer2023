@@ -7,23 +7,13 @@
                 <h3>Tổng số banner :{{ $count }}</h3>
             </div>
             <div class="col-6 right">
-              <div class="search_icon icon flex_center bg-bule" id="fiter_icon">
-                <i class="fa-solid fa-filter"></i>
-              </div>
-                <div class="search_icon icon flex_center bg-bule" id="search_icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+            
               <div class="search_icon icon flex_center add-icon bg-bule">
                     <a href="{{ route('banner_add') }}"><i class="fa-solid fa-plus"></i></a> 
                 </div>
             </div>
         </div>
-        <div class="col-12 input-search mg-20" style="display: none;" id="search_input">
-            <input type="text" id="search_ajax_banner" class="search-input" placeholder="Nhập thông tin cần tìm">
-            <i class="fa-sharp fa-solid fa-magnifying-glass  icon-search-form"></i>
-            <i class="fa-sharp fa-regular fa-xmark close icon-close-form" style="display: none"  id="close_search"></i>
-        </div>
-     
+   
         
           
          

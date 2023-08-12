@@ -65,9 +65,6 @@
               @elseif($item_phanloai->phanloai_status==0)
               <i class="fa-solid fa-xmark bg-cl-red" alt="Ẩn"></i>
               @endif
-           
-              
-              
             </td>
             
             <td ><div class="flex_center icons">

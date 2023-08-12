@@ -53,7 +53,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('/logout-admin', [AdminController::class, 'logout'])->name('logout')->middleware('check_permission:check');
         Route::prefix('/page')->group(function () {
             Route::prefix('/chat')->group(function(){
-                Route::get('/list', [chatController::class, 'chat_list'])->name('chat_list');
+                Route::get('/list', [chatController::class, 'chat_list'])->name('chat_list')->middleware('check_permission:check');
                 
             });
             Route::prefix('/payment')->group(function(){
@@ -232,11 +232,14 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/theloai-search', [Ajax_classController::class, 'ajax_theloai'])->name('theloai_search');
                 Route::get('/theloai-product', [Ajax_classController::class, 'ajax_product'])->name('ajax_product');
                 Route::get('/size-search', [Ajax_classController::class, 'ajax_size'])->name('ajax_size');
+                Route::get('/payment-search', [Ajax_classController::class, 'ajax_payment'])->name('ajax_payment');
                 Route::get('/permission-search', [Ajax_classController::class, 'ajax_permission'])->name('ajax_permission');
                 Route::get('/status-search', [Ajax_classController::class, 'ajax_status'])->name('ajax_status');
                 Route::get('/color-search', [Ajax_classController::class, 'ajax_color'])->name('ajax_color');
                 Route::get('/brand-search', [Ajax_classController::class, 'ajax_brand'])->name('ajax_brand');
-                Route::get('/status_payment-search', [Ajax_classController::class, 'ajax_status_payment'])->name('ajax_status_payment');
+                Route::get('/staff-search', [Ajax_classController::class, 'ajax_staff'])->name('ajax_staff');
+                Route::get('/status-payment-search', [Ajax_classController::class, 'ajax_status_payment'])->name('ajax_status_payment');
+                Route::get('/category-payment-search', [Ajax_classController::class, 'ajax_category_payment'])->name('ajax_category_payment');
                 Route::get('/phanquyen-search', [Ajax_classController::class, 'ajax_phanquyen'])->name('ajax_phanquyen');
                 Route::get('/user-search', [Ajax_classController::class, 'ajax_user'])->name('ajax_user');
                 Route::post('/product-theloai', [Ajax_classController::class, 'ajax_select_theloai'])->name('product_theloai');
@@ -256,6 +259,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/load-more-size', [Ajax_classController::class, 'loadmore_size'])->name('loadmore_size');
                 Route::post('/load-more-status', [Ajax_classController::class, 'loadmore_status'])->name('loadmore_status');
                 Route::post('/load-more-color', [Ajax_classController::class, 'loadmore_color'])->name('loadmore_color');
+                Route::post('/load-more-category-payment', [Ajax_classController::class, 'loadmore_category_payment'])->name('loadmore_category_payment');
                 Route::post('/load-more-status-payment', [Ajax_classController::class, 'loadmore_status_payment'])->name('loadmore_status_payment');
                 Route::post('/select-data-payment', [Ajax_classController::class, 'select_data_payment'])->name('select_data_payment');
                 Route::get('/select-data-payment-6', [Ajax_classController::class, 'select_6mouthPayment'])->name('select_6mouthPayment');

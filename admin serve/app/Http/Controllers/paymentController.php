@@ -13,11 +13,13 @@ session_start();
 class paymentController extends Controller
 {
     public function payment_list(){
+        $check=0;
       
         $count=DB::table("tbl_hoadon")->count();
-        // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
+       
         $manager_payment=view('admin_include.page.payment.payment.list')
-        ->with('count',$count);
+        ->with('count',$count)
+        ->with('check',$check);
         return  view('admin')->with('admin_include.page.payment.payment.list',$manager_payment);
     }
     public function payment_deatil($hoadon_id){

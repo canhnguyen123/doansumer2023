@@ -192,7 +192,7 @@
         <ul class="nav pull-right top-menu">
            <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                    <img alt="" src="{{asset('upload/BE/'.Session::get('staff_linkimg'))}}">
+                    <img alt="" class="img-link-staff" src="{{asset('upload/BE/'.Session::get('staff_linkimg'))}}">
                     <span class="username">
                         <?php
                             $name=Session::get('staff_fullname');

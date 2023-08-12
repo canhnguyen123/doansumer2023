@@ -20,6 +20,7 @@ app.use('/user', userRouter);
 app.use('/product',productRouter);
 app.use('/banner',bannerRouter);
 app.use('/custormer',custormerRouter);
+app.use('/notification',notificationRouter);
 app.use('/bill',billRouter);
 app.use('/cmt',cmtRouter);
 app.use('/chat',chatRouter);
