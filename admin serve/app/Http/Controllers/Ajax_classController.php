@@ -569,7 +569,26 @@ class Ajax_classController extends Controller
             'new_stt' =>$new_stt,
         ]);
     }
-
+    public function loadmore_bannner(Request $request)
+    { $check = 1;
+        $last_id = $request->input('last_id');
+        $last_stt = $request->input('last_stt');
+        $query = DB::table('tbl_banner') // Đổi tên bảng truy vấn
+            ->where('banner_id', '>', $last_id) // Đổi tên cột truy vấn
+            ->orderBy('banner_id', 'asc'); // Đổi tên cột truy vấn
+        $list_banner = $query->paginate(5);
+        $last_banner_id = $list_banner->lastItem();
+        $new_stt = $last_stt + $list_banner->total();
+        $hasMoreData = $list_banner->hasMorePages();
+        return response()->json([
+            'view' => view('ohther.ajax.admin.search_banner')->with('list_banner', $list_banner)->with('i', $last_stt)->with('check', $check)->render(),
+            'last_id' => $last_id + $last_banner_id,
+            'hasMoreData' => $hasMoreData,
+            'new_stt' => $new_stt,
+        ]);
+        
+    }
+    
     public function select_data_payment(Request $request)
 {
     $data = $request->input('data');

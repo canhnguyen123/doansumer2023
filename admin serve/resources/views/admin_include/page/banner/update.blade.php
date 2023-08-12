@@ -9,63 +9,38 @@
      Cập nhật  banner
     </div>
     <div class="content col-12 ">
-
-    </div>
-    <form  class="row" >
-        {{ csrf_field() }}
-        @if ($errors->any())
-            <div class="alert alert-danger text-center">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-        
-            </div>
-        @endif
-    <div class="col-4">
-        <img src="" class="img-upload" alt="">
-    </div>
-    <div class="col-8 row">
-      
-        
-        <div class="col-12">
-            <div class="col-12 ip-form">
-                <label for="">Ảnh đại diện</label>
-                <input  type="file" id="file-upload-banner" class="bder-none file-upload" value="" required> </div>
-            <div class="col-12 err"><span>
-                @error('category_code')
-                {{ $message }}
-                    @enderror 
-                    @if(session('errorMessage'))
-           
-                    {{ session('errorMessage') }}
-               
-                @endif
-                </span></div>
-        </div>
-        <div class="col-12">
-            <div class="col-12 ip-form">
-                <label for="">Mô tả</label>
-                <textarea name="mota_banner" id="mota_banner" class="editor" cols="30" rows="10"></textarea>
-            </div>
-            <div class="col-12 err"><span>
-                @error('theloai_name')
-                    {{ $message }}
-                @enderror    
-            @if(session('errorMessage'))
-           
-                {{ session('errorMessage') }}
-           
+        @foreach ($update_banner as $item)
+        <form  class="row" action="{{route('post_banner_update',['banner_id'=>$item->banner_id])}}" method="POST">
+            {{ csrf_field() }}
+            @if ($errors->any())
+                <div class="alert alert-danger text-center">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+            
+                </div>
             @endif
-        </span></div>
+                <div class="col-12 row">
+             
+            <div class="col-12">
+                <div class="col-12 ip-form">
+                    <label for="">Mô tả</label>
+                    <textarea name="mota_banner" class="editor" cols="30" rows="10">{{$item->banner_note}}</textarea>
+                </div>
+             
+          
+            <div class="col-12 ip-form">
+                <button ><i class="fa-solid fa-pen"></i> Cập nhật</button>
+            </div>
         </div>
-        <div class="col-12 ip-form">
-            <button  id="post_img" onclick="uploadImage_banner(event)" name="add-category"><i class="fa-sharp fa-solid fa-plus"></i> Thêm thể loại</button>
-        </div>
+       
+        </form>
+        @endforeach
     </div>
-   
-    </form>
+
+
   </div>
 </div>
 </section>

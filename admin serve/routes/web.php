@@ -261,6 +261,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/load-more-color', [Ajax_classController::class, 'loadmore_color'])->name('loadmore_color');
                 Route::post('/load-more-category-payment', [Ajax_classController::class, 'loadmore_category_payment'])->name('loadmore_category_payment');
                 Route::post('/load-more-status-payment', [Ajax_classController::class, 'loadmore_status_payment'])->name('loadmore_status_payment');
+                Route::post('/load-more-banner', [Ajax_classController::class, 'loadmore_bannner'])->name('loadmore_bannner');
                 Route::post('/select-data-payment', [Ajax_classController::class, 'select_data_payment'])->name('select_data_payment');
                 Route::get('/select-data-payment-6', [Ajax_classController::class, 'select_6mouthPayment'])->name('select_6mouthPayment');
                 Route::post('/select-data-user-statistical', [Ajax_classController::class, 'select_data_newUser'])->name('select_data_user_statistical');

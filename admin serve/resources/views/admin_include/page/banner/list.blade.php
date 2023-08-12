@@ -94,6 +94,13 @@
           
         </tbody>
       </table>
+      @if ($check==1)
+      <div class="load-more flex_center">
+       
+           <button id="load-more-banner"class="btn-loadmore" data-stt="{{$i}}" data-id="{{ $list_banner->last()->banner_id }}">Xem thêm</button>
+       
+      </div>
+      @endif
       <div id="image-dialog" class="dialog">
         <img id="dialog-image" src="" alt="">
         <span id="close-btn" onclick="closeDialog()">&times;</span>

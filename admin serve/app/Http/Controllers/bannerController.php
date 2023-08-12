@@ -14,13 +14,17 @@ session_start();
 class bannerController extends Controller
 {
     public function banner_list()
-    {
+    { $check=0;
         $list_banner = DB::table("tbl_banner")->paginate(5);
         $count = DB::table("tbl_banner")->count();
-        // $Tên biên=view('Đường dẫn vào file')->with('tên đường link',$tên biến khai báo bên trên);
-        $manager_banner = view('admin_include.page.banner.list')
+        $hasMoreData = $list_banner->hasMorePages();
+        if($hasMoreData){
+            $check=1;
+        }else{
+            $check=0;
+        }        $manager_banner = view('admin_include.page.banner.list')
             ->with('list_banner', $list_banner)
-            ->with('count', $count);
+            ->with('count', $count)->with('count',$count) ->with('check',$check) ;
         return  view('admin')->with('admin_include.page.banner.list', $manager_banner);
     }
     public function banner_add()
@@ -53,28 +57,11 @@ class bannerController extends Controller
     }
     public function post_banner_update(Request $request, $banner_id)
     {
-        $product = DB::table('tbl_banner')->where('banner_id', $banner_id)->first();
-        $status = 0;
-        $data = [];
-        if ($product->banner_status == 1) {
-            if ($request->banner_status == "") {
-                $status = 1;
-            } else {
-                $status = 0;
-            }
-        }
-        if ($product->banner_status == 0) {
-            if ($request->banner_status == "") {
-                $status = 0;
-            } else {
-                $status = 1;
-            }
-        }
-        $data['banner_name'] = $request->banner_name;
-        $data['banner_status'] = $status;
+       
+       
+        $data['banner_note'] = html_entity_decode($request->input('mota_banner'));
 
         DB::table('tbl_banner')->where('banner_id', $banner_id)->update($data);
-        Session::put('mess', 'Cập nhật danh mục sản phẩm thành công');
         return " <script> alert('Cập nhật thành công'); window.location = '" . route('banner_list') . "';</script>";
     }
     public function banner_delete($banner_id)
