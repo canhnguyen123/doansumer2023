@@ -4380,6 +4380,7 @@ h4.titel-f-25 i{
     height: 525px;
     width: 100%;
     padding-bottom: 85px;
+    overflow-y: scroll;
 }
 
 .form-post-add-mess{

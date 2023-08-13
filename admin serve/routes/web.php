@@ -253,7 +253,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/reset-load-theloai', [Ajax_classController::class, 'resetLoadtheloai'])->name('resetLoadtheloai');
                 Route::post('/select-data-user', [Ajax_classController::class, 'select_data_user'])->name('select_data_user');
                 Route::post('/select-data-permission', [Ajax_classController::class, 'select_data_permission'])->name('select_data_permission');
-                Route::post('/load-more-category', [Ajax_cassController::class, 'loadmore_category'])->name('loadmore_category');
+                Route::post('/load-more-category', [Ajax_classController::class, 'loadmore_category'])->name('loadmore_category');
                 Route::post('/load-more-phanloai', [Ajax_classController::class, 'loadmore_phanloai'])->name('loadmore_phanloai');
                 Route::post('/load-more-brand', [Ajax_classController::class, 'loadmore_brand'])->name('loadmore_brand');
                 Route::post('/load-more-size', [Ajax_classController::class, 'loadmore_size'])->name('loadmore_size');

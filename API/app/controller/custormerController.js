@@ -32,7 +32,7 @@ exports.getCardCustormer = (req, res, user_id) => {
     res.json({ status: 'success', mess: 'Thêm dữ liệu thành công' });
   });
 };
-exports.updateCardCustormer = (req, res, user_id) => {
+exports.updateCardCustormer = (req, res) => {
   const customerCart_id = req.params.customerCart_id;
   const card_quantity = req.body.card_quantity;
   const cardCustormer = { card_quantity: card_quantity };
