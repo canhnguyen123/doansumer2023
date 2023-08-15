@@ -44,12 +44,7 @@
             </div>
             <div class="chat-content-main">
                 <div class="list-chat-mess">
-                    {{-- <div class="item-chat-mess-left">
-                        <p>hé lô bà già giữa màu đông cô đơn</p>
-                    </div>
-                    <div class="item-chat-mess-right">
-                        <p>hé lô bà già giữa màu đông cô đơn</p>
-                    </div> --}}
+                   
                 </div>
                 <div class="form-post-add-mess flex_center">
                     <form action="">

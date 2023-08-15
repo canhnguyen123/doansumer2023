@@ -26,14 +26,22 @@ exports.postbill = (req, res) => {
     }
     const hoadonId = results.insertId; // Lấy ra hoadon_id của dữ liệu vừa thêm
     hoadon_deatil.forEach(item => {
-        const arrDeatil={hoadon_id:hoadonId, product_id:item[0],hoadondeatil_quantyti:item[1], hoadon_size:item[2],hoadon_color:item[3]}
-      connection.query("INSERT INTO tbl_hoadon_deatil SET ?",[arrDeatil],(error,results)=>{
+      const arrDeatil = {
+        hoadon_id: hoadonId,
+        product_id: item.id,
+        hoadondeatil_quantyti: item.count,
+        hoadon_size: item.size,
+        hoadon_color: item.color
+      };
+    
+      connection.query("INSERT INTO tbl_hoadon_deatil SET ?", [arrDeatil], (error, results) => {
         if (error) {
           console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
           return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
         }
-      } )
       });
+    });
+    
 
     return res.json({status: 'success', mess: 'Cảm ơn bạn đã mua hàng của chúng tôi đơn hàng của bạn sẽ được duyệt trong giời gian sớm nhất',
    });
