@@ -45,7 +45,7 @@ exports.updateCardCustormer = (req, res) => {
     res.json({ status: 'success', mess: 'Thêm dữ liệu thành công' });
   });
 };
-exports.getListCard = (req, res, user_id) => {
+exports.getListCard = (req, res) => {
   const user_id_ = req.params.user_id;
   const getCard = { user_id: user_id_ };
   connection.query('SELECT * FROM customer_cart WHERE ?', getCard, (error, results) => {
@@ -54,6 +54,8 @@ exports.getListCard = (req, res, user_id) => {
       return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
     }
     const productIds = [];
+    const customerCartData = []; // Mảng lưu thông tin customer cart
+
     // Duyệt qua kết quả và lấy ra product_id
     for (let i = 0; i < results.length; i++) {
       const product_id = results[i].product_id;
@@ -62,6 +64,13 @@ exports.getListCard = (req, res, user_id) => {
       const card_size = results[i].card_size;
       const card_color = results[i].card_color;
       productIds.push(product_id);
+      // Lưu thông tin customer cart vào mảng
+      customerCartData.push({
+        customerCart_id: customerCart_id,
+        card_quantity: card_quantity,
+        card_size: card_size,
+        card_color: card_color
+      });
     }
 
     // Truy vấn thông tin từ bảng tbl_product dựa trên productIds
@@ -79,8 +88,10 @@ exports.getListCard = (req, res, user_id) => {
           product_id: productResults[i].product_id,
           product_name: productResults[i].product_name,
           product_price: productResults[i].product_price,
-          customerCart_id: '' ,
-          customerCart_quantity: '' ,
+          customerCart_id: '',
+          customerCart_quantity: '',
+          customerCart_size: '', // Thêm thuộc tính card_size
+          customerCart_color: '' // Thêm thuộc tính card_color
         };
 
         // Truy vấn ảnh mới nhất từ bảng tbl_list_img__product
@@ -95,8 +106,13 @@ exports.getListCard = (req, res, user_id) => {
           if (imgResults.length > 0) {
             product.latest_image = imgResults[0].img_name;
           }
-          product.customerCart_id = results[i].customerCart_id;
-          product.customerCart_quantity = results[i].card_quantity;
+          
+          // Lấy thông tin customer cart từ mảng customerCartData
+          product.customerCart_id = customerCartData[i].customerCart_id;
+          product.customerCart_quantity = customerCartData[i].card_quantity;
+          product.customerCart_size = customerCartData[i].card_size; // Gán card_size
+          product.customerCart_color = customerCartData[i].card_color; // Gán card_color
+
           // Đẩy sản phẩm vào mảng products
           products.push(product);
 
@@ -109,6 +125,7 @@ exports.getListCard = (req, res, user_id) => {
     });
   });
 };
+
 exports.deleteCard = (req, res, customerCart_id) => {
   const customerCart_id_ = req.params.customerCart_id;
 

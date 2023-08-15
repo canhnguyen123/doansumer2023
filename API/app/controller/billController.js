@@ -243,32 +243,52 @@ exports.getlistbill = (req, res) => {
 }
 exports.getmybillHistory = (req, res) => {
   var user_id = req.params.user_id;
-  var code="";
+  var code = "";
+
   connection.query('SELECT * FROM tbl_hoadon WHERE user_id = ? AND status_payment_id = 4', [user_id], (error, results) => {
-    if (error) {
-      console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
-      return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
-    }
-    
-    const arr = [];
-    results.forEach((item) => {
-      if(item.hoadon_code===""){
-        code="chưa tạo hóa đơn"
-      }else{
-        code=item.hoadon_code;
+      if (error) {
+          console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+          return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
       }
-      const hoadon = {
-        hoadon_id: item.hoadon_id,
-        hoadon_code: code,
-        hoadon_allprice: item.hoadon_allprice,
-        created_at: item.created_at
-      };
-      arr.push(hoadon);
-    });
-    // Trả về kết quả dưới dạng JSON response
-    return res.json({ status: "success", results: arr });
+
+      const arr = [];
+      results.forEach((item, index) => {
+          var hoadon_id = item.hoadon_id;
+
+          connection.query('SELECT COUNT(*) AS rowCount FROM tbl_hoadon_deatil WHERE hoadon_id = ?', [hoadon_id], (error, countResults) => {
+              if (error) {
+                  console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+                  return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+              }
+
+              const rowCount = countResults[0].rowCount; // Lấy kết quả đếm từ kết quả truy vấn
+
+              if (item.hoadon_code === "") {
+                  code = "chưa tạo hóa đơn";
+              } else {
+                  code = item.hoadon_code;
+              }
+
+              const hoadon = {
+                  hoadon_id: hoadon_id,
+                  hoadon_code: code,
+                  hoadon_allprice: item.hoadon_allprice,
+                  created_at: item.created_at,
+                  product_count: rowCount // Thêm số sản phẩm vào đối tượng hoadon
+              };
+
+              arr.push(hoadon);
+
+              // Kiểm tra xem đã duyệt qua hết kết quả trong vòng lặp chưa
+              if (index === results.length - 1) {
+                  // Trả về kết quả dưới dạng JSON response khi đã duyệt qua tất cả kết quả
+                  return res.json({ status: "success", results: arr });
+              }
+          });
+      });
   });
 }
+
 
 exports.getdeatilPayment = (req, res) => {
   const hoadon_id = req.params.hoadon_id;
