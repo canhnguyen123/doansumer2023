@@ -17,4 +17,6 @@ router.get('/getlist-my-bill/:user_id/:status_payment', billController.getlistbi
 router.get('/get-my-bill-deatil/:hoadon_id', billController.getdeatilPayment);
 //// lấy ra lịch sửa mua hàng
 router.get('/get-my-bill-history/:user_id', billController.getmybillHistory);
+//chuyển code lên VNPAY
+router.post('/add-post-vnpay/', billController.postVNPAY);/// tạo hóa đơn
 module.exports = router;
