@@ -71,6 +71,27 @@ class paymentController extends Controller
         else if($payment_status==4){
             $data['status_payment_id']=$payment_status;
             DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
+            $list=    DB::table('tbl_hoadon_deatil')->where('hoadon_id',$hoadon_id)->get();
+            foreach($list as $item){
+                $product_id=$item->product_id;
+                $quantity=$item->hoadondeatil_quantyti;
+                $size=$item->hoadon_size;
+                $color=$item->hoadon_color;
+                $listQuantity=DB::table('tbl_quantity_product')
+                ->where('product_id',$product_id)
+                ->where('quantity_color',$color)
+                ->where('quantity_size',$size)
+                ->first();
+                $quantity_Product=$listQuantity->quantity_sl;
+                $new_quantity=$quantity_Product-$quantity;
+
+                $data['quantity_sl']=$new_quantity;
+                $listQuantity=DB::table('tbl_quantity_product')
+                ->where('product_id',$product_id)
+                ->where('quantity_color',$color)
+                ->where('quantity_size',$size)
+                ->update($data);
+            }
             $arlet="Xác nhận đã giao hàng thành công"; 
             $mess=" xác nhận đơn hàng của bạn đã hoàn thành";     
         }

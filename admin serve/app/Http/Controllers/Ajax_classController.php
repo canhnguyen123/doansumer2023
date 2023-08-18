@@ -701,7 +701,7 @@ public function select_perce_unser(Request $request)
         return response()->json($data);
 
     }
-    public function post_cmt(Request $request)
+    public function post_chat(Request $request)
     {
       
         $input=$request->input('data');
@@ -723,6 +723,30 @@ public function select_perce_unser(Request $request)
             return view('ohther.ajax.admin.itemchat')->with('list_chat', $list_chat);
         }else{
             return view('ohther.ajax.admin.itemchat')->with('list_chat', $list_chat);
+        }
+       
+    }
+    public function post_cmt(Request $request)
+    {
+      
+        $input=$request->input('input');
+        $product_id=$request->input('product_id');
+        $staff_id=$request->input('staff_id');
+      
+
+        $data['staff_id']=$staff_id;
+         $data['cmt_text']=$input;
+        $data['product_id']=$product_id;
+        $data['created_at']=Carbon::now();
+        $insertedId = DB::table('tbl_commet')->insertGetId($data);
+
+        $list_cmt = DB::table('tbl_commet')// Lọc theo product_id
+            ->where('cmt_id', $insertedId)    // Lọc theo cmt_id vừa mới thêm
+            ->get();
+        if($insertedId){
+            return view('ohther.ajax.admin.post_Cmt')->with('list_cmt', $list_cmt);
+        }else{
+            return view('ohther.ajax.admin.post_Cmt')->with('list_cmt', $list_cmt);
         }
        
     }

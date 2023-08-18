@@ -232,7 +232,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('/theloai-search', [Ajax_classController::class, 'ajax_theloai'])->name('theloai_search');
                 Route::get('/theloai-product', [Ajax_classController::class, 'ajax_product'])->name('ajax_product');
                 Route::get('/size-search', [Ajax_classController::class, 'ajax_size'])->name('ajax_size');
-                Route::get('/payment-search', [Ajax_classController::class, 'ajax_payment'])->name('ajax_payment');
+                Route::post('/payment-search', [Ajax_classController::class, 'ajax_payment'])->name('ajax_payment');
                 Route::get('/permission-search', [Ajax_classController::class, 'ajax_permission'])->name('ajax_permission');
                 Route::get('/status-search', [Ajax_classController::class, 'ajax_status'])->name('ajax_status');
                 Route::get('/color-search', [Ajax_classController::class, 'ajax_color'])->name('ajax_color');
@@ -265,6 +265,7 @@ Route::prefix('/admin')->group(function () {
                 Route::post('/select-data-payment', [Ajax_classController::class, 'select_data_payment'])->name('select_data_payment');
                 Route::get('/select-data-payment-6', [Ajax_classController::class, 'select_6mouthPayment'])->name('select_6mouthPayment');
                 Route::post('/select-data-user-statistical', [Ajax_classController::class, 'select_data_newUser'])->name('select_data_user_statistical');
+                Route::post('/post-chat', [Ajax_classController::class, 'post_chat'])->name('post_chat');
                 Route::post('/post-cmt', [Ajax_classController::class, 'post_cmt'])->name('post_cmt');
                 Route::get('/get-user-select-account', [Ajax_classController::class, 'get_user_account'])->name('get_user_account');
                 Route::get('/get-bill-select-payment', [Ajax_classController::class, 'get_bill_payment'])->name('get_bill_payment');

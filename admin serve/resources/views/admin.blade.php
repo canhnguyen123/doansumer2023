@@ -1843,9 +1843,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $('#search_ajax_payment').keyup(function(){
                 var content = $(this).val();
                 var status=$('.tab-item-table').data('id')
-
-                $.ajax({
-                    type: "GET",
+                if(content!==""){
+                   
+                    $.ajax({
+                    type: "POST",
                     url: "{{ route('ajax_payment') }}",
                     data: {
                         content: content,
@@ -1856,6 +1857,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     },
 
                 });
+                }
+             
             })
             $('#search_ajax_staff').keyup(function(){
                 var content = $('#search_ajax_staff').val();
@@ -2008,7 +2011,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route('post_cmt') }}",
+                url: "{{ route('post_chat') }}",
                 data: {
                     data: data,
                     staff_id: staff_id,
@@ -2029,6 +2032,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             const product_id = $(this).data("id");
             const reply_id = $('#input-post-commet-reply').val();
             const staff_id = $('#logi-admin').data("id");
+           
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             $.ajaxSetup({
                 headers: {
@@ -2042,7 +2046,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     input: input,
                     product_id: product_id,
                     staff_id: staff_id,
-                    reply_id: reply_id,
+                
                 },
                 success: function(response) {
                     $('#list-cmt-ajax').append(response)
