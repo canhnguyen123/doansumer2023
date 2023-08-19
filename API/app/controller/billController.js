@@ -262,7 +262,11 @@ exports.getmybillHistory = (req, res) => {
       }
 
       const arr = [];
-      results.forEach((item, index) => {
+      if(results.length()===0){
+        return res.json({ status: "fail", mess:"Không có đơn hàng nào" });
+      }
+      else{
+        results.forEach((item, index) => {
           var hoadon_id = item.hoadon_id;
 
           connection.query('SELECT COUNT(*) AS rowCount FROM tbl_hoadon_deatil WHERE hoadon_id = ?', [hoadon_id], (error, countResults) => {
@@ -296,6 +300,8 @@ exports.getmybillHistory = (req, res) => {
               }
           });
       });
+      }
+     
   });
 }
   exports.postVNPAY=(req,res)=>{
