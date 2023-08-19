@@ -262,7 +262,7 @@ exports.getmybillHistory = (req, res) => {
       }
 
       const arr = [];
-      if(results.length()===0){
+      if(results.length===0){
         return res.json({ status: "fail", mess:"Không có đơn hàng nào" });
       }
       else{
