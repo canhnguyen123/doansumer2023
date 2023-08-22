@@ -44,9 +44,10 @@ class staffController extends Controller
         ->get();
         $list_position_detail = DB::table('tbl_phanquyendeatil_user')
         ->join('tbl_phanquyen_deatil', 'tbl_phanquyendeatil_user.phanquyenDeatil_Id', '=', 'tbl_phanquyen_deatil.phanquyenDeatil_Id')
+        ->join('tbl_phanquyen', 'tbl_phanquyen_deatil.phanquyen_id', '=', 'tbl_phanquyen.phanquyen_id')
         ->where('tbl_phanquyendeatil_user.id', $staff_id)
         ->where('tbl_phanquyendeatil_user.phanquyenDeatil_user_status', 1)
-        ->select('tbl_phanquyendeatil_user.*', 'tbl_phanquyen_deatil.phanquyenDeatil_name', 'tbl_phanquyen_deatil.phanquyenDeatil_route','tbl_phanquyen_deatil.phanquyen_id')
+        ->select('tbl_phanquyendeatil_user.*', 'tbl_phanquyen_deatil.phanquyenDeatil_name', 'tbl_phanquyen_deatil.phanquyenDeatil_route','tbl_phanquyen_deatil.phanquyen_id','tbl_phanquyen.phanquyen_nameGroup')
         ->get();
 
         return  view('admin_include.page.staff.staff.deatils')

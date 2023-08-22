@@ -61,7 +61,7 @@ Route::prefix('/admin')->group(function () {
                     Route::get('/list', [paymentController::class, 'payment_list'])->name('payment_list')->middleware('check_permission:check');
                     Route::get('/deatil/{hoadon_id}', [paymentController::class, 'payment_deatil'])->name('payment_deatil')->middleware('check_permission:check');
                     Route::get('/togggle-status/{category_id}/{category_status}', [paymentController::class, 'togggle_status'])->name('togggle_status_category')->middleware('check_permission:check');
-                    Route::post('/poss-add-bill/{hoadon_id}', [paymentController::class, 'post_bill_add'])->name('post_bill_add');
+                    Route::put('/poss-add-bill/{hoadon_id}', [paymentController::class, 'post_bill_add'])->name('post_bill_add');
                 });
                
                 Route::prefix('/status_payment')->group(function(){

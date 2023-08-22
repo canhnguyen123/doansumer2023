@@ -90,7 +90,7 @@
                     <div class="col-12 girl-2">
                         @foreach ($list_position_detail as $item)
                         <div class="block mg-10 ">
-                          Tên quyền:  {{$item->phanquyenDeatil_name}} ---- Route: {{$item->phanquyenDeatil_route}}
+                          Tên quyền:  {{$item->phanquyenDeatil_name}} ---- Route: {{$item->phanquyenDeatil_route}}----Nhóm quyền:{{$item->phanquyen_nameGroup}}
                         </div>
                         @endforeach
                         

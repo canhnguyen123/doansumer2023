@@ -168,38 +168,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             });
            
             $.ajax({
-    url: "{{ route('get_bill_payment') }}",
-    method: 'GET',
-    dataType: 'json',
-    success: function(newData) {
-        // Tạo biểu đồ bằng dữ liệu newData
-        const bill = document.getElementById('myChartbill');
-        new Chart(bill, {
-            type: 'bar',
-            data: {
-                labels: labels, // Đảm bảo có dữ liệu nhãn labels
-                datasets: [{
-                    label: 'Doanh thu gần đây',
-                    data: newData, // Thay thế dữ liệu mới từ AJAX response
-                    type: 'line', // Loại biểu đồ dạng đường
-                    borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
-                    borderWidth: 2,
-                    fill: false // Không tô màu dưới đường
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+                url: "{{ route('get_bill_payment') }}",
+                method: 'GET',
+                dataType: 'json',
+                success: function(newData) {
+                    // Tạo biểu đồ bằng dữ liệu newData
+                    const bill = document.getElementById('myChartbill');
+                    new Chart(bill, {
+                        type: 'bar',
+                        data: {
+                            labels: labels, // Đảm bảo có dữ liệu nhãn labels
+                            datasets: [{
+                                label: 'Doanh thu gần đây',
+                                data: newData, // Thay thế dữ liệu mới từ AJAX response
+                                type: 'line', // Loại biểu đồ dạng đường
+                                borderColor: 'rgba(255, 99, 132, 1)', // Màu đường biểu đồ
+                                borderWidth: 2,
+                                fill: false // Không tô màu dưới đường
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                },
+                error: function(error) {
+                    console.error('Error fetching data:', error);
                 }
-            }
-        });
-    },
-    error: function(error) {
-        console.error('Error fetching data:', error);
-    }
-});
+                });
 
 
             const myChartCircle = document.getElementById('myChartCircle');

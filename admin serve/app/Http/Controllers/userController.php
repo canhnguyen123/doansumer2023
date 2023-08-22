@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\validateRequet;
-
+// Đảm bảo bạn đã import Carbon
 class userController extends Controller
 {
     public function user_list()
@@ -18,14 +18,49 @@ class userController extends Controller
             ->with('count', $count);
         return view('admin')->with('admin_include.page.user.list', $manager_user);
     }
+
+    
+    
     public function user_deatil($user_id)
     {
-        $deatil_user = DB::table("tbl_users")->where('user_id',$user_id) ->get();
+        $deatil_user = DB::table("tbl_users")->where('user_id',$user_id)->get();
+        $historyBill = DB::table('tbl_hoadon')
+        ->where('user_id', $user_id)
+        ->where('status_payment_id', 4)
+        ->orderBy('created_at', 'desc') // Sắp xếp từ gần nhất đến xa nhất
+        ->get();    
+        foreach ($historyBill as $bill) {
+            $bill->formatted_created_at = $this->formatTime($bill->created_at);
+        }
+    
         $manager_user = view('admin_include.page.user.deatil')
             ->with('deatil_user', $deatil_user)
-            ->with('user_id', $user_id);
-        return  view('admin')->with('admin_include.page.user.deatil', $manager_user);
+            ->with('user_id', $user_id)         
+            ->with('historyBill', $historyBill);
+    
+        return view('admin')->with('admin_include.page.user.deatil', $manager_user);
     }
+    
+    private function formatTime($timestamp) {
+        $currentTime = Carbon::now();
+        $timeDiff = $currentTime->diff(Carbon::parse($timestamp));
+    
+        if ($timeDiff->y > 0) {
+            return $timeDiff->y . " năm trước";
+        } elseif ($timeDiff->m > 0) {
+            return $timeDiff->m . " tháng trước";
+        } elseif ($timeDiff->d > 0) {
+            return $timeDiff->d . " ngày trước";
+        } elseif ($timeDiff->h > 0) {
+            return $timeDiff->h . " giờ trước";
+        } elseif ($timeDiff->i > 0) {
+            return $timeDiff->i . " phút trước";
+        } else {
+            return $timeDiff->s . " giây trước";
+        }
+    }
+    
+    
     public function togggle_status($user_id, $user_status){
         $product=DB::table('tbl_users')->where('user_id',$user_id)->first();
         $status=0;

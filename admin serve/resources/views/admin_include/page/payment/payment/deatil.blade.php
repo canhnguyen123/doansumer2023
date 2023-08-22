@@ -12,6 +12,7 @@
                         <div class="content col-12 ">
                             @if ($item_payment->status_payment_id == 1)
                                 <form class="row" action="{{ route('post_bill_add',['hoadon_id'=>$item_payment->hoadon_id]) }}" method="POST">
+                                    @method('PUT')
                                     {{ csrf_field() }}
                                     @if ($errors->any())
                                         <div class="alert alert-danger text-center">
@@ -57,6 +58,7 @@
                                 @elseif ($item_payment->status_payment_id == 2)
                                 <form class="row" action="{{ route('post_bill_add',['hoadon_id'=>$item_payment->hoadon_id]) }}" method="POST">
                                     {{ csrf_field() }}
+                                    @method('PUT')
                                     @if ($errors->any())
                                         <div class="alert alert-danger text-center">
                                             <ul>
@@ -79,7 +81,8 @@
                                </form>
                                @elseif ($item_payment->status_payment_id == 3)
                                <form class="row" action="{{ route('post_bill_add',['hoadon_id'=>$item_payment->hoadon_id]) }}" method="POST">
-                                   {{ csrf_field() }}
+                                @method('PUT')   
+                                {{ csrf_field() }}
                                    @if ($errors->any())
                                        <div class="alert alert-danger text-center">
                                            <ul>

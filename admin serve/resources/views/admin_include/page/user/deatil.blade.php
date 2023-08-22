@@ -96,7 +96,29 @@
                     <div class="heading-titel pd-20 flex_center">
                         <h1>Lịch sử mua hàng</h1> 
                     </div>
-                    <div class="content col-12 ">
+                    <div class="content col-12 history-User">
+                        @php
+                            $i=1;
+                        @endphp
+                        @foreach ($historyBill as $ittemHistoryBill)
+                        <a href="{{ route('payment_deatil',['hoadon_id'=>$ittemHistoryBill->hoadon_id]) }}">
+                            <div class="item-history-user">
+                                <div class="pd-10">
+                                    <p><label for="">Đơn thứ :</label> {{$i++}}</p>
+                                </div>
+                                <div class="pd-10">
+                                    <p><label for="">Mã đơn</label> : {{$ittemHistoryBill->hoadon_code}}</p>
+                                </div>
+                                <div class="pd-10">
+                                    <p><label for="">Tổng tiền</label> :{{ number_format($ittemHistoryBill->hoadon_allprice, 0, ',', '.') }} VNĐ </p>
+                                </div>
+                                <div class="pd-10">
+                                    <p><label for="">Thời gian</label> : {{$ittemHistoryBill->formatted_created_at}} </p>
+                                </div>
+                            </div>
+                        </a>
+                        @endforeach
+                        
                         
                     </div>
                 </div>

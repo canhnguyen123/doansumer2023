@@ -90,6 +90,7 @@ class admincontroller extends Controller
                 Session::put('id', $user->id);
                 Session::put('staff_fullname', $user->staff_fullname);
                 Session::put('staff_linkimg', $user->staff_linkimg);
+                Session::put('staff_chucvu', $user->chucvu_id);
                 $rememberToken = Str::random(60);
                 $user->update(['remember_token' => $rememberToken]);
                 Cookie::queue('remember_token', $rememberToken, 525600); // Lưu remember token trong cookie trong 1 năm (525600 phút)

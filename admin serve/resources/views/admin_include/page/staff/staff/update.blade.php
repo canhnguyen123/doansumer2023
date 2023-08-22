@@ -207,7 +207,7 @@
                 @if (!$isChecked)
                     <div class="block mg-10">
                         <input type="checkbox" name="listQuyenDeatil[]" value="{{$itemdeatil_user->phanquyenDeatil_Id}}" checked>
-                        {{$itemdeatil_user->phanquyenDeatil_name}}
+                        {{$itemdeatil_user->phanquyenDeatil_name}}({{$itemdeatil_user->phanquyenDeatil_route}})
                     </div>
                 @endif
             @endforeach

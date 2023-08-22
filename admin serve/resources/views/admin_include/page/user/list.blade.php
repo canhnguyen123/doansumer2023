@@ -16,9 +16,7 @@
                     <div class="search_icon icon flex_center bg-bule" id="search_icon">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <div class="search_icon icon flex_center add-icon bg-bule">
-                        <a href=""><i class="fa-solid fa-plus"></i></a>
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-12 input-search mg-20" style="display: none;" id="search_input">

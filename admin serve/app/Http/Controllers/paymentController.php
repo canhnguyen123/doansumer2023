@@ -69,31 +69,43 @@ class paymentController extends Controller
             $mess=" giao đơn hàng của bạn cho đơn vị vận chuyển";    
          }
         else if($payment_status==4){
-            $data['status_payment_id']=$payment_status;
-            DB::table('tbl_hoadon')->where('hoadon_id',$hoadon_id)->update($data);
-            $list=    DB::table('tbl_hoadon_deatil')->where('hoadon_id',$hoadon_id)->get();
-            foreach($list as $item){
-                $product_id=$item->product_id;
-                $quantity=$item->hoadondeatil_quantyti;
-                $size=$item->hoadon_size;
-                $color=$item->hoadon_color;
-                $listQuantity=DB::table('tbl_quantity_product')
-                ->where('product_id',$product_id)
-                ->where('quantity_color',$color)
-                ->where('quantity_size',$size)
-                ->first();
-                $quantity_Product=$listQuantity->quantity_sl;
-                $new_quantity=$quantity_Product-$quantity;
+                        $data['status_payment_id'] = $payment_status;
+            DB::table('tbl_hoadon')->where('hoadon_id', $hoadon_id)->update($data);
 
-                $data['quantity_sl']=$new_quantity;
-                $listQuantity=DB::table('tbl_quantity_product')
-                ->where('product_id',$product_id)
-                ->where('quantity_color',$color)
-                ->where('quantity_size',$size)
-                ->update($data);
-            }
-            $arlet="Xác nhận đã giao hàng thành công"; 
-            $mess=" xác nhận đơn hàng của bạn đã hoàn thành";     
+            $list = DB::table('tbl_hoadon_deatil')->where('hoadon_id', $hoadon_id)->get();
+
+            foreach ($list as $item) {
+                $product_id = $item->product_id;
+                $quantity = $item->hoadondeatil_quantyti;
+                $size = $item->hoadon_size;
+                $color = $item->hoadon_color;
+
+                $listQuantity = DB::table('tbl_quantity_product')
+                    ->where('product_id', $product_id)
+                    ->where('quantity_color', $color)
+                    ->where('quantity_size', $size)
+                    ->first();
+
+                        if ($listQuantity) {
+                            $quantity_Product = $listQuantity->quantity_sl;
+                            $new_quantity = $quantity_Product - $quantity;
+
+                            $updateData['quantity_sl'] = $new_quantity;
+
+                            DB::table('tbl_quantity_product')
+                                ->where('product_id', $product_id)
+                                ->where('quantity_color', $color)
+                                ->where('quantity_size', $size)
+                                ->update($updateData);
+                        } else {
+                            // Xử lý trường hợp không tìm thấy bản ghi phù hợp
+                            // Ví dụ: Ghi log lỗi hoặc hiển thị thông báo cho người dùng
+                        }
+                    }
+
+                    $arlet = "Xác nhận đã giao hàng thành công";
+                    $mess = " xác nhận đơn hàng của bạn đã hoàn thành";
+                        
         }
         else if($payment_status==5){
             $data['status_payment_id']=$payment_status;

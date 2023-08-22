@@ -76,6 +76,7 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
+            @if (Session::get('staff_chucvu')==10)
             <div class="col-12 titel-header flex_center ">
                 <h4 class="titel-f-25">Hiển thị các thể loại hiển thị ở trang chủ trên app <i
                         class="fa-solid fa-pencil"></i></h4>
@@ -107,7 +108,9 @@
                     </div>
                 </form>
 
-            </div>
+            </div>   
+            @endif
+          
 
         </section>
     </section>
