@@ -126,9 +126,8 @@ exports.updateSuccessBill = (req, res) => {
 exports.cancelSuccessBill = (req, res) => {
   const status_payment = req.params.status_payment;
   const hoadon_id = req.params.hoadon_id;
-  if(status_payment!==1){
-    return res.json({status: 'fail', mess: 'Hóa đơn không thể hủy',
-  });
+  if(status_payment!=1){
+    return res.json({status: 'fail', mess: 'Hóa đơn không thể hủy' });
   }
   else{
    
@@ -146,9 +145,6 @@ exports.cancelSuccessBill = (req, res) => {
       });
     });
   }
-  
- 
-
 };
 
 exports.selectCategorypayment = (req, res) => {
