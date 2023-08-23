@@ -3,8 +3,10 @@ const router = express.Router();
 const billController = require('../controller/billController');
 
 router.post('/add/:user_id', billController.postbill);/// tạo hóa đơn
-///cập nhật trạng thái là đã giao hàng thành công
-router.get('/update-status-payment/:hoadon_id', billController.updateSuccessBill);
+// ///cập nhật trạng thái là đã giao hàng thành công
+// router.get('/update-status-payment/:hoadon_id', billController.updateSuccessBill);
+///cập nhật trạng thái là đã hủy đơn hàng
+router.get('/cancel-status-payment/:hoadon_id/:status_payment', billController.cancelSuccessBill);
 /// lấy danh sách thể loại thanh toán
 router.get('/get-category-payment/', billController.selectCategorypayment);
 // lấy  danh sách mã voucher

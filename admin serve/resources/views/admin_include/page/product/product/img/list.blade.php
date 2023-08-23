@@ -16,7 +16,7 @@
                                     data-bs-interval="10000">
                                     <img src="{{ $item_img->img_name }}" class="d-block w-100" alt="...">
                                     <div class="carousel-caption d-none d-md-block">
-                                        <h5 style="color: white">Ảnh thứ {{ $index + 1 }} <i class="fa-solid fa-pen" data-id="{{ $item_img->img_id}}"></i> </h5>
+                                        <h5 style="color: white">Ảnh thứ {{ $index + 1 }} <i class="fa-solid fa-pen update-img" data-id="{{ $item_img->img_id}}"></i> </h5>
 
                                     </div>
                                 </div>

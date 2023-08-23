@@ -950,6 +950,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $('.res-them').append(html);
             });
         }
+        $('.update-img').click(function() {
+            const update=$(this).data('id');
+            alert(update)
+        });
 
         $('#quantityItem, #product_price').keyup(function(e) {
             var product_price = $('#product_price').val();
