@@ -37,7 +37,7 @@
           "enabled": true
         }}'>
         <thead >
-          <tr>
+          <tr class="table-dark">
             <th data-breakpoints="xs">STT</th>
             <th>Tên trạng thái </th>
             <th style="text-align: center">Mã trạng thái</th>

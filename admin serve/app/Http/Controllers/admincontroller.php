@@ -129,27 +129,28 @@ class admincontroller extends Controller
         return  view('admin_include.account.update');
     }
     public function updatePassword(validateRequet $request, $id)
-    {
-        $check = true;
-        $oldPass = $request->oldPass;
-        $newPass = $request->newPass;
-        $anewPass = $request->anewPass;
-        $user = DB::table('tbl_staff')->where('id', $id)->first();
-        $password = $user->staff_password;
-        $errorMessage = "Có lỗi xảy ra kiểm tra lại lỗi";
+{
+    $check = true;
+    $oldPass = md5($request->oldPass); // Sử dụng MD5 cho mật khẩu cũ
+    $newPass = md5($request->newPass); // Sử dụng MD5 cho mật khẩu mới
+    $anewPass = md5($request->anewPass); // Sử dụng MD5 cho xác nhận mật khẩu mới
+    $user = DB::table('tbl_staff')->where('id', $id)->first();
+    $password = $user->staff_password;
+    $errorMessage = "Có lỗi xảy ra kiểm tra lại lỗi";
 
-        if (!Hash::check($oldPass, $password)) {
-            $errorMessage = "Mật khẩu không cùng với mật khẩu cũ";
-            return redirect()->back()->withErrors(['oldPass' => $errorMessage]);
-        } elseif ($newPass != $anewPass) {
-            $errorMessage = "Xác nhận mật khẩu không cùng với mật khẩu mới";
-            return redirect()->back()->withErrors(['anewPass' => $errorMessage]);
-        } else {
-            $data['staff_password'] = bcrypt($newPass);
-            DB::table('tbl_staff')->where('id', $id)->update($data);
-            return " <script> alert('Cập nhật thành công'); window.location = '" . route('home') . "';</script>";
-        }
+    if ($oldPass !== $password) { // Sử dụng kiểm tra bình thường cho MD5
+        $errorMessage = "Mật khẩu không cùng với mật khẩu cũ";
+        return redirect()->back()->withErrors(['oldPass' => $errorMessage]);
+    } elseif ($newPass !== $anewPass) {
+        $errorMessage = "Xác nhận mật khẩu không cùng với mật khẩu mới";
+        return redirect()->back()->withErrors(['anewPass' => $errorMessage]);
+    } else {
+        $data['staff_password'] = $newPass; // Lưu MD5 của mật khẩu mới vào cơ sở dữ liệu
+        DB::table('tbl_staff')->where('id', $id)->update($data);
+        return " <script> alert('Cập nhật thành công'); window.location = '" . route('home') . "';</script>";
     }
+}
+
     public function updateShowHome(Request $request)
     {
         $theloaiItem = $request->theloaiItem;

@@ -37,7 +37,7 @@
           "enabled": true
         }}'>
         <thead >
-          <tr>
+          <tr class="table-dark">
             <th data-breakpoints="xs">STT</th>
             <th>Tên danh mục </th>
             <th style="text-align: center">Mã danh mục</th>
@@ -53,7 +53,7 @@
           @php
           $i++;
           @endphp
-              <tr data-expanded="true">
+              <tr data-expanded="true" >
                 <td>{{ $i }}</td>
                 <td>{{ $item_category->category_name }}</td>
                 <td style="text-align: center" >{{ $item_category->category_code }}</td>

@@ -3212,6 +3212,7 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 }
 .input-search{
     position: relative;
+   
 }
 .input-search .icon-search-form{
     position: absolute;
@@ -3545,6 +3546,7 @@ tr {
 }
 .slider-product{
     position: relative;
+    height: 500px;
 }
 .icon-class{
 position: absolute;
@@ -3704,7 +3706,7 @@ transition: 0.5s ease-in-out;
     padding: 20px 10px;
     margin: 10px 10px 15px 0;
     position: relative;
-    
+    border-radius: 20px;
 }
 .item-req p{
     color: white;
@@ -4536,4 +4538,23 @@ h4.titel-f-25 i{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center; /* Các phần tử sẽ xuống dòng khi không còn chỗ trống */
+}
+.table{
+    border-radius: 20px;
+    margin-top: 50px;
+}
+.bg-yellow-green{
+    background-color: greenyellow;
+}
+.bg-red-blink{
+    background-color: #ff6c60;
+}
+.bg-yellow-og{
+    background-color: #FCB322;
+}
+.bg-icon{
+    
+}
+.bg-icon:hover{
+    width: 100px;
 }

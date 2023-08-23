@@ -36,7 +36,7 @@
         "sorting": {
           "enabled": true
         }}'>
-        <thead >
+        <thead class="table-dark">
           <tr>
             <th data-breakpoints="xs">STT</th>
             <th>Tên size </th>

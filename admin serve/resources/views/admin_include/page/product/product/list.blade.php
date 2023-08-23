@@ -7,13 +7,13 @@
                     <h3>Tổng số sản phẩm :{{ $count }} </h3>
                 </div>
                 <div class="col-6 right">
-                    <div class="search_icon icon flex_center  bg-bule" onclick="realoadProduct()" id="loadProduct">
+                    <div class="search_icon icon flex_center  bg-red-blink" onclick="realoadProduct()" id="loadProduct">
                         <i class="fa-solid fa-arrow-rotate-left"></i>
                     </div>
-                    <div class="search_icon icon flex_center fiter-toggle bg-bule" id="fiter_icon">
+                    <div class="search_icon icon flex_center fiter-toggle bg-yellow-og" id="fiter_icon">
                         <i class="fa-solid fa-filter"></i>
                     </div>
-                    <div class="search_icon icon flex_center bg-bule" id="search_icon">
+                    <div class="search_icon icon flex_center bg-yellow-green" id="search_icon">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <div class="search_icon icon flex_center add-icon bg-bule">
@@ -125,7 +125,7 @@
                             "sorting": {
                             "enabled": true
                             }}'>
-                            <thead>
+                            <thead class="table-dark">
                                 <tr>
                                     <th data-breakpoints="xs">STT</th>
                                     <th>Tên thể loại</th>

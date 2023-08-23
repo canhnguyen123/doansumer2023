@@ -123,6 +123,34 @@ exports.updateSuccessBill = (req, res) => {
 
 };
 
+exports.cancelSuccessBill = (req, res) => {
+  const status_payment = req.params.status_payment;
+  const hoadon_id = req.params.hoadon_id;
+  if(status_payment!==1){
+    return res.json({status: 'fail', mess: 'Hóa đơn không thể hủy',
+  });
+  }
+  else{
+   
+    const arr = { status_payment_id: 6 };
+    const dk = { hoadon_id: hoadon_id };
+  
+    connection.query('UPDATE tbl_hoadon SET ? WHERE ?', [arr, dk], (error, results) => {
+      if (error) {
+        console.error('Lỗi truy vấn cơ sở dữ liệu: ' + error.stack);
+        return res.status(500).json({ error: 'Lỗi truy vấn cơ sở dữ liệu' });
+      }
+      return res.json({
+        status: 'success',
+        mess: 'Hủy thành công',
+      });
+    });
+  }
+  
+ 
+
+};
+
 exports.selectCategorypayment = (req, res) => {
   connection.query('SELECT * FROM tbl_category_payment WHERE category_payment_status=1', (error, results) => {
     if (error) {
@@ -243,6 +271,7 @@ exports.getlistbill = (req, res) => {
       return {
         hoadon_id: item.hoadon_id,
         hoadon_code: code,
+        status:item.status_payment_id,
         hoadon_allprice: item.hoadon_allprice,
         created_at: item.created_at
       };

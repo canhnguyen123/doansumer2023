@@ -7,16 +7,16 @@
                     <h3>Tổng số thể loại :{{ $count }}</h3>
                 </div>
                 <div class="col-6 right">
-                    <div class="search_icon icon flex_center  bg-bule" onclick="realoadtheloai()" id="loadProduct">
+                    <div class="search_icon bg-icon icon flex_center  bg-red-blink" onclick="realoadtheloai()" id="loadProduct">
                         <i class="fa-solid fa-arrow-rotate-left"></i>
                     </div>
-                    <div class="search_icon icon flex_center bg-bule fiter-toggle" id="fiter_icon">
+                    <div class="search_icon bg-icon icon flex_center bg-yellow-og fiter-toggle" id="fiter_icon">
                         <i class="fa-solid fa-filter"></i>
                     </div>
-                    <div class="search_icon icon flex_center bg-bule" id="search_icon">
+                    <div class="search_icon bg-icon icon flex_center  bg-yellow-green " id="search_icon">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <div class="search_icon icon flex_center add-icon bg-bule">
+                    <div class="search_icon bg-icon icon flex_center add-icon bg-bule">
                         <a href="{{ route('theloai_add') }}"><i class="fa-solid fa-plus"></i></a>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                     </select>
                 </div>
                 <div class="col-3 fiter ip-form flex_bt">
-                    <button  onclick="fiter_data_theloai()"><i class="fa-solid fa-filter" ></i> Lọc</button>
+                    <button class="bg-yellow-og"  onclick="fiter_data_theloai()"><i class="fa-solid fa-filter" ></i> Lọc</button>
                 </div>
             </div>
             <div class="table-agile-info">
@@ -73,7 +73,7 @@
                                         "enabled": true
                                         }}'>
                             <thead>
-                                <tr>
+                                <tr class="table-dark">
                                     <th data-breakpoints="xs">STT</th>
                                     <th>Tên danh mục </th>
                                     <th>Tên phân loại</th>

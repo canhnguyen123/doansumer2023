@@ -37,7 +37,7 @@
           "enabled": true
         }}'>
         <thead >
-          <tr>
+          <tr class="table-dark">
             <th data-breakpoints="xs">STT</th>
             <th>Tên phân loại </th>
             <th style="text-align: center">Mã phân loại</th>
